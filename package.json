@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/huaweicloud/ssh-remote-action.git"
+    "url": "git+https://github.com/huaweicloud/cce-credentials-action.git"
   },
   "keywords": [
-    "actions",
-    "ssh",
-    "remote"
+    "kubectl",
+    "credential",
+    "huaweicloud"
   ],
   "author": "wenchui",
   "license": "MIT",
