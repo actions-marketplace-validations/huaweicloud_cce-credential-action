@@ -15,4 +15,4 @@ export function getInputs(): context.Inputs{
       project_id : "0dd8cb413000906a2fcdc019b5a84546",
       cluster_id: "f288d212-d299-11ec-8e06-0255ac101534"
     }
-  }
+}

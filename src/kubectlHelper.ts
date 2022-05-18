@@ -71,7 +71,7 @@ export async function getLatestKubectlStableVersion(): Promise<string> {
 
 /**
  * 根据当前平台计算出需要下载的Kubectl下载地址
- * 完成软件包下载
+ * 完成软件包下载当前临时目录
  * 将软件包拷贝到 /usr/local/bin/kubectl
  * 将软件包的权限设置为755
  */
@@ -95,7 +95,6 @@ export async function installOrUpdateKubectl() {
     return
   }
   const currentArch = utils.getOSArch4Kubectl(osArch)
-  const kubectlName = utils.getOSPlatform4Kubectl(osPlatform)
   const kubectlLatestStableVersion = await getLatestKubectlStableVersion()
   const kubectlDownloadUrl = getKubectlLatestStableDownloadUrl(
     kubectlLatestStableVersion,

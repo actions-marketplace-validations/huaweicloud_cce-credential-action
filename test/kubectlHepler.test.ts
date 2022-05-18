@@ -5,7 +5,7 @@ import * as kubectlHelper from '../src/kubectlHelper'
 test('test get latest stable kubectl version', async() => {
     //console.log(await kubectlHelper.getLatestKubectlStableVersion())
   })
-/** 
+/** */
 test('test get curent latest kubectl download address', async() => {
     const latestStableVersion = await kubectlHelper.getLatestKubectlStableVersion();
     const osArch = utils.getOSArch4Kubectl(utils.getOSArch());
@@ -77,13 +77,13 @@ export async function getKubectlDownloadPath(version:string,arch:string,platform
     console.log("installName " + installName);
     return await kubectlHelper.getKubectlLatestStableDownloadUrl(version,osPlatform,osArch,installName)
 }
-*/
+
 
 //http://cloudbuild-tools.obs.cn-north-7.ulanqab.huawei.com:80/kubectl/kubectl
 
 test('test get kubectl from inner obs share address', async() => {
-    const kubectlDownloadAddress = "http://cloudbuild-tools.obs.cn-north-7.ulanqab.huawei.com:80/kubectl/kubectl"
+    //const kubectlDownloadAddress = "http://cloudbuild-tools.obs.cn-north-7.ulanqab.huawei.com:80/kubectl/kubectl"
     // await kubectlHelper.getLatestKubectlStableVersion();
-    await kubectlHelper.getKubectlDownlodPath(kubectlDownloadAddress);
+    //await kubectlHelper.getKubectlDownlodPath(kubectlDownloadAddress);
     //console.log(await kubectlHelper.getLatestKubectlStableVersion())
 })
