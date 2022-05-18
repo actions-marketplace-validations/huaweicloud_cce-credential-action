@@ -1,5 +1,5 @@
 name: 'Install kubectl and Set Kube config for HuaweiCloud CCE cluster'
-description: 'help user sent batch ssh command to remote server node'
+description: 'Install kubectl and Set Kube config for HuaweiCloud CCE cluster'
 branding:
   color: 'red'
   icon: 'chevron-up'

@@ -2,7 +2,7 @@
   "name": "cce-credentials-action",
   "version": "0.0.1",
   "private": true,
-  "description": "sshremote-action,send ssh command to remote server node",
+  "description": "Install kubectl and Set Kube config for HuaweiCloud CCE cluster",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
