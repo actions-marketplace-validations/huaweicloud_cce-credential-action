@@ -1,0 +1,26 @@
+name: 'Install kubectl and Set Kube config for HuaweiCloud CCE cluster'
+description: 'help user sent batch ssh command to remote server node'
+branding:
+  color: 'red'
+  icon: 'chevron-up'
+author: 'wenchui'
+inputs:
+  ak: 
+    required: true
+    description: 'HuaweiCloud account Access key id'
+  sk: 
+    required: true
+    description: 'HuaweiCloud account Secret key id'
+  region: 
+    required: true
+    description: 'the region where HuaweiCloud CCE cluster deploy'
+  project_id: 
+    required: true
+    description: 'the project id of huaweicloud account'
+  cluster_id: 
+    required: true
+    description: 'the ID of HuaweiCloud CCE cluster '
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

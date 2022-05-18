@@ -1,0 +1,59 @@
+{
+  "name": "cce-credentials-action",
+  "version": "0.0.1",
+  "private": true,
+  "description": "sshremote-action,send ssh command to remote server node",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/*.{ts,tsx}\"",
+    "format-check": "prettier --check \"src/*.{ts,tsx}\"",
+    "package": "ncc build --source-map",
+    "test": "jest",
+    "lint": "eslint src  --ext .ts",
+    "all": "npm run build && npm run format && npm run package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huaweicloud/ssh-remote-action.git"
+  },
+  "keywords": [
+    "actions",
+    "ssh",
+    "remote"
+  ],
+  "author": "wenchui",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/http-client": "^1.0.6",
+    "@actions/io": "^1.0.2",
+    "@actions/tool-cache": "^1.5.5",
+    "@huaweicloud/huaweicloud-sdk-cce": "^3.0.39-rc",
+    "@huaweicloud/huaweicloud-sdk-core": "^3.0.39-rc",
+    "@huaweicloud/huaweicloud-sdk-devstar": "^3.0.39-rc",
+    "@types/fs-extra": "^9.0.13",
+    "@types/uuid": "^8.3.4",
+    "fs-extra": "^10.0.1",
+    "semver": "^6.1.1"
+  },
+  "devDependencies": {
+    "@cloud/eslint-config-cbc": "^1.7.2",
+    "@types/node": "^16.11.25",
+    "@types/semver": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "@zeit/ncc": "^0.21.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-bevry": "^3.27.0",
+    "eslint-plugin-mocha": "^9.0.0",
+    "jest": "^27.2.5",
+    "jest-circus": "^27.2.5",
+    "nock": "^10.0.6",
+    "prettier": "^1.17.1",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.7.0",
+    "typescript": "^3.9.10"
+  }
+}
