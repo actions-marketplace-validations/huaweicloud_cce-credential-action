@@ -9,23 +9,23 @@ import * as cp from 'child_process'
  * @returns
  */
 export function checkInputs(inputs: context.Inputs): boolean {
-  if (
-    checkParameterIsNull(inputs.ak) ||
-    checkParameterIsNull(inputs.sk) ||
-    checkParameterIsNull(inputs.region) ||
-    checkParameterIsNull(inputs.project_id) ||
-    checkParameterIsNull(inputs.cluster_id)
-  ) {
-    core.info('Please fill all the required parameters')
-    return false
-  }
+    if (
+        checkParameterIsNull(inputs.ak) ||
+        checkParameterIsNull(inputs.sk) ||
+        checkParameterIsNull(inputs.region) ||
+        checkParameterIsNull(inputs.project_id) ||
+        checkParameterIsNull(inputs.cluster_id)
+    ) {
+        core.info('Please fill all the required parameters')
+        return false
+    }
 
-  if (!context.cceSupportRegions.includes(inputs.region)) {
-    core.info('CCE not support in this region: ' + inputs.region)
-    return false
-  }
+    if (!context.cceSupportRegions.includes(inputs.region)) {
+        core.info('CCE not support in this region: ' + inputs.region)
+        return false
+    }
 
-  return true
+    return true
 }
 
 /**
@@ -34,12 +34,12 @@ export function checkInputs(inputs: context.Inputs): boolean {
  * @returns
  */
 export function checkParameterIsNull(parameter: string): boolean {
-  return (
-    parameter === undefined ||
-    parameter === null ||
-    parameter === '' ||
-    parameter.trim().length == 0
-  )
+    return (
+        parameter === undefined ||
+        parameter === null ||
+        parameter === '' ||
+        parameter.trim().length == 0
+    )
 }
 
 /**
@@ -47,29 +47,29 @@ export function checkParameterIsNull(parameter: string): boolean {
  * @returns
  */
 export function getOSArch(): string {
-  const osArch = os.arch()
-  core.info('Current system arch is ' + osArch)
-  return osArch
+    const osArch = os.arch()
+    core.info('Current system arch is ' + osArch)
+    return osArch
 }
 
 export function getOSPlatform(): string {
-  const osPlatform = os.platform()
-  core.info('Current system platform is ' + osPlatform)
-  return osPlatform
+    const osPlatform = os.platform()
+    core.info('Current system platform is ' + osPlatform)
+    return osPlatform
 }
 
 export function getOSArch4Kubectl(osArch: string): string {
-  return osArch === 'x64' ? 'amd64' : osArch
+    return osArch === 'x64' ? 'amd64' : osArch
 }
 
 export function getOSPlatform4Kubectl(osPlatform: string) {
-  return osPlatform === 'win32' ? 'windows' : osPlatform
+    return osPlatform === 'win32' ? 'windows' : osPlatform
 }
 
 export function getKubectlNameByPlatform(osPlatform: string): string {
-  return osPlatform === 'win32'
-    ? context.WINDOWS_KUBECTL_INSTALL_NAME
-    : context.LINUX_KUBECTL_INSTALL_NAME
+    return osPlatform === 'win32'
+        ? context.WINDOWS_KUBECTL_INSTALL_NAME
+        : context.LINUX_KUBECTL_INSTALL_NAME
 }
 
 /**
@@ -77,7 +77,7 @@ export function getKubectlNameByPlatform(osPlatform: string): string {
  * @param command
  */
 export async function execCommand(command: string): Promise<string> {
-  const execCommandResult = await (cp.execSync(command) || '').toString()
-  core.info(execCommandResult)
-  return execCommandResult
+    const execCommandResult = await (cp.execSync(command) || '').toString()
+    core.info(execCommandResult)
+    return execCommandResult
 }

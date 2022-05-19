@@ -6,9 +6,9 @@ import * as util from 'util'
 import * as context from './context'
 import {BasicCredentials} from '@huaweicloud/huaweicloud-sdk-core'
 import {
-  CceClient,
-  CreateKubernetesClusterCertRequest,
-  CertDuration
+    CceClient,
+    CreateKubernetesClusterCertRequest,
+    CertDuration
 } from '@huaweicloud/huaweicloud-sdk-cce'
 
 /**
@@ -16,29 +16,29 @@ import {
  * @param inputs
  */
 export async function setK8sConfig(inputs: context.Inputs) {
-  const creResult = await getCCECredential(inputs)
-  if (utils.checkParameterIsNull(creResult)) {
-    core.setFailed('get kubeconfig error')
-    return
-  }
-  if (
-    creResult.indexOf('errorMsg') > -1 ||
-    creResult.indexOf('errorCode') > -1
-  ) {
-    core.setFailed(
-      'Failed to get kubeconfig by CCE SDK,error message ' + creResult
-    )
-    return
-  }
-  await utils.execCommand('mkdir -p ./tmp')
-  const kubeconfigPath = './tmp/kubeconfig_' + uuidv4()
-  core.info(`Writing kubeconfig contents to ${kubeconfigPath}`)
-  fs.writeFileSync(kubeconfigPath, creResult)
-  fs.chmodSync(kubeconfigPath, context.KUBECONFIG_MODE)
-  core.setSecret(kubeconfigPath)
-  core.exportVariable('KUBECONFIG', kubeconfigPath)
-  console.log('KUBECONFIG environment variable is set')
-  await installKubeConfig(kubeconfigPath)
+    const creResult = await getCCECredential(inputs)
+    if (utils.checkParameterIsNull(creResult)) {
+        core.setFailed('get kubeconfig error')
+        return
+    }
+    if (
+        creResult.indexOf('errorMsg') > -1 ||
+        creResult.indexOf('errorCode') > -1
+    ) {
+        core.setFailed(
+            'Failed to get kubeconfig by CCE SDK,error message ' + creResult
+        )
+        return
+    }
+    await utils.execCommand('mkdir -p ./tmp')
+    const kubeconfigPath = './tmp/kubeconfig_' + uuidv4()
+    core.info(`Writing kubeconfig contents to ${kubeconfigPath}`)
+    fs.writeFileSync(kubeconfigPath, creResult)
+    fs.chmodSync(kubeconfigPath, context.KUBECONFIG_MODE)
+    core.setSecret(kubeconfigPath)
+    core.exportVariable('KUBECONFIG', kubeconfigPath)
+    console.log('KUBECONFIG environment variable is set')
+    await installKubeConfig(kubeconfigPath)
 }
 
 /**
@@ -47,15 +47,15 @@ export async function setK8sConfig(inputs: context.Inputs) {
  * @param kubeconfigPath
  */
 export async function installKubeConfig(kubeconfigPath: string) {
-  const installCommand = util.format(
-    context.KUBECONFIG_INSTALL_COMMAND,
-    kubeconfigPath
-  )
-  await utils.execCommand(installCommand)
-  console.log('kubectl config is already set')
-  const viewClustInfo =
-    'kubectl config view && kubectl cluster-info && kubectl get pod,svc --all-namespaces'
-  await utils.execCommand(viewClustInfo)
+    const installCommand = util.format(
+        context.KUBECONFIG_INSTALL_COMMAND,
+        kubeconfigPath
+    )
+    await utils.execCommand(installCommand)
+    console.log('kubectl config is already set')
+    const viewClustInfo =
+        'kubectl config view && kubectl cluster-info && kubectl get pod,svc --all-namespaces'
+    await utils.execCommand(viewClustInfo)
 }
 /**
  * 调用CCE SDK获取CCE集群的kubeconfig
@@ -63,25 +63,25 @@ export async function installKubeConfig(kubeconfigPath: string) {
  * @returns
  */
 export async function getCCECredential(inputs: context.Inputs) {
-  const endpoint = util.format(context.CCE_ENDPOINT, inputs.region)
-  const credentials = new BasicCredentials()
-    .withAk(inputs.ak)
-    .withSk(inputs.sk)
-    .withProjectId(inputs.project_id)
-  const client = CceClient.newBuilder()
-    .withCredential(credentials)
-    .withEndpoint(endpoint)
-    .build()
-  const request = new CreateKubernetesClusterCertRequest()
-  request.clusterId = inputs.cluster_id
-  const body = new CertDuration()
-  body.withDuration(1)
-  request.withBody(body)
-  try {
-    const result = await client.createKubernetesClusterCert(request)
-    return JSON.stringify(result)
-  } catch (error) {
-    core.error(JSON.stringify(error))
-    return ''
-  }
+    const endpoint = util.format(context.CCE_ENDPOINT, inputs.region)
+    const credentials = new BasicCredentials()
+        .withAk(inputs.ak)
+        .withSk(inputs.sk)
+        .withProjectId(inputs.project_id)
+    const client = CceClient.newBuilder()
+        .withCredential(credentials)
+        .withEndpoint(endpoint)
+        .build()
+    const request = new CreateKubernetesClusterCertRequest()
+    request.clusterId = inputs.cluster_id
+    const body = new CertDuration()
+    body.withDuration(1)
+    request.withBody(body)
+    try {
+        const result = await client.createKubernetesClusterCert(request)
+        return JSON.stringify(result)
+    } catch (error) {
+        core.error(JSON.stringify(error))
+        return ''
+    }
 }
