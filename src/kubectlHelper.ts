@@ -113,7 +113,7 @@ export async function installOrUpdateKubectl() {
     }
     if (osPlatform === 'win32') {
         await utils.execCommand(
-            'cp ' +
+            'copy ' +
                 kubectlDownloadPath +
                 ' ' +
                 context.WINDOWS_KUBECTL_INSTALL_PATH +
@@ -129,16 +129,16 @@ export async function installOrUpdateKubectl() {
                 '/' +
                 context.LINUX_KUBECTL_INSTALL_NAME
         )
+        await utils.execCommand(
+            'sudo chmod ' +
+                context.LINUX_KUBECTL_MOD +
+                ' ' +
+                context.LINUX_KUBECTL_INSTALL_PATH +
+                '/' +
+                context.LINUX_KUBECTL_INSTALL_NAME
+        )
     }
 
-    await utils.execCommand(
-        'sudo chmod ' +
-            context.LINUX_KUBECTL_MOD +
-            ' ' +
-            context.LINUX_KUBECTL_INSTALL_PATH +
-            '/' +
-            context.LINUX_KUBECTL_INSTALL_NAME
-    )
     fs.rmSync(kubectlDownloadPath)
     core.info(
         'install or update new kubect version : ' +
