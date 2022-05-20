@@ -47273,7 +47273,7 @@ function setK8sConfig(inputs) {
 }
 exports.setK8sConfig = setK8sConfig;
 /**
- * 讲kubeconfig部署到指定位置
+ * 将kubeconfig部署到指定位置
  * 执行简单命令检查kubectl是否可以连接上远端的k8s集群
  * @param kubeconfigPath
  */
