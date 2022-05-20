@@ -16,7 +16,7 @@ project_id:当前用户所在region的project_id，必填
 cluster_id:CCE集群的集群ID，必填  
 
 ## **使用样例**
-结合scp-remote-action完成一个springcloud项目部署:
+样例说明:通过cce-credential-action@v1.0.0获取到cce集群的kubeconfig,然后通过这个kubeconfig来操作CCE集群
 ```yaml
 - name: get CCE Cluster Credentials
   uses: huaweicloud/cce-credential-action@v1.0.0
