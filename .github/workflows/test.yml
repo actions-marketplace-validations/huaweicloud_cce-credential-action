@@ -1,0 +1,35 @@
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+      - run: |
+          npm run all
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+#      - run: |
+#          sudo cp kubectl /usr/local/bin
+#          sudo chmod 755 /usr/local/bin/kubectl
+      - uses: ./
+        with:
+          ak: ${{ secrets.ACCESSKEY }}
+          sk: ${{ secrets.SECRETACCESSKEY }}
+          region: "cn-north-4"
+          project_id: "0dd8cb413000906a2fcdc019b5a84546"
+          cluster_id: "f288d212-d299-11ec-8e06-0255ac101534"
+      - run: |
+          kubectl version --client --short
+          kubectl config view
+          kubectl cluster-info
+          kubectl get pod,svc --all-namespaces
