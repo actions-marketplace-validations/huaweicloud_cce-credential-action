@@ -1,6 +1,6 @@
 # cce-credential-action
 云容器引擎（Cloud Container Engine，简称CCE）提供高度可扩展的、高性能的企业级Kubernetes集群，支持运行Docker容器。借助云容器引擎，您可以在华为云上轻松部署、管理和扩展容器化应用程序。  
-本Action会检测当前环境是否安装了kubectl,如果没有安装，则会安装最新stable的kubectl，然后通过AK/SK和projectid,cluster等信息获取到用户在CCE上创建的CCE集群的Credentials，配置到当前环境中，为后续的集群部署，更新等操作提供鉴权
+本Action会检测当前环境是否安装了kubectl,如果没有安装，则会安装最新stable的kubectl，然后通过AK/SK和projectid,cluster等信息获取到用户在CCE上创建的CCE集群的Credentials，配置到当前环境中，为后续的集群部署，更新，删除等操作提供鉴权
 
 ## **前置工作**
 (1).创建CCE集群,详情请参考CCE文档:https://support.huaweicloud.com/cce/index.html  
