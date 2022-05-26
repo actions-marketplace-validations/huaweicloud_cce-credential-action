@@ -11,7 +11,7 @@
 ## **参数说明:**
 ak:华为访问密钥即AK，必填  
 sk:访问密钥即SK，必填  
-region:当前CCE集群所在的region，必填  
+region:当前CCE集群所在的region，如cn-north-4,必填  
 project_id:当前用户所在region的project_id，必填  
 cluster_id:CCE集群的集群ID，必填  
 
