@@ -1183,17 +1183,17 @@ var CreateAddonInstanceRequest_1 = __webpack_require__(606);
 var CreateCloudPersistentVolumeClaimsRequest_1 = __webpack_require__(387);
 var CreateClusterRequest_1 = __webpack_require__(584);
 var CreateKubernetesClusterCertRequest_1 = __webpack_require__(38);
-var CreateNodePoolRequest_1 = __webpack_require__(305);
+var CreateNodePoolRequest_1 = __webpack_require__(522);
 var CreateNodeRequest_1 = __webpack_require__(224);
-var DeleteAddonInstanceRequest_1 = __webpack_require__(689);
+var DeleteAddonInstanceRequest_1 = __webpack_require__(830);
 var DeleteCloudPersistentVolumeClaimsRequest_1 = __webpack_require__(839);
 var DeleteClusterRequest_1 = __webpack_require__(376);
 var DeleteNodePoolRequest_1 = __webpack_require__(297);
 var DeleteNodeRequest_1 = __webpack_require__(896);
-var HibernateClusterRequest_1 = __webpack_require__(43);
+var HibernateClusterRequest_1 = __webpack_require__(869);
 var ListAddonInstancesRequest_1 = __webpack_require__(572);
 var ListAddonTemplatesRequest_1 = __webpack_require__(720);
-var ListClustersRequest_1 = __webpack_require__(600);
+var ListClustersRequest_1 = __webpack_require__(781);
 var ListNodePoolsRequest_1 = __webpack_require__(937);
 var ListNodesRequest_1 = __webpack_require__(55);
 var MigrateNodeRequest_1 = __webpack_require__(450);
@@ -3934,7 +3934,7 @@ exports._readLinuxVersionFile = _readLinuxVersionFile;
 "use strict";
 
 
-var bind = __webpack_require__(271);
+var bind = __webpack_require__(727);
 
 // utils is a library of generic helper functions non-specific to axios
 
@@ -4610,52 +4610,7 @@ exports.RemoveNodeResponse = RemoveNodeResponse;
 
 /***/ }),
 /* 42 */,
-/* 43 */
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HibernateClusterRequest = void 0;
-var HibernateClusterRequest = /** @class */ (function () {
-    function HibernateClusterRequest(clusterId, contentType) {
-        this['cluster_id'] = clusterId;
-        this['Content-Type'] = contentType;
-    }
-    HibernateClusterRequest.prototype.withClusterId = function (clusterId) {
-        this['cluster_id'] = clusterId;
-        return this;
-    };
-    Object.defineProperty(HibernateClusterRequest.prototype, "clusterId", {
-        get: function () {
-            return this['cluster_id'];
-        },
-        set: function (clusterId) {
-            this['cluster_id'] = clusterId;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    HibernateClusterRequest.prototype.withContentType = function (contentType) {
-        this['Content-Type'] = contentType;
-        return this;
-    };
-    Object.defineProperty(HibernateClusterRequest.prototype, "contentType", {
-        get: function () {
-            return this['Content-Type'];
-        },
-        set: function (contentType) {
-            this['Content-Type'] = contentType;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return HibernateClusterRequest;
-}());
-exports.HibernateClusterRequest = HibernateClusterRequest;
-
-
-/***/ }),
+/* 43 */,
 /* 44 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -4664,7 +4619,7 @@ exports.HibernateClusterRequest = HibernateClusterRequest;
 const levels = __webpack_require__(938);
 
 const DEFAULT_FORMAT =
-  ":remote-addr - -" +
+  ':remote-addr - -' +
   ' ":method :url HTTP/:http-version"' +
   ' :status :content-length ":referrer"' +
   ' ":user-agent"';
@@ -4693,7 +4648,7 @@ function getUrl(req) {
  * @return {Array}
  */
 function assembleTokens(req, res, customTokens) {
-  const arrayUniqueTokens = array => {
+  const arrayUniqueTokens = (array) => {
     const a = array.concat();
     for (let i = 0; i < a.length; ++i) {
       for (let j = i + 1; j < a.length; ++j) {
@@ -4708,53 +4663,53 @@ function assembleTokens(req, res, customTokens) {
   };
 
   const defaultTokens = [];
-  defaultTokens.push({ token: ":url", replacement: getUrl(req) });
-  defaultTokens.push({ token: ":protocol", replacement: req.protocol });
-  defaultTokens.push({ token: ":hostname", replacement: req.hostname });
-  defaultTokens.push({ token: ":method", replacement: req.method });
+  defaultTokens.push({ token: ':url', replacement: getUrl(req) });
+  defaultTokens.push({ token: ':protocol', replacement: req.protocol });
+  defaultTokens.push({ token: ':hostname', replacement: req.hostname });
+  defaultTokens.push({ token: ':method', replacement: req.method });
   defaultTokens.push({
-    token: ":status",
-    replacement: res.__statusCode || res.statusCode
+    token: ':status',
+    replacement: res.__statusCode || res.statusCode,
   });
   defaultTokens.push({
-    token: ":response-time",
-    replacement: res.responseTime
+    token: ':response-time',
+    replacement: res.responseTime,
   });
-  defaultTokens.push({ token: ":date", replacement: new Date().toUTCString() });
+  defaultTokens.push({ token: ':date', replacement: new Date().toUTCString() });
   defaultTokens.push({
-    token: ":referrer",
-    replacement: req.headers.referer || req.headers.referrer || ""
-  });
-  defaultTokens.push({
-    token: ":http-version",
-    replacement: `${req.httpVersionMajor}.${req.httpVersionMinor}`
+    token: ':referrer',
+    replacement: req.headers.referer || req.headers.referrer || '',
   });
   defaultTokens.push({
-    token: ":remote-addr",
+    token: ':http-version',
+    replacement: `${req.httpVersionMajor}.${req.httpVersionMinor}`,
+  });
+  defaultTokens.push({
+    token: ':remote-addr',
     replacement:
-      req.headers["x-forwarded-for"] ||
+      req.headers['x-forwarded-for'] ||
       req.ip ||
       req._remoteAddress ||
       (req.socket &&
         (req.socket.remoteAddress ||
-          (req.socket.socket && req.socket.socket.remoteAddress)))
+          (req.socket.socket && req.socket.socket.remoteAddress))),
   });
   defaultTokens.push({
-    token: ":user-agent",
-    replacement: req.headers["user-agent"]
+    token: ':user-agent',
+    replacement: req.headers['user-agent'],
   });
   defaultTokens.push({
-    token: ":content-length",
+    token: ':content-length',
     replacement:
-      res.getHeader("content-length") ||
-      (res.__headers && res.__headers["Content-Length"]) ||
-      "-"
+      res.getHeader('content-length') ||
+      (res.__headers && res.__headers['Content-Length']) ||
+      '-',
   });
   defaultTokens.push({
     token: /:req\[([^\]]+)]/g,
     replacement(_, field) {
       return req.headers[field.toLowerCase()];
-    }
+    },
   });
   defaultTokens.push({
     token: /:res\[([^\]]+)]/g,
@@ -4763,7 +4718,7 @@ function assembleTokens(req, res, customTokens) {
         res.getHeader(field.toLowerCase()) ||
         (res.__headers && res.__headers[field])
       );
-    }
+    },
   });
 
   return arrayUniqueTokens(customTokens.concat(defaultTokens));
@@ -4818,14 +4773,16 @@ function createNoLogCondition(nolog) {
     regexp = nolog;
   }
 
-  if (typeof nolog === "string") {
+  if (typeof nolog === 'string') {
     regexp = new RegExp(nolog);
   }
 
   if (Array.isArray(nolog)) {
     // convert to strings
-    const regexpsAsStrings = nolog.map(reg => (reg.source ? reg.source : reg));
-    regexp = new RegExp(regexpsAsStrings.join("|"));
+    const regexpsAsStrings = nolog.map((reg) =>
+      reg.source ? reg.source : reg
+    );
+    regexp = new RegExp(regexpsAsStrings.join('|'));
   }
 
   return regexp;
@@ -4851,7 +4808,7 @@ function matchRules(statusCode, currentLevel, ruleSet) {
   let level = currentLevel;
 
   if (ruleSet) {
-    const matchedRule = ruleSet.find(rule => {
+    const matchedRule = ruleSet.find((rule) => {
       let ruleMatched = false;
       if (rule.from && rule.to) {
         ruleMatched = statusCode >= rule.from && statusCode <= rule.to;
@@ -4874,7 +4831,7 @@ function matchRules(statusCode, currentLevel, ruleSet) {
  *
  *   - `format`        Format string, see below for tokens
  *   - `level`         A log4js levels instance. Supports also 'auto'
- *   - `nolog`         A string or RegExp to exclude target logs
+ *   - `nolog`         A string or RegExp to exclude target logs or function(req, res): boolean
  *   - `statusRules`   A array of rules for setting specific logging levels base on status codes
  *   - `context`       Whether to add a response of express to the context
  *
@@ -4898,7 +4855,7 @@ function matchRules(statusCode, currentLevel, ruleSet) {
  * @api public
  */
 module.exports = function getLogger(logger4js, options) {
-  if (typeof options === "string" || typeof options === "function") {
+  if (typeof options === 'string' || typeof options === 'function') {
     options = { format: options };
   } else {
     options = options || {};
@@ -4907,16 +4864,20 @@ module.exports = function getLogger(logger4js, options) {
   const thisLogger = logger4js;
   let level = levels.getLevel(options.level, levels.INFO);
   const fmt = options.format || DEFAULT_FORMAT;
-  const nolog = createNoLogCondition(options.nolog);
 
   return (req, res, next) => {
     // mount safety
     if (req._logging) return next();
 
     // nologs
-    if (nolog && nolog.test(req.originalUrl)) return next();
+    if (typeof options.nolog === 'function') {
+      if (options.nolog(req, res) === true) return next();
+    } else {
+      const nolog = createNoLogCondition(options.nolog);
+      if (nolog && nolog.test(req.originalUrl)) return next();
+    }
 
-    if (thisLogger.isLevelEnabled(level) || options.level === "auto") {
+    if (thisLogger.isLevelEnabled(level) || options.level === 'auto') {
       const start = new Date();
       const { writeHead } = res;
 
@@ -4941,7 +4902,7 @@ module.exports = function getLogger(logger4js, options) {
         finished = true;
         res.responseTime = new Date() - start;
         // status code response level handling
-        if (res.statusCode && options.level === "auto") {
+        if (res.statusCode && options.level === 'auto') {
           level = levels.INFO;
           if (res.statusCode >= 300) level = levels.WARN;
           if (res.statusCode >= 400) level = levels.ERROR;
@@ -4950,19 +4911,19 @@ module.exports = function getLogger(logger4js, options) {
 
         const combinedTokens = assembleTokens(req, res, options.tokens || []);
 
-        if (options.context) thisLogger.addContext("res", res);
-        if (typeof fmt === "function") {
-          const line = fmt(req, res, str => format(str, combinedTokens));
+        if (options.context) thisLogger.addContext('res', res);
+        if (typeof fmt === 'function') {
+          const line = fmt(req, res, (str) => format(str, combinedTokens));
           if (line) thisLogger.log(level, line);
         } else {
           thisLogger.log(level, format(fmt, combinedTokens));
         }
-        if (options.context) thisLogger.removeContext("res");
+        if (options.context) thisLogger.removeContext('res');
       };
-      res.on("end", handler);
-      res.on("finish", handler);
-      res.on("error", handler);
-      res.on("close", handler);
+      res.on('end', handler);
+      res.on('finish', handler);
+      res.on('error', handler);
+      res.on('close', handler);
     }
 
     // ensure next gets always called
@@ -5079,36 +5040,56 @@ module.exports = __webpack_require__(352);
 
 /***/ }),
 /* 54 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
 
-const fs = __webpack_require__(869)
-const { checkPath } = __webpack_require__(534)
-
-const getMode = options => {
-  const defaults = { mode: 0o777 }
-  if (typeof options === 'number') return options
-  return ({ ...defaults, ...options }).mode
-}
-
-module.exports.makeDir = async (dir, options) => {
-  checkPath(dir)
-
-  return fs.mkdir(dir, {
-    mode: getMode(options),
-    recursive: true
-  })
-}
-
-module.exports.makeDirSync = (dir, options) => {
-  checkPath(dir)
-
-  return fs.mkdirSync(dir, {
-    mode: getMode(options),
-    recursive: true
-  })
-}
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateCloudPersistentVolumeClaimsResponse = void 0;
+var SdkResponse_1 = __webpack_require__(261);
+var CreateCloudPersistentVolumeClaimsResponse = /** @class */ (function (_super) {
+    __extends(CreateCloudPersistentVolumeClaimsResponse, _super);
+    function CreateCloudPersistentVolumeClaimsResponse() {
+        return _super.call(this) || this;
+    }
+    CreateCloudPersistentVolumeClaimsResponse.prototype.withApiVersion = function (apiVersion) {
+        this['apiVersion'] = apiVersion;
+        return this;
+    };
+    CreateCloudPersistentVolumeClaimsResponse.prototype.withKind = function (kind) {
+        this['kind'] = kind;
+        return this;
+    };
+    CreateCloudPersistentVolumeClaimsResponse.prototype.withMetadata = function (metadata) {
+        this['metadata'] = metadata;
+        return this;
+    };
+    CreateCloudPersistentVolumeClaimsResponse.prototype.withSpec = function (spec) {
+        this['spec'] = spec;
+        return this;
+    };
+    CreateCloudPersistentVolumeClaimsResponse.prototype.withStatus = function (status) {
+        this['status'] = status;
+        return this;
+    };
+    return CreateCloudPersistentVolumeClaimsResponse;
+}(SdkResponse_1.SdkResponse));
+exports.CreateCloudPersistentVolumeClaimsResponse = CreateCloudPersistentVolumeClaimsResponse;
 
 
 /***/ }),
@@ -5266,38 +5247,36 @@ exports.AddonTemplate = AddonTemplate;
 
 /***/ }),
 /* 66 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StorageSelectorsMatchLabels = void 0;
-var StorageSelectorsMatchLabels = /** @class */ (function () {
-    function StorageSelectorsMatchLabels() {
-    }
-    StorageSelectorsMatchLabels.prototype.withSize = function (size) {
-        this['size'] = size;
-        return this;
-    };
-    StorageSelectorsMatchLabels.prototype.withVolumeType = function (volumeType) {
-        this['volumeType'] = volumeType;
-        return this;
-    };
-    StorageSelectorsMatchLabels.prototype.withMetadataEncrypted = function (metadataEncrypted) {
-        this['metadataEncrypted'] = metadataEncrypted;
-        return this;
-    };
-    StorageSelectorsMatchLabels.prototype.withMetadataCmkid = function (metadataCmkid) {
-        this['metadataCmkid'] = metadataCmkid;
-        return this;
-    };
-    StorageSelectorsMatchLabels.prototype.withCount = function (count) {
-        this['count'] = count;
-        return this;
-    };
-    return StorageSelectorsMatchLabels;
-}());
-exports.StorageSelectorsMatchLabels = StorageSelectorsMatchLabels;
+
+const path = __webpack_require__(622)
+const mkdir = __webpack_require__(419)
+const pathExists = __webpack_require__(887).pathExists
+const jsonFile = __webpack_require__(341)
+
+function outputJson (file, data, options, callback) {
+  if (typeof options === 'function') {
+    callback = options
+    options = {}
+  }
+
+  const dir = path.dirname(file)
+
+  pathExists(dir, (err, itDoes) => {
+    if (err) return callback(err)
+    if (itDoes) return jsonFile.writeJson(file, data, options, callback)
+
+    mkdir.mkdirs(dir, err => {
+      if (err) return callback(err)
+      jsonFile.writeJson(file, data, options, callback)
+    })
+  })
+}
+
+module.exports = outputJson
 
 
 /***/ }),
@@ -6132,7 +6111,41 @@ exports.checkBypass = checkBypass;
 /***/ }),
 /* 96 */,
 /* 97 */,
-/* 98 */,
+/* 98 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeCreateRequest = void 0;
+var NodeCreateRequest = /** @class */ (function () {
+    function NodeCreateRequest(kind, apiVersion, spec) {
+        this['kind'] = kind;
+        this['apiVersion'] = apiVersion;
+        this['spec'] = spec;
+    }
+    NodeCreateRequest.prototype.withKind = function (kind) {
+        this['kind'] = kind;
+        return this;
+    };
+    NodeCreateRequest.prototype.withApiVersion = function (apiVersion) {
+        this['apiVersion'] = apiVersion;
+        return this;
+    };
+    NodeCreateRequest.prototype.withMetadata = function (metadata) {
+        this['metadata'] = metadata;
+        return this;
+    };
+    NodeCreateRequest.prototype.withSpec = function (spec) {
+        this['spec'] = spec;
+        return this;
+    };
+    return NodeCreateRequest;
+}());
+exports.NodeCreateRequest = NodeCreateRequest;
+
+
+/***/ }),
 /* 99 */,
 /* 100 */
 /***/ (function(__unusedmodule, exports) {
@@ -6436,11 +6449,17 @@ class LoggingEvent {
       // duck-typing for Error object
       if (value && value.message && value.stack) {
         // eslint-disable-next-line prefer-object-spread
-        value = Object.assign({message: value.message, stack: value.stack}, value);
+        value = Object.assign(
+          { message: value.message, stack: value.stack },
+          value
+        );
       }
       // JSON.stringify({a: parseInt('abc'), b: 1/0, c: -1/0}) returns {a: null, b: null, c: null}.
       // The following allows us to serialize to NaN, Infinity and -Infinity correctly.
-      else if (typeof value === 'number' && (Number.isNaN(value) || !Number.isFinite(value))) {
+      else if (
+        typeof value === 'number' &&
+        (Number.isNaN(value) || !Number.isFinite(value))
+      ) {
         value = value.toString();
       }
       // JSON.stringify([undefined]) returns [null].
@@ -6458,7 +6477,9 @@ class LoggingEvent {
       const rehydratedEvent = flatted.parse(serialised, (key, value) => {
         if (value && value.message && value.stack) {
           const fakeError = new Error(value);
-          Object.keys(value).forEach((k) => { fakeError[k] = value[k]; });
+          Object.keys(value).forEach((k) => {
+            fakeError[k] = value[k];
+          });
           value = fakeError;
         }
         return value;
@@ -6468,7 +6489,7 @@ class LoggingEvent {
         fileName: rehydratedEvent.fileName,
         lineNumber: rehydratedEvent.lineNumber,
         columnNumber: rehydratedEvent.columnNumber,
-        callStack: rehydratedEvent.callStack
+        callStack: rehydratedEvent.callStack,
       };
       event = new LoggingEvent(
         rehydratedEvent.categoryName,
@@ -6481,11 +6502,12 @@ class LoggingEvent {
       event.pid = rehydratedEvent.pid;
       event.cluster = rehydratedEvent.cluster;
     } catch (e) {
-      event = new LoggingEvent(
-        'log4js',
-        levels.ERROR,
-        ['Unable to parse log:', serialised, 'because: ', e]
-      );
+      event = new LoggingEvent('log4js', levels.ERROR, [
+        'Unable to parse log:',
+        serialised,
+        'because: ',
+        e,
+      ]);
     }
 
     return event;
@@ -6591,7 +6613,36 @@ exports.InstanceRequestSpec = InstanceRequestSpec;
 /***/ }),
 /* 116 */,
 /* 117 */,
-/* 118 */,
+/* 118 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const file = __webpack_require__(351)
+const link = __webpack_require__(515)
+const symlink = __webpack_require__(159)
+
+module.exports = {
+  // file
+  createFile: file.createFile,
+  createFileSync: file.createFileSync,
+  ensureFile: file.createFile,
+  ensureFileSync: file.createFileSync,
+  // link
+  createLink: link.createLink,
+  createLinkSync: link.createLinkSync,
+  ensureLink: link.createLink,
+  ensureLinkSync: link.createLinkSync,
+  // symlink
+  createSymlink: symlink.createSymlink,
+  createSymlinkSync: symlink.createSymlinkSync,
+  ensureSymlink: symlink.createSymlink,
+  ensureSymlinkSync: symlink.createSymlinkSync
+}
+
+
+/***/ }),
 /* 119 */,
 /* 120 */,
 /* 121 */,
@@ -6753,7 +6804,6 @@ var GlobalCredentials = /** @class */ (function () {
         if (this.securityToken) {
             builder.addHeaders("X-Security-Token", this.securityToken);
         }
-        // builder.addHeaders("Content-Type", "application/json");
         builder.addAllHeaders(httpRequest.headers);
         Object.assign(httpRequest, builder.build());
         var headers = AKSKSigner_1.AKSKSigner.sign(httpRequest, this);
@@ -6794,167 +6844,7 @@ function parsePath(path, params) {
 /***/ }),
 /* 125 */,
 /* 126 */,
-/* 127 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(869)
-const path = __webpack_require__(622)
-const util = __webpack_require__(669)
-
-function getStats (src, dest, opts) {
-  const statFunc = opts.dereference
-    ? (file) => fs.stat(file, { bigint: true })
-    : (file) => fs.lstat(file, { bigint: true })
-  return Promise.all([
-    statFunc(src),
-    statFunc(dest).catch(err => {
-      if (err.code === 'ENOENT') return null
-      throw err
-    })
-  ]).then(([srcStat, destStat]) => ({ srcStat, destStat }))
-}
-
-function getStatsSync (src, dest, opts) {
-  let destStat
-  const statFunc = opts.dereference
-    ? (file) => fs.statSync(file, { bigint: true })
-    : (file) => fs.lstatSync(file, { bigint: true })
-  const srcStat = statFunc(src)
-  try {
-    destStat = statFunc(dest)
-  } catch (err) {
-    if (err.code === 'ENOENT') return { srcStat, destStat: null }
-    throw err
-  }
-  return { srcStat, destStat }
-}
-
-function checkPaths (src, dest, funcName, opts, cb) {
-  util.callbackify(getStats)(src, dest, opts, (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat, destStat } = stats
-
-    if (destStat) {
-      if (areIdentical(srcStat, destStat)) {
-        const srcBaseName = path.basename(src)
-        const destBaseName = path.basename(dest)
-        if (funcName === 'move' &&
-          srcBaseName !== destBaseName &&
-          srcBaseName.toLowerCase() === destBaseName.toLowerCase()) {
-          return cb(null, { srcStat, destStat, isChangingCase: true })
-        }
-        return cb(new Error('Source and destination must not be the same.'))
-      }
-      if (srcStat.isDirectory() && !destStat.isDirectory()) {
-        return cb(new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`))
-      }
-      if (!srcStat.isDirectory() && destStat.isDirectory()) {
-        return cb(new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`))
-      }
-    }
-
-    if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
-      return cb(new Error(errMsg(src, dest, funcName)))
-    }
-    return cb(null, { srcStat, destStat })
-  })
-}
-
-function checkPathsSync (src, dest, funcName, opts) {
-  const { srcStat, destStat } = getStatsSync(src, dest, opts)
-
-  if (destStat) {
-    if (areIdentical(srcStat, destStat)) {
-      const srcBaseName = path.basename(src)
-      const destBaseName = path.basename(dest)
-      if (funcName === 'move' &&
-        srcBaseName !== destBaseName &&
-        srcBaseName.toLowerCase() === destBaseName.toLowerCase()) {
-        return { srcStat, destStat, isChangingCase: true }
-      }
-      throw new Error('Source and destination must not be the same.')
-    }
-    if (srcStat.isDirectory() && !destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
-    }
-    if (!srcStat.isDirectory() && destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`)
-    }
-  }
-
-  if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-  return { srcStat, destStat }
-}
-
-// recursively check if dest parent is a subdirectory of src.
-// It works for all file types including symlinks since it
-// checks the src and dest inodes. It starts from the deepest
-// parent and stops once it reaches the src parent or the root path.
-function checkParentPaths (src, srcStat, dest, funcName, cb) {
-  const srcParent = path.resolve(path.dirname(src))
-  const destParent = path.resolve(path.dirname(dest))
-  if (destParent === srcParent || destParent === path.parse(destParent).root) return cb()
-  fs.stat(destParent, { bigint: true }, (err, destStat) => {
-    if (err) {
-      if (err.code === 'ENOENT') return cb()
-      return cb(err)
-    }
-    if (areIdentical(srcStat, destStat)) {
-      return cb(new Error(errMsg(src, dest, funcName)))
-    }
-    return checkParentPaths(src, srcStat, destParent, funcName, cb)
-  })
-}
-
-function checkParentPathsSync (src, srcStat, dest, funcName) {
-  const srcParent = path.resolve(path.dirname(src))
-  const destParent = path.resolve(path.dirname(dest))
-  if (destParent === srcParent || destParent === path.parse(destParent).root) return
-  let destStat
-  try {
-    destStat = fs.statSync(destParent, { bigint: true })
-  } catch (err) {
-    if (err.code === 'ENOENT') return
-    throw err
-  }
-  if (areIdentical(srcStat, destStat)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-  return checkParentPathsSync(src, srcStat, destParent, funcName)
-}
-
-function areIdentical (srcStat, destStat) {
-  return destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev
-}
-
-// return true if dest is a subdir of src, otherwise false.
-// It only checks the path strings.
-function isSrcSubdir (src, dest) {
-  const srcArr = path.resolve(src).split(path.sep).filter(i => i)
-  const destArr = path.resolve(dest).split(path.sep).filter(i => i)
-  return srcArr.reduce((acc, cur, i) => acc && destArr[i] === cur, true)
-}
-
-function errMsg (src, dest, funcName) {
-  return `Cannot ${funcName} '${src}' to a subdirectory of itself, '${dest}'.`
-}
-
-module.exports = {
-  checkPaths,
-  checkPathsSync,
-  checkParentPaths,
-  checkParentPathsSync,
-  isSrcSubdir,
-  areIdentical
-}
-
-
-/***/ }),
+/* 127 */,
 /* 128 */,
 /* 129 */
 /***/ (function(module) {
@@ -7649,82 +7539,7 @@ exports.ListNodePoolsResponse = ListNodePoolsResponse;
 /* 146 */,
 /* 147 */,
 /* 148 */,
-/* 149 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromCallback
-const path = __webpack_require__(622)
-const fs = __webpack_require__(598)
-const mkdir = __webpack_require__(727)
-
-function createFile (file, callback) {
-  function makeFile () {
-    fs.writeFile(file, '', err => {
-      if (err) return callback(err)
-      callback()
-    })
-  }
-
-  fs.stat(file, (err, stats) => { // eslint-disable-line handle-callback-err
-    if (!err && stats.isFile()) return callback()
-    const dir = path.dirname(file)
-    fs.stat(dir, (err, stats) => {
-      if (err) {
-        // if the directory doesn't exist, make it
-        if (err.code === 'ENOENT') {
-          return mkdir.mkdirs(dir, err => {
-            if (err) return callback(err)
-            makeFile()
-          })
-        }
-        return callback(err)
-      }
-
-      if (stats.isDirectory()) makeFile()
-      else {
-        // parent is not a directory
-        // This is just to cause an internal ENOTDIR error to be thrown
-        fs.readdir(dir, err => {
-          if (err) return callback(err)
-        })
-      }
-    })
-  })
-}
-
-function createFileSync (file) {
-  let stats
-  try {
-    stats = fs.statSync(file)
-  } catch {}
-  if (stats && stats.isFile()) return
-
-  const dir = path.dirname(file)
-  try {
-    if (!fs.statSync(dir).isDirectory()) {
-      // parent is not a directory
-      // This is just to cause an internal ENOTDIR error to be thrown
-      fs.readdirSync(dir)
-    }
-  } catch (err) {
-    // If the stat call above failed because the directory doesn't exist, create it
-    if (err && err.code === 'ENOENT') mkdir.mkdirsSync(dir)
-    else throw err
-  }
-
-  fs.writeFileSync(file, '')
-}
-
-module.exports = {
-  createFile: u(createFile),
-  createFileSync
-}
-
-
-/***/ }),
+/* 149 */,
 /* 150 */,
 /* 151 */,
 /* 152 */,
@@ -7734,7 +7549,76 @@ module.exports = {
 /* 156 */,
 /* 157 */,
 /* 158 */,
-/* 159 */,
+/* 159 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const path = __webpack_require__(622)
+const fs = __webpack_require__(598)
+const _mkdirs = __webpack_require__(419)
+const mkdirs = _mkdirs.mkdirs
+const mkdirsSync = _mkdirs.mkdirsSync
+
+const _symlinkPaths = __webpack_require__(600)
+const symlinkPaths = _symlinkPaths.symlinkPaths
+const symlinkPathsSync = _symlinkPaths.symlinkPathsSync
+
+const _symlinkType = __webpack_require__(206)
+const symlinkType = _symlinkType.symlinkType
+const symlinkTypeSync = _symlinkType.symlinkTypeSync
+
+const pathExists = __webpack_require__(887).pathExists
+
+function createSymlink (srcpath, dstpath, type, callback) {
+  callback = (typeof type === 'function') ? type : callback
+  type = (typeof type === 'function') ? false : type
+
+  pathExists(dstpath, (err, destinationExists) => {
+    if (err) return callback(err)
+    if (destinationExists) return callback(null)
+    symlinkPaths(srcpath, dstpath, (err, relative) => {
+      if (err) return callback(err)
+      srcpath = relative.toDst
+      symlinkType(relative.toCwd, type, (err, type) => {
+        if (err) return callback(err)
+        const dir = path.dirname(dstpath)
+        pathExists(dir, (err, dirExists) => {
+          if (err) return callback(err)
+          if (dirExists) return fs.symlink(srcpath, dstpath, type, callback)
+          mkdirs(dir, err => {
+            if (err) return callback(err)
+            fs.symlink(srcpath, dstpath, type, callback)
+          })
+        })
+      })
+    })
+  })
+}
+
+function createSymlinkSync (srcpath, dstpath, type) {
+  const destinationExists = fs.existsSync(dstpath)
+  if (destinationExists) return undefined
+
+  const relative = symlinkPathsSync(srcpath, dstpath)
+  srcpath = relative.toDst
+  type = symlinkTypeSync(relative.toCwd, type)
+  const dir = path.dirname(dstpath)
+  const exists = fs.existsSync(dir)
+  if (exists) return fs.symlinkSync(srcpath, dstpath, type)
+  mkdirsSync(dir)
+  return fs.symlinkSync(srcpath, dstpath, type)
+}
+
+module.exports = {
+  createSymlink: u(createSymlink),
+  createSymlinkSync
+}
+
+
+/***/ }),
 /* 160 */,
 /* 161 */,
 /* 162 */,
@@ -7798,35 +7682,11 @@ exports.NodePoolUpdate = NodePoolUpdate;
 /***/ }),
 /* 169 */,
 /* 170 */,
-/* 171 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromPromise
-const jsonFile = __webpack_require__(469)
-
-jsonFile.outputJson = u(__webpack_require__(695))
-jsonFile.outputJsonSync = __webpack_require__(634)
-// aliases
-jsonFile.outputJSON = jsonFile.outputJson
-jsonFile.outputJSONSync = jsonFile.outputJsonSync
-jsonFile.writeJSON = jsonFile.writeJson
-jsonFile.writeJSONSync = jsonFile.writeJsonSync
-jsonFile.readJSON = jsonFile.readJson
-jsonFile.readJSONSync = jsonFile.readJsonSync
-
-module.exports = jsonFile
-
-
-/***/ }),
+/* 171 */,
 /* 172 */,
 /* 173 */,
 /* 174 */
 /***/ (function(module) {
-
-
 
 function stderrAppender(layout, timezoneOffset) {
   return (loggingEvent) => {
@@ -7925,7 +7785,154 @@ exports.ListAddonTemplatesResponse = ListAddonTemplatesResponse;
 /***/ }),
 /* 184 */,
 /* 185 */,
-/* 186 */,
+/* 186 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeExtendParam = void 0;
+var NodeExtendParam = /** @class */ (function () {
+    function NodeExtendParam() {
+    }
+    NodeExtendParam.prototype.withEcsPerformancetype = function (ecsPerformancetype) {
+        this['ecs:performancetype'] = ecsPerformancetype;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "ecsPerformancetype", {
+        get: function () {
+            return this['ecs:performancetype'];
+        },
+        set: function (ecsPerformancetype) {
+            this['ecs:performancetype'] = ecsPerformancetype;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withOrderID = function (orderID) {
+        this['orderID'] = orderID;
+        return this;
+    };
+    NodeExtendParam.prototype.withProductID = function (productID) {
+        this['productID'] = productID;
+        return this;
+    };
+    NodeExtendParam.prototype.withMaxPods = function (maxPods) {
+        this['maxPods'] = maxPods;
+        return this;
+    };
+    NodeExtendParam.prototype.withPeriodType = function (periodType) {
+        this['periodType'] = periodType;
+        return this;
+    };
+    NodeExtendParam.prototype.withPeriodNum = function (periodNum) {
+        this['periodNum'] = periodNum;
+        return this;
+    };
+    NodeExtendParam.prototype.withIsAutoRenew = function (isAutoRenew) {
+        this['isAutoRenew'] = isAutoRenew;
+        return this;
+    };
+    NodeExtendParam.prototype.withIsAutoPay = function (isAutoPay) {
+        this['isAutoPay'] = isAutoPay;
+        return this;
+    };
+    NodeExtendParam.prototype.withDockerLVMConfigOverride = function (dockerLVMConfigOverride) {
+        this['DockerLVMConfigOverride'] = dockerLVMConfigOverride;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "dockerLVMConfigOverride", {
+        get: function () {
+            return this['DockerLVMConfigOverride'];
+        },
+        set: function (dockerLVMConfigOverride) {
+            this['DockerLVMConfigOverride'] = dockerLVMConfigOverride;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withDockerBaseSize = function (dockerBaseSize) {
+        this['dockerBaseSize'] = dockerBaseSize;
+        return this;
+    };
+    NodeExtendParam.prototype.withPublicKey = function (publicKey) {
+        this['publicKey'] = publicKey;
+        return this;
+    };
+    NodeExtendParam.prototype.withAlphaCcePreInstall = function (alphaCcePreInstall) {
+        this['alpha.cce/preInstall'] = alphaCcePreInstall;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "alphaCcePreInstall", {
+        get: function () {
+            return this['alpha.cce/preInstall'];
+        },
+        set: function (alphaCcePreInstall) {
+            this['alpha.cce/preInstall'] = alphaCcePreInstall;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withAlphaCcePostInstall = function (alphaCcePostInstall) {
+        this['alpha.cce/postInstall'] = alphaCcePostInstall;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "alphaCcePostInstall", {
+        get: function () {
+            return this['alpha.cce/postInstall'];
+        },
+        set: function (alphaCcePostInstall) {
+            this['alpha.cce/postInstall'] = alphaCcePostInstall;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withAlphaCceNodeImageID = function (alphaCceNodeImageID) {
+        this['alpha.cce/NodeImageID'] = alphaCceNodeImageID;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "alphaCceNodeImageID", {
+        get: function () {
+            return this['alpha.cce/NodeImageID'];
+        },
+        set: function (alphaCceNodeImageID) {
+            this['alpha.cce/NodeImageID'] = alphaCceNodeImageID;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withNicMultiqueue = function (nicMultiqueue) {
+        this['nicMultiqueue'] = nicMultiqueue;
+        return this;
+    };
+    NodeExtendParam.prototype.withNicThreshold = function (nicThreshold) {
+        this['nicThreshold'] = nicThreshold;
+        return this;
+    };
+    NodeExtendParam.prototype.withEnterpriseProjectId = function (enterpriseProjectId) {
+        this['enterprise_project_id'] = enterpriseProjectId;
+        return this;
+    };
+    Object.defineProperty(NodeExtendParam.prototype, "enterpriseProjectId", {
+        get: function () {
+            return this['enterprise_project_id'];
+        },
+        set: function (enterpriseProjectId) {
+            this['enterprise_project_id'] = enterpriseProjectId;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    NodeExtendParam.prototype.withChargingMode = function (chargingMode) {
+        this['chargingMode'] = chargingMode;
+        return this;
+    };
+    return NodeExtendParam;
+}());
+exports.NodeExtendParam = NodeExtendParam;
+
+
+/***/ }),
 /* 187 */,
 /* 188 */,
 /* 189 */,
@@ -7938,7 +7945,31 @@ module.exports = require("querystring");
 /***/ }),
 /* 192 */,
 /* 193 */,
-/* 194 */,
+/* 194 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserPassword = void 0;
+var UserPassword = /** @class */ (function () {
+    function UserPassword(password) {
+        this['password'] = password;
+    }
+    UserPassword.prototype.withUsername = function (username) {
+        this['username'] = username;
+        return this;
+    };
+    UserPassword.prototype.withPassword = function (password) {
+        this['password'] = password;
+        return this;
+    };
+    return UserPassword;
+}());
+exports.UserPassword = UserPassword;
+
+
+/***/ }),
 /* 195 */,
 /* 196 */,
 /* 197 */,
@@ -8066,7 +8097,44 @@ exports.UpdateAddonInstanceResponse = UpdateAddonInstanceResponse;
 
 
 /***/ }),
-/* 206 */,
+/* 206 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+
+function symlinkType (srcpath, type, callback) {
+  callback = (typeof type === 'function') ? type : callback
+  type = (typeof type === 'function') ? false : type
+  if (type) return callback(null, type)
+  fs.lstat(srcpath, (err, stats) => {
+    if (err) return callback(null, 'file')
+    type = (stats && stats.isDirectory()) ? 'dir' : 'file'
+    callback(null, type)
+  })
+}
+
+function symlinkTypeSync (srcpath, type) {
+  let stats
+
+  if (type) return type
+  try {
+    stats = fs.lstatSync(srcpath)
+  } catch (e) {
+    return 'file'
+  }
+  return (stats && stats.isDirectory()) ? 'dir' : 'file'
+}
+
+module.exports = {
+  symlinkType,
+  symlinkTypeSync
+}
+
+
+/***/ }),
 /* 207 */,
 /* 208 */,
 /* 209 */,
@@ -8597,29 +8665,7 @@ var CreateNodeRequestNodepoolScaleUpEnum;
 
 /***/ }),
 /* 225 */,
-/* 226 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-  // Export promiseified graceful-fs:
-  ...__webpack_require__(869),
-  // Export extra methods:
-  ...__webpack_require__(774),
-  ...__webpack_require__(615),
-  ...__webpack_require__(472),
-  ...__webpack_require__(171),
-  ...__webpack_require__(727),
-  ...__webpack_require__(353),
-  ...__webpack_require__(683),
-  ...__webpack_require__(322),
-  ...__webpack_require__(723)
-}
-
-
-/***/ }),
+/* 226 */,
 /* 227 */,
 /* 228 */,
 /* 229 */,
@@ -8784,6 +8830,32 @@ exports.CreateClusterResponse = CreateClusterResponse;
 /***/ }),
 /* 238 */,
 /* 239 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const jsonFile = __webpack_require__(341)
+
+jsonFile.outputJson = u(__webpack_require__(66))
+jsonFile.outputJsonSync = __webpack_require__(920)
+// aliases
+jsonFile.outputJSON = jsonFile.outputJson
+jsonFile.outputJSONSync = jsonFile.outputJsonSync
+jsonFile.writeJSON = jsonFile.writeJson
+jsonFile.writeJSONSync = jsonFile.writeJsonSync
+jsonFile.readJSON = jsonFile.readJson
+jsonFile.readJSONSync = jsonFile.readJsonSync
+
+module.exports = jsonFile
+
+
+/***/ }),
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */
 /***/ (function(__unusedmodule, exports) {
 
 "use strict";
@@ -8876,10 +8948,6 @@ exports.NodeSpec = NodeSpec;
 
 
 /***/ }),
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
 /* 244 */,
 /* 245 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
@@ -9420,7 +9488,19 @@ function patch (fs) {
 /***/ }),
 /* 251 */,
 /* 252 */,
-/* 253 */,
+/* 253 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+module.exports = {
+  move: u(__webpack_require__(649))
+}
+
+
+/***/ }),
 /* 254 */,
 /* 255 */,
 /* 256 */,
@@ -9534,17 +9614,17 @@ const os = __webpack_require__(87);
 const eol = os.EOL;
 
 function openTheStream(filename, pattern, options) {
-  const stream = new streams.DateRollingFileStream(
-    filename,
-    pattern,
-    options
-  );
+  const stream = new streams.DateRollingFileStream(filename, pattern, options);
   stream.on('error', (err) => {
     // eslint-disable-next-line no-console
-    console.error('log4js.dateFileAppender - Writing to file %s, error happened ', filename, err);
+    console.error(
+      'log4js.dateFileAppender - Writing to file %s, error happened ',
+      filename,
+      err
+    );
   });
-  stream.on("drain", () => {
-    process.emit("log4js:pause", false);
+  stream.on('drain', () => {
+    process.emit('log4js:pause', false);
   });
   return stream;
 }
@@ -9558,13 +9638,7 @@ function openTheStream(filename, pattern, options) {
  * @param options - options to be passed to the underlying stream
  * @param timezoneOffset - optional timezone offset in minutes (default system local)
  */
-function appender(
-  filename,
-  pattern,
-  layout,
-  options,
-  timezoneOffset
-) {
+function appender(filename, pattern, layout, options, timezoneOffset) {
   // the options for file appender use maxLogSize, but the docs say any file appender
   // options should work for dateFile as well.
   options.maxSize = options.maxLogSize;
@@ -9575,8 +9649,8 @@ function appender(
     if (!writer.writable) {
       return;
     }
-    if (!writer.write(layout(logEvent, timezoneOffset) + eol, "utf8")) {
-      process.emit("log4js:pause", true);
+    if (!writer.write(layout(logEvent, timezoneOffset) + eol, 'utf8')) {
+      process.emit('log4js:pause', true);
     }
   };
 
@@ -9653,7 +9727,7 @@ exports.NodePoolMetadata = NodePoolMetadata;
 /* 265 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const debug = __webpack_require__(784)("log4js:clustering");
+const debug = __webpack_require__(784)('log4js:clustering');
 const LoggingEvent = __webpack_require__(112);
 const configuration = __webpack_require__(779);
 
@@ -9663,47 +9737,48 @@ try {
   // eslint-disable-next-line global-require
   cluster = __webpack_require__(531);
 } catch (e) {
-  debug("cluster module not present");
+  debug('cluster module not present');
   disabled = true;
 }
 
 const listeners = [];
 
 let pm2 = false;
-let pm2InstanceVar = "NODE_APP_INSTANCE";
+let pm2InstanceVar = 'NODE_APP_INSTANCE';
 
-const isPM2Master = () => pm2 && process.env[pm2InstanceVar] === "0";
-const isMaster = () => disabled || (cluster && cluster.isMaster) || isPM2Master();
+const isPM2Master = () => pm2 && process.env[pm2InstanceVar] === '0';
+const isMaster = () =>
+  disabled || (cluster && cluster.isMaster) || isPM2Master();
 
-const sendToListeners = logEvent => {
-  listeners.forEach(l => l(logEvent));
+const sendToListeners = (logEvent) => {
+  listeners.forEach((l) => l(logEvent));
 };
 
 // in a multi-process node environment, worker loggers will use
 // process.send
 const receiver = (worker, message) => {
   // prior to node v6, the worker parameter was not passed (args were message, handle)
-  debug("cluster message received from worker ", worker, ": ", message);
+  debug('cluster message received from worker ', worker, ': ', message);
   if (worker.topic && worker.data) {
     message = worker;
     worker = undefined;
   }
-  if (message && message.topic && message.topic === "log4js:message") {
-    debug("received message: ", message.data);
+  if (message && message.topic && message.topic === 'log4js:message') {
+    debug('received message: ', message.data);
     const logEvent = LoggingEvent.deserialise(message.data);
     sendToListeners(logEvent);
   }
 };
 
 if (!disabled) {
-  configuration.addListener(config => {
+  configuration.addListener((config) => {
     // clear out the listeners, because configure has been called.
     listeners.length = 0;
 
     ({
       pm2,
       disableClustering: disabled,
-      pm2InstanceVar = "NODE_APP_INSTANCE"
+      pm2InstanceVar = 'NODE_APP_INSTANCE',
     } = config);
 
     debug(`clustering disabled ? ${disabled}`);
@@ -9714,25 +9789,25 @@ if (!disabled) {
 
     // just in case configure is called after shutdown
     if (pm2) {
-      process.removeListener("message", receiver);
+      process.removeListener('message', receiver);
     }
     if (cluster && cluster.removeListener) {
-      cluster.removeListener("message", receiver);
+      cluster.removeListener('message', receiver);
     }
 
     if (disabled || config.disableClustering) {
-      debug("Not listening for cluster messages, because clustering disabled.");
+      debug('Not listening for cluster messages, because clustering disabled.');
     } else if (isPM2Master()) {
       // PM2 cluster support
       // PM2 runs everything as workers - install pm2-intercom for this to work.
       // we only want one of the app instances to write logs
-      debug("listening for PM2 broadcast messages");
-      process.on("message", receiver);
+      debug('listening for PM2 broadcast messages');
+      process.on('message', receiver);
     } else if (cluster && cluster.isMaster) {
-      debug("listening for cluster messages");
-      cluster.on("message", receiver);
+      debug('listening for cluster messages');
+      cluster.on('message', receiver);
     } else {
-      debug("not listening for messages, because we are not a master process");
+      debug('not listening for messages, because we are not a master process');
     }
   });
 }
@@ -9740,22 +9815,22 @@ if (!disabled) {
 module.exports = {
   onlyOnMaster: (fn, notMaster) => (isMaster() ? fn() : notMaster),
   isMaster,
-  send: msg => {
+  send: (msg) => {
     if (isMaster()) {
       sendToListeners(msg);
     } else {
       if (!pm2) {
         msg.cluster = {
           workerId: cluster.worker.id,
-          worker: process.pid
+          worker: process.pid,
         };
       }
-      process.send({ topic: "log4js:message", data: msg.serialise() });
+      process.send({ topic: 'log4js:message', data: msg.serialise() });
     }
   },
-  onMessage: listener => {
+  onMessage: (listener) => {
     listeners.push(listener);
-  }
+  },
 };
 
 
@@ -9765,25 +9840,39 @@ module.exports = {
 /* 268 */,
 /* 269 */,
 /* 270 */,
-/* 271 */
-/***/ (function(module) {
+/* 271 */,
+/* 272 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
+const path = __webpack_require__(622)
+
+// get drive on windows
+function getRootPath (p) {
+  p = path.normalize(path.resolve(p)).split(path.sep)
+  if (p.length > 0) return p[0]
+  return null
+}
+
+// http://stackoverflow.com/a/62888/10333 contains more accurate
+// TODO: expand to include the rest
+const INVALID_PATH_CHARS = /[<>:"|?*]/
+
+function invalidWin32Path (p) {
+  const rp = getRootPath(p)
+  p = p.replace(rp, '')
+  return INVALID_PATH_CHARS.test(p)
+}
+
+module.exports = {
+  getRootPath,
+  invalidWin32Path
+}
 
 
 /***/ }),
-/* 272 */,
 /* 273 */,
 /* 274 */,
 /* 275 */,
@@ -9936,7 +10025,42 @@ module.exports = ({
 /* 291 */,
 /* 292 */,
 /* 293 */,
-/* 294 */,
+/* 294 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StorageSelectorsMatchLabels = void 0;
+var StorageSelectorsMatchLabels = /** @class */ (function () {
+    function StorageSelectorsMatchLabels() {
+    }
+    StorageSelectorsMatchLabels.prototype.withSize = function (size) {
+        this['size'] = size;
+        return this;
+    };
+    StorageSelectorsMatchLabels.prototype.withVolumeType = function (volumeType) {
+        this['volumeType'] = volumeType;
+        return this;
+    };
+    StorageSelectorsMatchLabels.prototype.withMetadataEncrypted = function (metadataEncrypted) {
+        this['metadataEncrypted'] = metadataEncrypted;
+        return this;
+    };
+    StorageSelectorsMatchLabels.prototype.withMetadataCmkid = function (metadataCmkid) {
+        this['metadataCmkid'] = metadataCmkid;
+        return this;
+    };
+    StorageSelectorsMatchLabels.prototype.withCount = function (count) {
+        this['count'] = count;
+        return this;
+    };
+    return StorageSelectorsMatchLabels;
+}());
+exports.StorageSelectorsMatchLabels = StorageSelectorsMatchLabels;
+
+
+/***/ }),
 /* 295 */,
 /* 296 */,
 /* 297 */
@@ -10013,52 +10137,48 @@ module.exports = require("string_decoder");
 
 /***/ }),
 /* 305 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateNodePoolRequest = void 0;
-var CreateNodePoolRequest = /** @class */ (function () {
-    function CreateNodePoolRequest(contentType, clusterId) {
-        this['Content-Type'] = contentType;
-        this['cluster_id'] = clusterId;
+exports.ListAddonInstancesResponse = void 0;
+var SdkResponse_1 = __webpack_require__(261);
+var ListAddonInstancesResponse = /** @class */ (function (_super) {
+    __extends(ListAddonInstancesResponse, _super);
+    function ListAddonInstancesResponse() {
+        return _super.call(this) || this;
     }
-    CreateNodePoolRequest.prototype.withContentType = function (contentType) {
-        this['Content-Type'] = contentType;
+    ListAddonInstancesResponse.prototype.withKind = function (kind) {
+        this['kind'] = kind;
         return this;
     };
-    Object.defineProperty(CreateNodePoolRequest.prototype, "contentType", {
-        get: function () {
-            return this['Content-Type'];
-        },
-        set: function (contentType) {
-            this['Content-Type'] = contentType;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    CreateNodePoolRequest.prototype.withClusterId = function (clusterId) {
-        this['cluster_id'] = clusterId;
+    ListAddonInstancesResponse.prototype.withApiVersion = function (apiVersion) {
+        this['apiVersion'] = apiVersion;
         return this;
     };
-    Object.defineProperty(CreateNodePoolRequest.prototype, "clusterId", {
-        get: function () {
-            return this['cluster_id'];
-        },
-        set: function (clusterId) {
-            this['cluster_id'] = clusterId;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    CreateNodePoolRequest.prototype.withBody = function (body) {
-        this['body'] = body;
+    ListAddonInstancesResponse.prototype.withItems = function (items) {
+        this['items'] = items;
         return this;
     };
-    return CreateNodePoolRequest;
-}());
-exports.CreateNodePoolRequest = CreateNodePoolRequest;
+    return ListAddonInstancesResponse;
+}(SdkResponse_1.SdkResponse));
+exports.ListAddonInstancesResponse = ListAddonInstancesResponse;
 
 
 /***/ }),
@@ -10278,25 +10398,7 @@ exports.LVMConfig = LVMConfig;
 
 
 /***/ }),
-/* 322 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-const u = __webpack_require__(676).fromPromise
-const fs = __webpack_require__(869)
-
-function pathExists (path) {
-  return fs.access(path).then(() => true).catch(() => false)
-}
-
-module.exports = {
-  pathExists: u(pathExists),
-  pathExistsSync: fs.existsSync
-}
-
-
-/***/ }),
+/* 322 */,
 /* 323 */,
 /* 324 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -10506,7 +10608,25 @@ module.exports = createHttpsProxyAgent;
 /***/ }),
 /* 339 */,
 /* 340 */,
-/* 341 */,
+/* 341 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const jsonFile = __webpack_require__(666)
+
+module.exports = {
+  // jsonfile exports
+  readJson: u(jsonFile.readFile),
+  readJsonSync: jsonFile.readFileSync,
+  writeJson: u(jsonFile.writeFile),
+  writeJsonSync: jsonFile.writeFileSync
+}
+
+
+/***/ }),
 /* 342 */,
 /* 343 */,
 /* 344 */,
@@ -10802,7 +10922,62 @@ exports.MigrateNodeExtendParam = MigrateNodeExtendParam;
 
 
 /***/ }),
-/* 351 */,
+/* 351 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const path = __webpack_require__(622)
+const fs = __webpack_require__(598)
+const mkdir = __webpack_require__(419)
+const pathExists = __webpack_require__(887).pathExists
+
+function createFile (file, callback) {
+  function makeFile () {
+    fs.writeFile(file, '', err => {
+      if (err) return callback(err)
+      callback()
+    })
+  }
+
+  fs.stat(file, (err, stats) => { // eslint-disable-line handle-callback-err
+    if (!err && stats.isFile()) return callback()
+    const dir = path.dirname(file)
+    pathExists(dir, (err, dirExists) => {
+      if (err) return callback(err)
+      if (dirExists) return makeFile()
+      mkdir.mkdirs(dir, err => {
+        if (err) return callback(err)
+        makeFile()
+      })
+    })
+  })
+}
+
+function createFileSync (file) {
+  let stats
+  try {
+    stats = fs.statSync(file)
+  } catch (e) {}
+  if (stats && stats.isFile()) return
+
+  const dir = path.dirname(file)
+  if (!fs.existsSync(dir)) {
+    mkdir.mkdirsSync(dir)
+  }
+
+  fs.writeFileSync(file, '')
+}
+
+module.exports = {
+  createFile: u(createFile),
+  createFileSync
+}
+
+
+/***/ }),
 /* 352 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -10810,8 +10985,8 @@ exports.MigrateNodeExtendParam = MigrateNodeExtendParam;
 
 
 var utils = __webpack_require__(35);
-var bind = __webpack_require__(271);
-var Axios = __webpack_require__(874);
+var bind = __webpack_require__(727);
+var Axios = __webpack_require__(396);
 var mergeConfig = __webpack_require__(778);
 var defaults = __webpack_require__(529);
 
@@ -10866,20 +11041,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 353 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromCallback
-module.exports = {
-  move: u(__webpack_require__(500)),
-  moveSync: __webpack_require__(653)
-}
-
-
-/***/ }),
+/* 353 */,
 /* 354 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -10958,7 +11120,7 @@ var log4js_1 = __webpack_require__(692);
         },
     },
     categories: {
-        default: { appenders: ['dateFile', 'console'], level: 'debug', enableCallStack: true }
+        default: { appenders: ['console'], level: 'debug', enableCallStack: true }
     }
 });
 exports.Logger4jInstance = (0, log4js_1.getLogger)();
@@ -10977,7 +11139,7 @@ module.exports = require("assert");
 /* 361 */
 /***/ (function(module) {
 
-module.exports = {"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21.4","name":"axios","escapedName":"axios","rawSpec":"^0.21.4","saveSpec":null,"fetchSpec":"^0.21.4"},"_requiredBy":["/@huaweicloud/huaweicloud-sdk-core"],"_resolved":"https://maven.cloudartifact.lfg.dragon.tools.huawei.com/artifactory/api/npm/cbu-npm-public/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21.4","_where":"D:\\project\\依赖\\cce-credential-action\\node_modules\\@huaweicloud\\huaweicloud-sdk-core","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"};
+module.exports = {"_from":"axios@^0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21.4","name":"axios","escapedName":"axios","rawSpec":"^0.21.4","saveSpec":null,"fetchSpec":"^0.21.4"},"_requiredBy":["/@huaweicloud/huaweicloud-sdk-core"],"_resolved":"https://repo.cloudartifact.lfg.dragon.tools.huawei.com/artifactory/api/npm/cbu-npm-public/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21.4","_where":"D:\\Workspace\\VSCode\\Codehup\\Github Action\\cce-credential-action\\node_modules\\@huaweicloud\\huaweicloud-sdk-core","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"};
 
 /***/ }),
 /* 362 */,
@@ -11545,8 +11707,6 @@ exports.HttpRequestBuilder = HttpRequestBuilder;
 /* 384 */
 /***/ (function(__unusedmodule, exports) {
 
-
-
 function stdoutAppender(layout, timezoneOffset) {
   return (loggingEvent) => {
     process.stdout.write(`${layout(loggingEvent, timezoneOffset)}\n`);
@@ -11623,7 +11783,177 @@ exports.CreateCloudPersistentVolumeClaimsRequest = CreateCloudPersistentVolumeCl
 /***/ }),
 /* 388 */,
 /* 389 */,
-/* 390 */,
+/* 390 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const mkdirpSync = __webpack_require__(419).mkdirsSync
+const utimesSync = __webpack_require__(476).utimesMillisSync
+const stat = __webpack_require__(445)
+
+function copySync (src, dest, opts) {
+  if (typeof opts === 'function') {
+    opts = { filter: opts }
+  }
+
+  opts = opts || {}
+  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
+  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
+
+  // Warn about using preserveTimestamps on 32-bit node
+  if (opts.preserveTimestamps && process.arch === 'ia32') {
+    console.warn(`fs-extra: Using the preserveTimestamps option in 32-bit node is not recommended;\n
+    see https://github.com/jprichardson/node-fs-extra/issues/269`)
+  }
+
+  const { srcStat, destStat } = stat.checkPathsSync(src, dest, 'copy')
+  stat.checkParentPathsSync(src, srcStat, dest, 'copy')
+  return handleFilterAndCopy(destStat, src, dest, opts)
+}
+
+function handleFilterAndCopy (destStat, src, dest, opts) {
+  if (opts.filter && !opts.filter(src, dest)) return
+  const destParent = path.dirname(dest)
+  if (!fs.existsSync(destParent)) mkdirpSync(destParent)
+  return startCopy(destStat, src, dest, opts)
+}
+
+function startCopy (destStat, src, dest, opts) {
+  if (opts.filter && !opts.filter(src, dest)) return
+  return getStats(destStat, src, dest, opts)
+}
+
+function getStats (destStat, src, dest, opts) {
+  const statSync = opts.dereference ? fs.statSync : fs.lstatSync
+  const srcStat = statSync(src)
+
+  if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts)
+  else if (srcStat.isFile() ||
+           srcStat.isCharacterDevice() ||
+           srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts)
+  else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
+}
+
+function onFile (srcStat, destStat, src, dest, opts) {
+  if (!destStat) return copyFile(srcStat, src, dest, opts)
+  return mayCopyFile(srcStat, src, dest, opts)
+}
+
+function mayCopyFile (srcStat, src, dest, opts) {
+  if (opts.overwrite) {
+    fs.unlinkSync(dest)
+    return copyFile(srcStat, src, dest, opts)
+  } else if (opts.errorOnExist) {
+    throw new Error(`'${dest}' already exists`)
+  }
+}
+
+function copyFile (srcStat, src, dest, opts) {
+  if (typeof fs.copyFileSync === 'function') {
+    fs.copyFileSync(src, dest)
+    fs.chmodSync(dest, srcStat.mode)
+    if (opts.preserveTimestamps) {
+      return utimesSync(dest, srcStat.atime, srcStat.mtime)
+    }
+    return
+  }
+  return copyFileFallback(srcStat, src, dest, opts)
+}
+
+function copyFileFallback (srcStat, src, dest, opts) {
+  const BUF_LENGTH = 64 * 1024
+  const _buff = __webpack_require__(760)(BUF_LENGTH)
+
+  const fdr = fs.openSync(src, 'r')
+  const fdw = fs.openSync(dest, 'w', srcStat.mode)
+  let pos = 0
+
+  while (pos < srcStat.size) {
+    const bytesRead = fs.readSync(fdr, _buff, 0, BUF_LENGTH, pos)
+    fs.writeSync(fdw, _buff, 0, bytesRead)
+    pos += bytesRead
+  }
+
+  if (opts.preserveTimestamps) fs.futimesSync(fdw, srcStat.atime, srcStat.mtime)
+
+  fs.closeSync(fdr)
+  fs.closeSync(fdw)
+}
+
+function onDir (srcStat, destStat, src, dest, opts) {
+  if (!destStat) return mkDirAndCopy(srcStat, src, dest, opts)
+  if (destStat && !destStat.isDirectory()) {
+    throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
+  }
+  return copyDir(src, dest, opts)
+}
+
+function mkDirAndCopy (srcStat, src, dest, opts) {
+  fs.mkdirSync(dest)
+  copyDir(src, dest, opts)
+  return fs.chmodSync(dest, srcStat.mode)
+}
+
+function copyDir (src, dest, opts) {
+  fs.readdirSync(src).forEach(item => copyDirItem(item, src, dest, opts))
+}
+
+function copyDirItem (item, src, dest, opts) {
+  const srcItem = path.join(src, item)
+  const destItem = path.join(dest, item)
+  const { destStat } = stat.checkPathsSync(srcItem, destItem, 'copy')
+  return startCopy(destStat, srcItem, destItem, opts)
+}
+
+function onLink (destStat, src, dest, opts) {
+  let resolvedSrc = fs.readlinkSync(src)
+  if (opts.dereference) {
+    resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
+  }
+
+  if (!destStat) {
+    return fs.symlinkSync(resolvedSrc, dest)
+  } else {
+    let resolvedDest
+    try {
+      resolvedDest = fs.readlinkSync(dest)
+    } catch (err) {
+      // dest exists and is a regular file or directory,
+      // Windows may throw UNKNOWN error. If dest already exists,
+      // fs throws error anyway, so no need to guard against it here.
+      if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlinkSync(resolvedSrc, dest)
+      throw err
+    }
+    if (opts.dereference) {
+      resolvedDest = path.resolve(process.cwd(), resolvedDest)
+    }
+    if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+      throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
+    }
+
+    // prevent copy if src is a subdir of dest since unlinking
+    // dest in this case would result in removing src contents
+    // and therefore a broken symlink would be created.
+    if (fs.statSync(dest).isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+      throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
+    }
+    return copyLink(resolvedSrc, dest)
+  }
+}
+
+function copyLink (resolvedSrc, dest) {
+  fs.unlinkSync(dest)
+  return fs.symlinkSync(resolvedSrc, dest)
+}
+
+module.exports = copySync
+
+
+/***/ }),
 /* 391 */,
 /* 392 */,
 /* 393 */,
@@ -11678,7 +12008,161 @@ exports.ResetNodeRequest = ResetNodeRequest;
 
 
 /***/ }),
-/* 396 */,
+/* 396 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(35);
+var buildURL = __webpack_require__(133);
+var InterceptorManager = __webpack_require__(283);
+var dispatchRequest = __webpack_require__(946);
+var mergeConfig = __webpack_require__(778);
+var validator = __webpack_require__(106);
+
+var validators = validator.validators;
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config);
+
+  // Set config.method
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
+  }
+
+  var transitional = config.transitional;
+
+  if (transitional !== undefined) {
+    validator.assertOptions(transitional, {
+      silentJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
+      forcedJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
+      clarifyTimeoutError: validators.transitional(validators.boolean, '1.0.0')
+    }, false);
+  }
+
+  // filter out skipped interceptors
+  var requestInterceptorChain = [];
+  var synchronousRequestInterceptors = true;
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
+      return;
+    }
+
+    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+
+    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  var responseInterceptorChain = [];
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  var promise;
+
+  if (!synchronousRequestInterceptors) {
+    var chain = [dispatchRequest, undefined];
+
+    Array.prototype.unshift.apply(chain, requestInterceptorChain);
+    chain = chain.concat(responseInterceptorChain);
+
+    promise = Promise.resolve(config);
+    while (chain.length) {
+      promise = promise.then(chain.shift(), chain.shift());
+    }
+
+    return promise;
+  }
+
+
+  var newConfig = config;
+  while (requestInterceptorChain.length) {
+    var onFulfilled = requestInterceptorChain.shift();
+    var onRejected = requestInterceptorChain.shift();
+    try {
+      newConfig = onFulfilled(newConfig);
+    } catch (error) {
+      onRejected(error);
+      break;
+    }
+  }
+
+  try {
+    promise = dispatchRequest(newConfig);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+
+  while (responseInterceptorChain.length) {
+    promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: (config || {}).data
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
 /* 397 */,
 /* 398 */,
 /* 399 */,
@@ -11706,7 +12190,76 @@ exports.RuntimeConfig = RuntimeConfig;
 
 
 /***/ }),
-/* 404 */,
+/* 404 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const invalidWin32Path = __webpack_require__(272).invalidWin32Path
+
+const o777 = parseInt('0777', 8)
+
+function mkdirs (p, opts, callback, made) {
+  if (typeof opts === 'function') {
+    callback = opts
+    opts = {}
+  } else if (!opts || typeof opts !== 'object') {
+    opts = { mode: opts }
+  }
+
+  if (process.platform === 'win32' && invalidWin32Path(p)) {
+    const errInval = new Error(p + ' contains invalid WIN32 path characters.')
+    errInval.code = 'EINVAL'
+    return callback(errInval)
+  }
+
+  let mode = opts.mode
+  const xfs = opts.fs || fs
+
+  if (mode === undefined) {
+    mode = o777 & (~process.umask())
+  }
+  if (!made) made = null
+
+  callback = callback || function () {}
+  p = path.resolve(p)
+
+  xfs.mkdir(p, mode, er => {
+    if (!er) {
+      made = made || p
+      return callback(null, made)
+    }
+    switch (er.code) {
+      case 'ENOENT':
+        if (path.dirname(p) === p) return callback(er)
+        mkdirs(path.dirname(p), opts, (er, made) => {
+          if (er) callback(er, made)
+          else mkdirs(p, opts, callback, made)
+        })
+        break
+
+      // In the case of any other error, just see if there's a dir
+      // there already.  If so, then hooray!  If not, then something
+      // is borked.
+      default:
+        xfs.stat(p, (er2, stat) => {
+          // if the stat fails, then that's super weird.
+          // let the original error be the failure reason.
+          if (er2 || !stat.isDirectory()) callback(er, made)
+          else callback(null, made)
+        })
+        break
+    }
+  })
+}
+
+module.exports = mkdirs
+
+
+/***/ }),
 /* 405 */,
 /* 406 */,
 /* 407 */,
@@ -12048,7 +12601,27 @@ exports.PersistentVolumeClaimMetadata = PersistentVolumeClaimMetadata;
 
 
 /***/ }),
-/* 419 */,
+/* 419 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+const u = __webpack_require__(676).fromCallback
+const mkdirs = u(__webpack_require__(404))
+const mkdirsSync = __webpack_require__(999)
+
+module.exports = {
+  mkdirs,
+  mkdirsSync,
+  // alias
+  mkdirp: mkdirs,
+  mkdirpSync: mkdirsSync,
+  ensureDir: mkdirs,
+  ensureDirSync: mkdirsSync
+}
+
+
+/***/ }),
 /* 420 */,
 /* 421 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -12103,16 +12676,16 @@ __exportStar(__webpack_require__(886), exports);
 __exportStar(__webpack_require__(606), exports);
 __exportStar(__webpack_require__(20), exports);
 __exportStar(__webpack_require__(387), exports);
-__exportStar(__webpack_require__(945), exports);
+__exportStar(__webpack_require__(54), exports);
 __exportStar(__webpack_require__(584), exports);
 __exportStar(__webpack_require__(237), exports);
 __exportStar(__webpack_require__(38), exports);
 __exportStar(__webpack_require__(936), exports);
-__exportStar(__webpack_require__(305), exports);
+__exportStar(__webpack_require__(522), exports);
 __exportStar(__webpack_require__(985), exports);
 __exportStar(__webpack_require__(224), exports);
 __exportStar(__webpack_require__(51), exports);
-__exportStar(__webpack_require__(689), exports);
+__exportStar(__webpack_require__(830), exports);
 __exportStar(__webpack_require__(310), exports);
 __exportStar(__webpack_require__(839), exports);
 __exportStar(__webpack_require__(337), exports);
@@ -12124,7 +12697,7 @@ __exportStar(__webpack_require__(896), exports);
 __exportStar(__webpack_require__(952), exports);
 __exportStar(__webpack_require__(664), exports);
 __exportStar(__webpack_require__(668), exports);
-__exportStar(__webpack_require__(43), exports);
+__exportStar(__webpack_require__(869), exports);
 __exportStar(__webpack_require__(973), exports);
 __exportStar(__webpack_require__(630), exports);
 __exportStar(__webpack_require__(718), exports);
@@ -12136,10 +12709,10 @@ __exportStar(__webpack_require__(587), exports);
 __exportStar(__webpack_require__(882), exports);
 __exportStar(__webpack_require__(321), exports);
 __exportStar(__webpack_require__(572), exports);
-__exportStar(__webpack_require__(497), exports);
+__exportStar(__webpack_require__(305), exports);
 __exportStar(__webpack_require__(720), exports);
 __exportStar(__webpack_require__(183), exports);
-__exportStar(__webpack_require__(600), exports);
+__exportStar(__webpack_require__(781), exports);
 __exportStar(__webpack_require__(913), exports);
 __exportStar(__webpack_require__(937), exports);
 __exportStar(__webpack_require__(142), exports);
@@ -12157,16 +12730,16 @@ __exportStar(__webpack_require__(914), exports);
 __exportStar(__webpack_require__(935), exports);
 __exportStar(__webpack_require__(940), exports);
 __exportStar(__webpack_require__(836), exports);
-__exportStar(__webpack_require__(445), exports);
+__exportStar(__webpack_require__(98), exports);
 __exportStar(__webpack_require__(481), exports);
-__exportStar(__webpack_require__(757), exports);
+__exportStar(__webpack_require__(186), exports);
 __exportStar(__webpack_require__(821), exports);
 __exportStar(__webpack_require__(931), exports);
 __exportStar(__webpack_require__(234), exports);
 __exportStar(__webpack_require__(959), exports);
-__exportStar(__webpack_require__(740), exports);
+__exportStar(__webpack_require__(975), exports);
 __exportStar(__webpack_require__(45), exports);
-__exportStar(__webpack_require__(570), exports);
+__exportStar(__webpack_require__(472), exports);
 __exportStar(__webpack_require__(264), exports);
 __exportStar(__webpack_require__(893), exports);
 __exportStar(__webpack_require__(532), exports);
@@ -12175,7 +12748,7 @@ __exportStar(__webpack_require__(850), exports);
 __exportStar(__webpack_require__(682), exports);
 __exportStar(__webpack_require__(168), exports);
 __exportStar(__webpack_require__(311), exports);
-__exportStar(__webpack_require__(239), exports);
+__exportStar(__webpack_require__(243), exports);
 __exportStar(__webpack_require__(69), exports);
 __exportStar(__webpack_require__(943), exports);
 __exportStar(__webpack_require__(39), exports);
@@ -12218,7 +12791,7 @@ __exportStar(__webpack_require__(324), exports);
 __exportStar(__webpack_require__(233), exports);
 __exportStar(__webpack_require__(917), exports);
 __exportStar(__webpack_require__(236), exports);
-__exportStar(__webpack_require__(66), exports);
+__exportStar(__webpack_require__(294), exports);
 __exportStar(__webpack_require__(671), exports);
 __exportStar(__webpack_require__(7), exports);
 __exportStar(__webpack_require__(543), exports);
@@ -12232,8 +12805,8 @@ __exportStar(__webpack_require__(831), exports);
 __exportStar(__webpack_require__(435), exports);
 __exportStar(__webpack_require__(123), exports);
 __exportStar(__webpack_require__(8), exports);
-__exportStar(__webpack_require__(781), exports);
-__exportStar(__webpack_require__(644), exports);
+__exportStar(__webpack_require__(194), exports);
+__exportStar(__webpack_require__(595), exports);
 __exportStar(__webpack_require__(101), exports);
 __exportStar(__webpack_require__(674), exports);
 __exportStar(__webpack_require__(555), exports);
@@ -12863,37 +13436,181 @@ exports.ServiceResponseException = ServiceResponseException;
 
 /***/ }),
 /* 445 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NodeCreateRequest = void 0;
-var NodeCreateRequest = /** @class */ (function () {
-    function NodeCreateRequest(kind, apiVersion, spec) {
-        this['kind'] = kind;
-        this['apiVersion'] = apiVersion;
-        this['spec'] = spec;
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+
+const NODE_VERSION_MAJOR_WITH_BIGINT = 10
+const NODE_VERSION_MINOR_WITH_BIGINT = 5
+const NODE_VERSION_PATCH_WITH_BIGINT = 0
+const nodeVersion = process.versions.node.split('.')
+const nodeVersionMajor = Number.parseInt(nodeVersion[0], 10)
+const nodeVersionMinor = Number.parseInt(nodeVersion[1], 10)
+const nodeVersionPatch = Number.parseInt(nodeVersion[2], 10)
+
+function nodeSupportsBigInt () {
+  if (nodeVersionMajor > NODE_VERSION_MAJOR_WITH_BIGINT) {
+    return true
+  } else if (nodeVersionMajor === NODE_VERSION_MAJOR_WITH_BIGINT) {
+    if (nodeVersionMinor > NODE_VERSION_MINOR_WITH_BIGINT) {
+      return true
+    } else if (nodeVersionMinor === NODE_VERSION_MINOR_WITH_BIGINT) {
+      if (nodeVersionPatch >= NODE_VERSION_PATCH_WITH_BIGINT) {
+        return true
+      }
     }
-    NodeCreateRequest.prototype.withKind = function (kind) {
-        this['kind'] = kind;
-        return this;
-    };
-    NodeCreateRequest.prototype.withApiVersion = function (apiVersion) {
-        this['apiVersion'] = apiVersion;
-        return this;
-    };
-    NodeCreateRequest.prototype.withMetadata = function (metadata) {
-        this['metadata'] = metadata;
-        return this;
-    };
-    NodeCreateRequest.prototype.withSpec = function (spec) {
-        this['spec'] = spec;
-        return this;
-    };
-    return NodeCreateRequest;
-}());
-exports.NodeCreateRequest = NodeCreateRequest;
+  }
+  return false
+}
+
+function getStats (src, dest, cb) {
+  if (nodeSupportsBigInt()) {
+    fs.stat(src, { bigint: true }, (err, srcStat) => {
+      if (err) return cb(err)
+      fs.stat(dest, { bigint: true }, (err, destStat) => {
+        if (err) {
+          if (err.code === 'ENOENT') return cb(null, { srcStat, destStat: null })
+          return cb(err)
+        }
+        return cb(null, { srcStat, destStat })
+      })
+    })
+  } else {
+    fs.stat(src, (err, srcStat) => {
+      if (err) return cb(err)
+      fs.stat(dest, (err, destStat) => {
+        if (err) {
+          if (err.code === 'ENOENT') return cb(null, { srcStat, destStat: null })
+          return cb(err)
+        }
+        return cb(null, { srcStat, destStat })
+      })
+    })
+  }
+}
+
+function getStatsSync (src, dest) {
+  let srcStat, destStat
+  if (nodeSupportsBigInt()) {
+    srcStat = fs.statSync(src, { bigint: true })
+  } else {
+    srcStat = fs.statSync(src)
+  }
+  try {
+    if (nodeSupportsBigInt()) {
+      destStat = fs.statSync(dest, { bigint: true })
+    } else {
+      destStat = fs.statSync(dest)
+    }
+  } catch (err) {
+    if (err.code === 'ENOENT') return { srcStat, destStat: null }
+    throw err
+  }
+  return { srcStat, destStat }
+}
+
+function checkPaths (src, dest, funcName, cb) {
+  getStats(src, dest, (err, stats) => {
+    if (err) return cb(err)
+    const { srcStat, destStat } = stats
+    if (destStat && destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
+      return cb(new Error('Source and destination must not be the same.'))
+    }
+    if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
+      return cb(new Error(errMsg(src, dest, funcName)))
+    }
+    return cb(null, { srcStat, destStat })
+  })
+}
+
+function checkPathsSync (src, dest, funcName) {
+  const { srcStat, destStat } = getStatsSync(src, dest)
+  if (destStat && destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
+    throw new Error('Source and destination must not be the same.')
+  }
+  if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
+    throw new Error(errMsg(src, dest, funcName))
+  }
+  return { srcStat, destStat }
+}
+
+// recursively check if dest parent is a subdirectory of src.
+// It works for all file types including symlinks since it
+// checks the src and dest inodes. It starts from the deepest
+// parent and stops once it reaches the src parent or the root path.
+function checkParentPaths (src, srcStat, dest, funcName, cb) {
+  const srcParent = path.resolve(path.dirname(src))
+  const destParent = path.resolve(path.dirname(dest))
+  if (destParent === srcParent || destParent === path.parse(destParent).root) return cb()
+  if (nodeSupportsBigInt()) {
+    fs.stat(destParent, { bigint: true }, (err, destStat) => {
+      if (err) {
+        if (err.code === 'ENOENT') return cb()
+        return cb(err)
+      }
+      if (destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
+        return cb(new Error(errMsg(src, dest, funcName)))
+      }
+      return checkParentPaths(src, srcStat, destParent, funcName, cb)
+    })
+  } else {
+    fs.stat(destParent, (err, destStat) => {
+      if (err) {
+        if (err.code === 'ENOENT') return cb()
+        return cb(err)
+      }
+      if (destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
+        return cb(new Error(errMsg(src, dest, funcName)))
+      }
+      return checkParentPaths(src, srcStat, destParent, funcName, cb)
+    })
+  }
+}
+
+function checkParentPathsSync (src, srcStat, dest, funcName) {
+  const srcParent = path.resolve(path.dirname(src))
+  const destParent = path.resolve(path.dirname(dest))
+  if (destParent === srcParent || destParent === path.parse(destParent).root) return
+  let destStat
+  try {
+    if (nodeSupportsBigInt()) {
+      destStat = fs.statSync(destParent, { bigint: true })
+    } else {
+      destStat = fs.statSync(destParent)
+    }
+  } catch (err) {
+    if (err.code === 'ENOENT') return
+    throw err
+  }
+  if (destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
+    throw new Error(errMsg(src, dest, funcName))
+  }
+  return checkParentPathsSync(src, srcStat, destParent, funcName)
+}
+
+// return true if dest is a subdir of src, otherwise false.
+// It only checks the path strings.
+function isSrcSubdir (src, dest) {
+  const srcArr = path.resolve(src).split(path.sep).filter(i => i)
+  const destArr = path.resolve(dest).split(path.sep).filter(i => i)
+  return srcArr.reduce((acc, cur, i) => acc && destArr[i] === cur, true)
+}
+
+function errMsg (src, dest, funcName) {
+  return `Cannot ${funcName} '${src}' to a subdirectory of itself, '${dest}'.`
+}
+
+module.exports = {
+  checkPaths,
+  checkPathsSync,
+  checkParentPaths,
+  checkParentPathsSync,
+  isSrcSubdir
+}
 
 
 /***/ }),
@@ -12968,7 +13685,61 @@ exports.MigrateNodeRequest = MigrateNodeRequest;
 /***/ }),
 /* 451 */,
 /* 452 */,
-/* 453 */,
+/* 453 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const mkdir = __webpack_require__(419)
+const remove = __webpack_require__(593)
+
+const emptyDir = u(function emptyDir (dir, callback) {
+  callback = callback || function () {}
+  fs.readdir(dir, (err, items) => {
+    if (err) return mkdir.mkdirs(dir, callback)
+
+    items = items.map(item => path.join(dir, item))
+
+    deleteItem()
+
+    function deleteItem () {
+      const item = items.pop()
+      if (!item) return callback()
+      remove.remove(item, err => {
+        if (err) return callback(err)
+        deleteItem()
+      })
+    }
+  })
+})
+
+function emptyDirSync (dir) {
+  let items
+  try {
+    items = fs.readdirSync(dir)
+  } catch (err) {
+    return mkdir.mkdirsSync(dir)
+  }
+
+  items.forEach(item => {
+    item = path.join(dir, item)
+    remove.removeSync(item)
+  })
+}
+
+module.exports = {
+  emptyDirSync,
+  emptydirSync: emptyDirSync,
+  emptyDir,
+  emptydir: emptyDir
+}
+
+
+/***/ }),
 /* 454 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -13197,7 +13968,7 @@ var DefaultHttpClient = /** @class */ (function () {
     };
     DefaultHttpClient.prototype._request = function (httpRequest) {
         return __awaiter(this, void 0, void 0, function () {
-            var endpoint, queryParams, method, data, headers, url, requestParams, methods, res;
+            var endpoint, queryParams, method, data, headers, url, customUserAgent, requestParams, methods, res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -13206,7 +13977,15 @@ var DefaultHttpClient = /** @class */ (function () {
                         this.logger.debug("send request start: ".concat(endpoint, " "));
                         url = endpoint;
                         url = stripTrailingSlash(url);
-                        headers['User-Agent'] = "huaweicloud-usdk-nodejs/3.0";
+                        if (this.defaultOption.headers) {
+                            customUserAgent = this.defaultOption.headers['User-Agent'];
+                            if (customUserAgent) {
+                                headers['User-Agent'] = ["huaweicloud-usdk-nodejs/3.0", customUserAgent].join(" ");
+                            }
+                            else {
+                                headers['User-Agent'] = "huaweicloud-usdk-nodejs/3.0";
+                            }
+                        }
                         requestParams = {
                             url: url,
                             method: method,
@@ -13290,24 +14069,7 @@ function stripTrailingSlash(url) {
 /* 466 */,
 /* 467 */,
 /* 468 */,
-/* 469 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const jsonFile = __webpack_require__(666)
-
-module.exports = {
-  // jsonfile exports
-  readJson: jsonFile.readFile,
-  readJsonSync: jsonFile.readFileSync,
-  writeJson: jsonFile.writeFile,
-  writeJsonSync: jsonFile.writeFileSync
-}
-
-
-/***/ }),
+/* 469 */,
 /* 470 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -13645,32 +14407,42 @@ Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: functi
 /***/ }),
 /* 471 */,
 /* 472 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
-
-const { createFile, createFileSync } = __webpack_require__(149)
-const { createLink, createLinkSync } = __webpack_require__(522)
-const { createSymlink, createSymlinkSync } = __webpack_require__(849)
-
-module.exports = {
-  // file
-  createFile,
-  createFileSync,
-  ensureFile: createFile,
-  ensureFileSync: createFileSync,
-  // link
-  createLink,
-  createLinkSync,
-  ensureLink: createLink,
-  ensureLinkSync: createLinkSync,
-  // symlink
-  createSymlink,
-  createSymlinkSync,
-  ensureSymlink: createSymlink,
-  ensureSymlinkSync: createSymlinkSync
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodePoolCondition = void 0;
+var NodePoolCondition = /** @class */ (function () {
+    function NodePoolCondition() {
+    }
+    NodePoolCondition.prototype.withType = function (type) {
+        this['type'] = type;
+        return this;
+    };
+    NodePoolCondition.prototype.withStatus = function (status) {
+        this['status'] = status;
+        return this;
+    };
+    NodePoolCondition.prototype.withLastProbeTime = function (lastProbeTime) {
+        this['lastProbeTime'] = lastProbeTime;
+        return this;
+    };
+    NodePoolCondition.prototype.withLastTransitTime = function (lastTransitTime) {
+        this['lastTransitTime'] = lastTransitTime;
+        return this;
+    };
+    NodePoolCondition.prototype.withReason = function (reason) {
+        this['reason'] = reason;
+        return this;
+    };
+    NodePoolCondition.prototype.withMessage = function (message) {
+        this['message'] = message;
+        return this;
+    };
+    return NodePoolCondition;
+}());
+exports.NodePoolCondition = NodePoolCondition;
 
 
 /***/ }),
@@ -13714,337 +14486,95 @@ exports.Metadata = Metadata;
 
 
 /***/ }),
-/* 474 */
+/* 474 */,
+/* 475 */,
+/* 476 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
 
 const fs = __webpack_require__(598)
+const os = __webpack_require__(87)
 const path = __webpack_require__(622)
-const assert = __webpack_require__(357)
 
-const isWindows = (process.platform === 'win32')
+// HFS, ext{2,3}, FAT do not, Node.js v0.10 does not
+function hasMillisResSync () {
+  let tmpfile = path.join('millis-test-sync' + Date.now().toString() + Math.random().toString().slice(2))
+  tmpfile = path.join(os.tmpdir(), tmpfile)
 
-function defaults (options) {
-  const methods = [
-    'unlink',
-    'chmod',
-    'stat',
-    'lstat',
-    'rmdir',
-    'readdir'
-  ]
-  methods.forEach(m => {
-    options[m] = options[m] || fs[m]
-    m = m + 'Sync'
-    options[m] = options[m] || fs[m]
-  })
-
-  options.maxBusyTries = options.maxBusyTries || 3
+  // 550 millis past UNIX epoch
+  const d = new Date(1435410243862)
+  fs.writeFileSync(tmpfile, 'https://github.com/jprichardson/node-fs-extra/pull/141')
+  const fd = fs.openSync(tmpfile, 'r+')
+  fs.futimesSync(fd, d, d)
+  fs.closeSync(fd)
+  return fs.statSync(tmpfile).mtime > 1435410243000
 }
 
-function rimraf (p, options, cb) {
-  let busyTries = 0
+function hasMillisRes (callback) {
+  let tmpfile = path.join('millis-test' + Date.now().toString() + Math.random().toString().slice(2))
+  tmpfile = path.join(os.tmpdir(), tmpfile)
 
-  if (typeof options === 'function') {
-    cb = options
-    options = {}
-  }
-
-  assert(p, 'rimraf: missing path')
-  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
-  assert.strictEqual(typeof cb, 'function', 'rimraf: callback function required')
-  assert(options, 'rimraf: invalid options argument provided')
-  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
-
-  defaults(options)
-
-  rimraf_(p, options, function CB (er) {
-    if (er) {
-      if ((er.code === 'EBUSY' || er.code === 'ENOTEMPTY' || er.code === 'EPERM') &&
-          busyTries < options.maxBusyTries) {
-        busyTries++
-        const time = busyTries * 100
-        // try again, with the same exact callback as this one.
-        return setTimeout(() => rimraf_(p, options, CB), time)
-      }
-
-      // already gone
-      if (er.code === 'ENOENT') er = null
-    }
-
-    cb(er)
-  })
-}
-
-// Two possible strategies.
-// 1. Assume it's a file.  unlink it, then do the dir stuff on EPERM or EISDIR
-// 2. Assume it's a directory.  readdir, then do the file stuff on ENOTDIR
-//
-// Both result in an extra syscall when you guess wrong.  However, there
-// are likely far more normal files in the world than directories.  This
-// is based on the assumption that a the average number of files per
-// directory is >= 1.
-//
-// If anyone ever complains about this, then I guess the strategy could
-// be made configurable somehow.  But until then, YAGNI.
-function rimraf_ (p, options, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  // sunos lets the root user unlink directories, which is... weird.
-  // so we have to lstat here and make sure it's not a dir.
-  options.lstat(p, (er, st) => {
-    if (er && er.code === 'ENOENT') {
-      return cb(null)
-    }
-
-    // Windows can EPERM on stat.  Life is suffering.
-    if (er && er.code === 'EPERM' && isWindows) {
-      return fixWinEPERM(p, options, er, cb)
-    }
-
-    if (st && st.isDirectory()) {
-      return rmdir(p, options, er, cb)
-    }
-
-    options.unlink(p, er => {
-      if (er) {
-        if (er.code === 'ENOENT') {
-          return cb(null)
-        }
-        if (er.code === 'EPERM') {
-          return (isWindows)
-            ? fixWinEPERM(p, options, er, cb)
-            : rmdir(p, options, er, cb)
-        }
-        if (er.code === 'EISDIR') {
-          return rmdir(p, options, er, cb)
-        }
-      }
-      return cb(er)
-    })
-  })
-}
-
-function fixWinEPERM (p, options, er, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  options.chmod(p, 0o666, er2 => {
-    if (er2) {
-      cb(er2.code === 'ENOENT' ? null : er)
-    } else {
-      options.stat(p, (er3, stats) => {
-        if (er3) {
-          cb(er3.code === 'ENOENT' ? null : er)
-        } else if (stats.isDirectory()) {
-          rmdir(p, options, er, cb)
-        } else {
-          options.unlink(p, cb)
-        }
-      })
-    }
-  })
-}
-
-function fixWinEPERMSync (p, options, er) {
-  let stats
-
-  assert(p)
-  assert(options)
-
-  try {
-    options.chmodSync(p, 0o666)
-  } catch (er2) {
-    if (er2.code === 'ENOENT') {
-      return
-    } else {
-      throw er
-    }
-  }
-
-  try {
-    stats = options.statSync(p)
-  } catch (er3) {
-    if (er3.code === 'ENOENT') {
-      return
-    } else {
-      throw er
-    }
-  }
-
-  if (stats.isDirectory()) {
-    rmdirSync(p, options, er)
-  } else {
-    options.unlinkSync(p)
-  }
-}
-
-function rmdir (p, options, originalEr, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  // try to rmdir first, and only readdir on ENOTEMPTY or EEXIST (SunOS)
-  // if we guessed wrong, and it's not a directory, then
-  // raise the original error.
-  options.rmdir(p, er => {
-    if (er && (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM')) {
-      rmkids(p, options, cb)
-    } else if (er && er.code === 'ENOTDIR') {
-      cb(originalEr)
-    } else {
-      cb(er)
-    }
-  })
-}
-
-function rmkids (p, options, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  options.readdir(p, (er, files) => {
-    if (er) return cb(er)
-
-    let n = files.length
-    let errState
-
-    if (n === 0) return options.rmdir(p, cb)
-
-    files.forEach(f => {
-      rimraf(path.join(p, f), options, er => {
-        if (errState) {
-          return
-        }
-        if (er) return cb(errState = er)
-        if (--n === 0) {
-          options.rmdir(p, cb)
-        }
+  // 550 millis past UNIX epoch
+  const d = new Date(1435410243862)
+  fs.writeFile(tmpfile, 'https://github.com/jprichardson/node-fs-extra/pull/141', err => {
+    if (err) return callback(err)
+    fs.open(tmpfile, 'r+', (err, fd) => {
+      if (err) return callback(err)
+      fs.futimes(fd, d, d, err => {
+        if (err) return callback(err)
+        fs.close(fd, err => {
+          if (err) return callback(err)
+          fs.stat(tmpfile, (err, stats) => {
+            if (err) return callback(err)
+            callback(null, stats.mtime > 1435410243000)
+          })
+        })
       })
     })
   })
 }
 
-// this looks simpler, and is strictly *faster*, but will
-// tie up the JavaScript thread and fail on excessively
-// deep directory trees.
-function rimrafSync (p, options) {
-  let st
-
-  options = options || {}
-  defaults(options)
-
-  assert(p, 'rimraf: missing path')
-  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
-  assert(options, 'rimraf: missing options')
-  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
-
-  try {
-    st = options.lstatSync(p)
-  } catch (er) {
-    if (er.code === 'ENOENT') {
-      return
-    }
-
-    // Windows can EPERM on stat.  Life is suffering.
-    if (er.code === 'EPERM' && isWindows) {
-      fixWinEPERMSync(p, options, er)
-    }
-  }
-
-  try {
-    // sunos lets the root user unlink directories, which is... weird.
-    if (st && st.isDirectory()) {
-      rmdirSync(p, options, null)
-    } else {
-      options.unlinkSync(p)
-    }
-  } catch (er) {
-    if (er.code === 'ENOENT') {
-      return
-    } else if (er.code === 'EPERM') {
-      return isWindows ? fixWinEPERMSync(p, options, er) : rmdirSync(p, options, er)
-    } else if (er.code !== 'EISDIR') {
-      throw er
-    }
-    rmdirSync(p, options, er)
-  }
-}
-
-function rmdirSync (p, options, originalEr) {
-  assert(p)
-  assert(options)
-
-  try {
-    options.rmdirSync(p)
-  } catch (er) {
-    if (er.code === 'ENOTDIR') {
-      throw originalEr
-    } else if (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM') {
-      rmkidsSync(p, options)
-    } else if (er.code !== 'ENOENT') {
-      throw er
-    }
-  }
-}
-
-function rmkidsSync (p, options) {
-  assert(p)
-  assert(options)
-  options.readdirSync(p).forEach(f => rimrafSync(path.join(p, f), options))
-
-  if (isWindows) {
-    // We only end up here once we got ENOTEMPTY at least once, and
-    // at this point, we are guaranteed to have removed all the kids.
-    // So, we know that it won't be ENOENT or ENOTDIR or anything else.
-    // try really hard to delete stuff on windows, because it has a
-    // PROFOUNDLY annoying habit of not closing handles promptly when
-    // files are deleted, resulting in spurious ENOTEMPTY errors.
-    const startTime = Date.now()
-    do {
-      try {
-        const ret = options.rmdirSync(p, options)
-        return ret
-      } catch {}
-    } while (Date.now() - startTime < 500) // give up after 500ms
+function timeRemoveMillis (timestamp) {
+  if (typeof timestamp === 'number') {
+    return Math.floor(timestamp / 1000) * 1000
+  } else if (timestamp instanceof Date) {
+    return new Date(Math.floor(timestamp.getTime() / 1000) * 1000)
   } else {
-    const ret = options.rmdirSync(p, options)
-    return ret
+    throw new Error('fs-extra: timeRemoveMillis() unknown parameter type')
   }
 }
 
-module.exports = rimraf
-rimraf.sync = rimrafSync
+function utimesMillis (path, atime, mtime, callback) {
+  // if (!HAS_MILLIS_RES) return fs.utimes(path, atime, mtime, callback)
+  fs.open(path, 'r+', (err, fd) => {
+    if (err) return callback(err)
+    fs.futimes(fd, atime, mtime, futimesErr => {
+      fs.close(fd, closeErr => {
+        if (callback) callback(futimesErr || closeErr)
+      })
+    })
+  })
+}
+
+function utimesMillisSync (path, atime, mtime) {
+  const fd = fs.openSync(path, 'r+')
+  fs.futimesSync(fd, atime, mtime)
+  return fs.closeSync(fd)
+}
+
+module.exports = {
+  hasMillisRes,
+  hasMillisResSync,
+  timeRemoveMillis,
+  utimesMillis,
+  utimesMillisSync
+}
 
 
 /***/ }),
-/* 475 */,
-/* 476 */,
-/* 477 */
-/***/ (function(module) {
-
-function stringify (obj, { EOL = '\n', finalEOL = true, replacer = null, spaces } = {}) {
-  const EOF = finalEOL ? EOL : ''
-  const str = JSON.stringify(obj, replacer, spaces)
-
-  return str.replace(/\n/g, EOL) + EOF
-}
-
-function stripBom (content) {
-  // we do this because JSON.parse would convert it to a utf8 string if encoding wasn't specified
-  if (Buffer.isBuffer(content)) content = content.toString('utf8')
-  return content.replace(/^\uFEFF/, '')
-}
-
-module.exports = { stringify, stripBom }
-
-
-/***/ }),
+/* 477 */,
 /* 478 */,
 /* 479 */,
 /* 480 */,
@@ -14471,136 +15001,10 @@ module.exports = setup;
 /* 494 */,
 /* 495 */,
 /* 496 */,
-/* 497 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListAddonInstancesResponse = void 0;
-var SdkResponse_1 = __webpack_require__(261);
-var ListAddonInstancesResponse = /** @class */ (function (_super) {
-    __extends(ListAddonInstancesResponse, _super);
-    function ListAddonInstancesResponse() {
-        return _super.call(this) || this;
-    }
-    ListAddonInstancesResponse.prototype.withKind = function (kind) {
-        this['kind'] = kind;
-        return this;
-    };
-    ListAddonInstancesResponse.prototype.withApiVersion = function (apiVersion) {
-        this['apiVersion'] = apiVersion;
-        return this;
-    };
-    ListAddonInstancesResponse.prototype.withItems = function (items) {
-        this['items'] = items;
-        return this;
-    };
-    return ListAddonInstancesResponse;
-}(SdkResponse_1.SdkResponse));
-exports.ListAddonInstancesResponse = ListAddonInstancesResponse;
-
-
-/***/ }),
+/* 497 */,
 /* 498 */,
 /* 499 */,
-/* 500 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(598)
-const path = __webpack_require__(622)
-const copy = __webpack_require__(774).copy
-const remove = __webpack_require__(723).remove
-const mkdirp = __webpack_require__(727).mkdirp
-const pathExists = __webpack_require__(322).pathExists
-const stat = __webpack_require__(127)
-
-function move (src, dest, opts, cb) {
-  if (typeof opts === 'function') {
-    cb = opts
-    opts = {}
-  }
-
-  opts = opts || {}
-
-  const overwrite = opts.overwrite || opts.clobber || false
-
-  stat.checkPaths(src, dest, 'move', opts, (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat, isChangingCase = false } = stats
-    stat.checkParentPaths(src, srcStat, dest, 'move', err => {
-      if (err) return cb(err)
-      if (isParentRoot(dest)) return doRename(src, dest, overwrite, isChangingCase, cb)
-      mkdirp(path.dirname(dest), err => {
-        if (err) return cb(err)
-        return doRename(src, dest, overwrite, isChangingCase, cb)
-      })
-    })
-  })
-}
-
-function isParentRoot (dest) {
-  const parent = path.dirname(dest)
-  const parsedPath = path.parse(parent)
-  return parsedPath.root === parent
-}
-
-function doRename (src, dest, overwrite, isChangingCase, cb) {
-  if (isChangingCase) return rename(src, dest, overwrite, cb)
-  if (overwrite) {
-    return remove(dest, err => {
-      if (err) return cb(err)
-      return rename(src, dest, overwrite, cb)
-    })
-  }
-  pathExists(dest, (err, destExists) => {
-    if (err) return cb(err)
-    if (destExists) return cb(new Error('dest already exists.'))
-    return rename(src, dest, overwrite, cb)
-  })
-}
-
-function rename (src, dest, overwrite, cb) {
-  fs.rename(src, dest, err => {
-    if (!err) return cb()
-    if (err.code !== 'EXDEV') return cb(err)
-    return moveAcrossDevice(src, dest, overwrite, cb)
-  })
-}
-
-function moveAcrossDevice (src, dest, overwrite, cb) {
-  const opts = {
-    overwrite,
-    errorOnExist: true
-  }
-  copy(src, dest, opts, err => {
-    if (err) return cb(err)
-    return remove(src, cb)
-  })
-}
-
-module.exports = move
-
-
-/***/ }),
+/* 500 */,
 /* 501 */,
 /* 502 */,
 /* 503 */,
@@ -14670,7 +15074,10 @@ function logLevelFilter(minLevelString, maxLevelString, appender, levels) {
   const maxLevel = levels.getLevel(maxLevelString, levels.FATAL);
   return (logEvent) => {
     const eventLevel = logEvent.level;
-    if (minLevel.isLessThanOrEqualTo(eventLevel) && maxLevel.isGreaterThanOrEqualTo(eventLevel)) {
+    if (
+      minLevel.isLessThanOrEqualTo(eventLevel) &&
+      maxLevel.isGreaterThanOrEqualTo(eventLevel)
+    ) {
       appender(logEvent);
     }
   };
@@ -14687,10 +15094,70 @@ module.exports.configure = configure;
 /***/ }),
 /* 514 */,
 /* 515 */
-/***/ (function(module) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
-// allows us to inject a mock date in tests
-module.exports = () => new Date();
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const path = __webpack_require__(622)
+const fs = __webpack_require__(598)
+const mkdir = __webpack_require__(419)
+const pathExists = __webpack_require__(887).pathExists
+
+function createLink (srcpath, dstpath, callback) {
+  function makeLink (srcpath, dstpath) {
+    fs.link(srcpath, dstpath, err => {
+      if (err) return callback(err)
+      callback(null)
+    })
+  }
+
+  pathExists(dstpath, (err, destinationExists) => {
+    if (err) return callback(err)
+    if (destinationExists) return callback(null)
+    fs.lstat(srcpath, (err) => {
+      if (err) {
+        err.message = err.message.replace('lstat', 'ensureLink')
+        return callback(err)
+      }
+
+      const dir = path.dirname(dstpath)
+      pathExists(dir, (err, dirExists) => {
+        if (err) return callback(err)
+        if (dirExists) return makeLink(srcpath, dstpath)
+        mkdir.mkdirs(dir, err => {
+          if (err) return callback(err)
+          makeLink(srcpath, dstpath)
+        })
+      })
+    })
+  })
+}
+
+function createLinkSync (srcpath, dstpath) {
+  const destinationExists = fs.existsSync(dstpath)
+  if (destinationExists) return undefined
+
+  try {
+    fs.lstatSync(srcpath)
+  } catch (err) {
+    err.message = err.message.replace('lstat', 'ensureLink')
+    throw err
+  }
+
+  const dir = path.dirname(dstpath)
+  const dirExists = fs.existsSync(dir)
+  if (dirExists) return fs.linkSync(srcpath, dstpath)
+  mkdir.mkdirsSync(dir)
+
+  return fs.linkSync(srcpath, dstpath)
+}
+
+module.exports = {
+  createLink: u(createLink),
+  createLinkSync
+}
 
 
 /***/ }),
@@ -14833,73 +15300,52 @@ exports.ClusterExtendParam = ClusterExtendParam;
 
 /***/ }),
 /* 522 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
-
-const u = __webpack_require__(676).fromCallback
-const path = __webpack_require__(622)
-const fs = __webpack_require__(598)
-const mkdir = __webpack_require__(727)
-const pathExists = __webpack_require__(322).pathExists
-const { areIdentical } = __webpack_require__(127)
-
-function createLink (srcpath, dstpath, callback) {
-  function makeLink (srcpath, dstpath) {
-    fs.link(srcpath, dstpath, err => {
-      if (err) return callback(err)
-      callback(null)
-    })
-  }
-
-  fs.lstat(dstpath, (_, dstStat) => {
-    fs.lstat(srcpath, (err, srcStat) => {
-      if (err) {
-        err.message = err.message.replace('lstat', 'ensureLink')
-        return callback(err)
-      }
-      if (dstStat && areIdentical(srcStat, dstStat)) return callback(null)
-
-      const dir = path.dirname(dstpath)
-      pathExists(dir, (err, dirExists) => {
-        if (err) return callback(err)
-        if (dirExists) return makeLink(srcpath, dstpath)
-        mkdir.mkdirs(dir, err => {
-          if (err) return callback(err)
-          makeLink(srcpath, dstpath)
-        })
-      })
-    })
-  })
-}
-
-function createLinkSync (srcpath, dstpath) {
-  let dstStat
-  try {
-    dstStat = fs.lstatSync(dstpath)
-  } catch {}
-
-  try {
-    const srcStat = fs.lstatSync(srcpath)
-    if (dstStat && areIdentical(srcStat, dstStat)) return
-  } catch (err) {
-    err.message = err.message.replace('lstat', 'ensureLink')
-    throw err
-  }
-
-  const dir = path.dirname(dstpath)
-  const dirExists = fs.existsSync(dir)
-  if (dirExists) return fs.linkSync(srcpath, dstpath)
-  mkdir.mkdirsSync(dir)
-
-  return fs.linkSync(srcpath, dstpath)
-}
-
-module.exports = {
-  createLink: u(createLink),
-  createLinkSync
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateNodePoolRequest = void 0;
+var CreateNodePoolRequest = /** @class */ (function () {
+    function CreateNodePoolRequest(contentType, clusterId) {
+        this['Content-Type'] = contentType;
+        this['cluster_id'] = clusterId;
+    }
+    CreateNodePoolRequest.prototype.withContentType = function (contentType) {
+        this['Content-Type'] = contentType;
+        return this;
+    };
+    Object.defineProperty(CreateNodePoolRequest.prototype, "contentType", {
+        get: function () {
+            return this['Content-Type'];
+        },
+        set: function (contentType) {
+            this['Content-Type'] = contentType;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    CreateNodePoolRequest.prototype.withClusterId = function (clusterId) {
+        this['cluster_id'] = clusterId;
+        return this;
+    };
+    Object.defineProperty(CreateNodePoolRequest.prototype, "clusterId", {
+        get: function () {
+            return this['cluster_id'];
+        },
+        set: function (clusterId) {
+            this['cluster_id'] = clusterId;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    CreateNodePoolRequest.prototype.withBody = function (body) {
+        this['body'] = body;
+        return this;
+    };
+    return CreateNodePoolRequest;
+}());
+exports.CreateNodePoolRequest = CreateNodePoolRequest;
 
 
 /***/ }),
@@ -15794,34 +16240,7 @@ function _unique(values) {
 //# sourceMappingURL=tool-cache.js.map
 
 /***/ }),
-/* 534 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-// Adapted from https://github.com/sindresorhus/make-dir
-// Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-const path = __webpack_require__(622)
-
-// https://github.com/nodejs/node/issues/8987
-// https://github.com/libuv/libuv/pull/1088
-module.exports.checkPath = function checkPath (pth) {
-  if (process.platform === 'win32') {
-    const pathHasInvalidWinCharacters = /[<>:"|?*]/.test(pth.replace(path.parse(pth).root, ''))
-
-    if (pathHasInvalidWinCharacters) {
-      const error = new Error(`Path contains invalid characters: ${pth}`)
-      error.code = 'EINVAL'
-      throw error
-    }
-  }
-}
-
-
-/***/ }),
+/* 534 */,
 /* 535 */,
 /* 536 */,
 /* 537 */
@@ -16420,10 +16839,10 @@ exports.TaskStatus = TaskStatus;
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 const debug = __webpack_require__(784)("streamroller:RollingFileWriteStream");
-const fs = __webpack_require__(226);
+const fs = __webpack_require__(710);
 const path = __webpack_require__(622);
 const os = __webpack_require__(87);
-const newNow = __webpack_require__(515);
+const newNow = __webpack_require__(888);
 const format = __webpack_require__(698);
 const { Writable } = __webpack_require__(794);
 const fileNameFormatter = __webpack_require__(289);
@@ -36352,7 +36771,225 @@ exports.VirtualSpace = VirtualSpace;
 
 
 /***/ }),
-/* 558 */,
+/* 558 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const mkdirp = __webpack_require__(419).mkdirs
+const pathExists = __webpack_require__(887).pathExists
+const utimes = __webpack_require__(476).utimesMillis
+const stat = __webpack_require__(445)
+
+function copy (src, dest, opts, cb) {
+  if (typeof opts === 'function' && !cb) {
+    cb = opts
+    opts = {}
+  } else if (typeof opts === 'function') {
+    opts = { filter: opts }
+  }
+
+  cb = cb || function () {}
+  opts = opts || {}
+
+  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
+  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
+
+  // Warn about using preserveTimestamps on 32-bit node
+  if (opts.preserveTimestamps && process.arch === 'ia32') {
+    console.warn(`fs-extra: Using the preserveTimestamps option in 32-bit node is not recommended;\n
+    see https://github.com/jprichardson/node-fs-extra/issues/269`)
+  }
+
+  stat.checkPaths(src, dest, 'copy', (err, stats) => {
+    if (err) return cb(err)
+    const { srcStat, destStat } = stats
+    stat.checkParentPaths(src, srcStat, dest, 'copy', err => {
+      if (err) return cb(err)
+      if (opts.filter) return handleFilter(checkParentDir, destStat, src, dest, opts, cb)
+      return checkParentDir(destStat, src, dest, opts, cb)
+    })
+  })
+}
+
+function checkParentDir (destStat, src, dest, opts, cb) {
+  const destParent = path.dirname(dest)
+  pathExists(destParent, (err, dirExists) => {
+    if (err) return cb(err)
+    if (dirExists) return startCopy(destStat, src, dest, opts, cb)
+    mkdirp(destParent, err => {
+      if (err) return cb(err)
+      return startCopy(destStat, src, dest, opts, cb)
+    })
+  })
+}
+
+function handleFilter (onInclude, destStat, src, dest, opts, cb) {
+  Promise.resolve(opts.filter(src, dest)).then(include => {
+    if (include) return onInclude(destStat, src, dest, opts, cb)
+    return cb()
+  }, error => cb(error))
+}
+
+function startCopy (destStat, src, dest, opts, cb) {
+  if (opts.filter) return handleFilter(getStats, destStat, src, dest, opts, cb)
+  return getStats(destStat, src, dest, opts, cb)
+}
+
+function getStats (destStat, src, dest, opts, cb) {
+  const stat = opts.dereference ? fs.stat : fs.lstat
+  stat(src, (err, srcStat) => {
+    if (err) return cb(err)
+
+    if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts, cb)
+    else if (srcStat.isFile() ||
+             srcStat.isCharacterDevice() ||
+             srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts, cb)
+    else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts, cb)
+  })
+}
+
+function onFile (srcStat, destStat, src, dest, opts, cb) {
+  if (!destStat) return copyFile(srcStat, src, dest, opts, cb)
+  return mayCopyFile(srcStat, src, dest, opts, cb)
+}
+
+function mayCopyFile (srcStat, src, dest, opts, cb) {
+  if (opts.overwrite) {
+    fs.unlink(dest, err => {
+      if (err) return cb(err)
+      return copyFile(srcStat, src, dest, opts, cb)
+    })
+  } else if (opts.errorOnExist) {
+    return cb(new Error(`'${dest}' already exists`))
+  } else return cb()
+}
+
+function copyFile (srcStat, src, dest, opts, cb) {
+  if (typeof fs.copyFile === 'function') {
+    return fs.copyFile(src, dest, err => {
+      if (err) return cb(err)
+      return setDestModeAndTimestamps(srcStat, dest, opts, cb)
+    })
+  }
+  return copyFileFallback(srcStat, src, dest, opts, cb)
+}
+
+function copyFileFallback (srcStat, src, dest, opts, cb) {
+  const rs = fs.createReadStream(src)
+  rs.on('error', err => cb(err)).once('open', () => {
+    const ws = fs.createWriteStream(dest, { mode: srcStat.mode })
+    ws.on('error', err => cb(err))
+      .on('open', () => rs.pipe(ws))
+      .once('close', () => setDestModeAndTimestamps(srcStat, dest, opts, cb))
+  })
+}
+
+function setDestModeAndTimestamps (srcStat, dest, opts, cb) {
+  fs.chmod(dest, srcStat.mode, err => {
+    if (err) return cb(err)
+    if (opts.preserveTimestamps) {
+      return utimes(dest, srcStat.atime, srcStat.mtime, cb)
+    }
+    return cb()
+  })
+}
+
+function onDir (srcStat, destStat, src, dest, opts, cb) {
+  if (!destStat) return mkDirAndCopy(srcStat, src, dest, opts, cb)
+  if (destStat && !destStat.isDirectory()) {
+    return cb(new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`))
+  }
+  return copyDir(src, dest, opts, cb)
+}
+
+function mkDirAndCopy (srcStat, src, dest, opts, cb) {
+  fs.mkdir(dest, err => {
+    if (err) return cb(err)
+    copyDir(src, dest, opts, err => {
+      if (err) return cb(err)
+      return fs.chmod(dest, srcStat.mode, cb)
+    })
+  })
+}
+
+function copyDir (src, dest, opts, cb) {
+  fs.readdir(src, (err, items) => {
+    if (err) return cb(err)
+    return copyDirItems(items, src, dest, opts, cb)
+  })
+}
+
+function copyDirItems (items, src, dest, opts, cb) {
+  const item = items.pop()
+  if (!item) return cb()
+  return copyDirItem(items, item, src, dest, opts, cb)
+}
+
+function copyDirItem (items, item, src, dest, opts, cb) {
+  const srcItem = path.join(src, item)
+  const destItem = path.join(dest, item)
+  stat.checkPaths(srcItem, destItem, 'copy', (err, stats) => {
+    if (err) return cb(err)
+    const { destStat } = stats
+    startCopy(destStat, srcItem, destItem, opts, err => {
+      if (err) return cb(err)
+      return copyDirItems(items, src, dest, opts, cb)
+    })
+  })
+}
+
+function onLink (destStat, src, dest, opts, cb) {
+  fs.readlink(src, (err, resolvedSrc) => {
+    if (err) return cb(err)
+    if (opts.dereference) {
+      resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
+    }
+
+    if (!destStat) {
+      return fs.symlink(resolvedSrc, dest, cb)
+    } else {
+      fs.readlink(dest, (err, resolvedDest) => {
+        if (err) {
+          // dest exists and is a regular file or directory,
+          // Windows may throw UNKNOWN error. If dest already exists,
+          // fs throws error anyway, so no need to guard against it here.
+          if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlink(resolvedSrc, dest, cb)
+          return cb(err)
+        }
+        if (opts.dereference) {
+          resolvedDest = path.resolve(process.cwd(), resolvedDest)
+        }
+        if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+          return cb(new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`))
+        }
+
+        // do not copy if src is a subdir of dest since unlinking
+        // dest in this case would result in removing src contents
+        // and therefore a broken symlink would be created.
+        if (destStat.isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+          return cb(new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`))
+        }
+        return copyLink(resolvedSrc, dest, cb)
+      })
+    }
+  })
+}
+
+function copyLink (resolvedSrc, dest, cb) {
+  fs.unlink(dest, err => {
+    if (err) return cb(err)
+    return fs.symlink(resolvedSrc, dest, cb)
+  })
+}
+
+module.exports = copy
+
+
+/***/ }),
 /* 559 */,
 /* 560 */,
 /* 561 */
@@ -36441,46 +37078,7 @@ module.exports = function settle(resolve, reject, response) {
 /* 567 */,
 /* 568 */,
 /* 569 */,
-/* 570 */
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NodePoolCondition = void 0;
-var NodePoolCondition = /** @class */ (function () {
-    function NodePoolCondition() {
-    }
-    NodePoolCondition.prototype.withType = function (type) {
-        this['type'] = type;
-        return this;
-    };
-    NodePoolCondition.prototype.withStatus = function (status) {
-        this['status'] = status;
-        return this;
-    };
-    NodePoolCondition.prototype.withLastProbeTime = function (lastProbeTime) {
-        this['lastProbeTime'] = lastProbeTime;
-        return this;
-    };
-    NodePoolCondition.prototype.withLastTransitTime = function (lastTransitTime) {
-        this['lastTransitTime'] = lastTransitTime;
-        return this;
-    };
-    NodePoolCondition.prototype.withReason = function (reason) {
-        this['reason'] = reason;
-        return this;
-    };
-    NodePoolCondition.prototype.withMessage = function (message) {
-        this['message'] = message;
-        return this;
-    };
-    return NodePoolCondition;
-}());
-exports.NodePoolCondition = NodePoolCondition;
-
-
-/***/ }),
+/* 570 */,
 /* 571 */,
 /* 572 */
 /***/ (function(__unusedmodule, exports) {
@@ -36623,8 +37221,15 @@ function mainSighupHandler() {
  * @param options - options to be passed to the underlying stream
  * @param timezoneOffset - optional timezone offset in minutes (default system local)
  */
-function fileAppender(file, layout, logSize, numBackups, options, timezoneOffset) {
-  if (typeof file !== "string" || file.length === 0) {
+function fileAppender(
+  file,
+  layout,
+  logSize,
+  numBackups,
+  options,
+  timezoneOffset
+) {
+  if (typeof file !== 'string' || file.length === 0) {
     throw new Error(`Invalid filename: ${file}`);
   } else if (file.endsWith(path.sep)) {
     throw new Error(`Filename is a directory: ${file}`);
@@ -36634,15 +37239,20 @@ function fileAppender(file, layout, logSize, numBackups, options, timezoneOffset
     file = file.replace(new RegExp(`^~(?=${path.sep}.+)`), os.homedir());
   }
   file = path.normalize(file);
-  numBackups = (!numBackups && numBackups !== 0) ? 5 : numBackups;
+  numBackups = !numBackups && numBackups !== 0 ? 5 : numBackups;
 
   debug(
     'Creating file appender (',
-    file, ', ',
-    logSize, ', ',
-    numBackups, ', ',
-    options, ', ',
-    timezoneOffset, ')'
+    file,
+    ', ',
+    logSize,
+    ', ',
+    numBackups,
+    ', ',
+    options,
+    ', ',
+    timezoneOffset,
+    ')'
   );
 
   function openTheStream(filePath, fileSize, numFiles, opt) {
@@ -36654,10 +37264,14 @@ function fileAppender(file, layout, logSize, numBackups, options, timezoneOffset
     );
     stream.on('error', (err) => {
       // eslint-disable-next-line no-console
-      console.error('log4js.fileAppender - Writing to file %s, error happened ', filePath, err);
+      console.error(
+        'log4js.fileAppender - Writing to file %s, error happened ',
+        filePath,
+        err
+      );
     });
     stream.on('drain', () => {
-      process.emit("log4js:pause", false);
+      process.emit('log4js:pause', false);
     });
     return stream;
   }
@@ -36671,18 +37285,20 @@ function fileAppender(file, layout, logSize, numBackups, options, timezoneOffset
     if (options.removeColor === true) {
       // eslint-disable-next-line no-control-regex
       const regex = /\x1b[[0-9;]*m/g;
-      loggingEvent.data = loggingEvent.data.map(d => {
+      loggingEvent.data = loggingEvent.data.map((d) => {
         if (typeof d === 'string') return d.replace(regex, '');
         return d;
       });
     }
-    if (!writer.write(layout(loggingEvent, timezoneOffset) + eol, "utf8")) {
+    if (!writer.write(layout(loggingEvent, timezoneOffset) + eol, 'utf8')) {
       process.emit('log4js:pause', true);
     }
   };
 
   app.reopen = function () {
-    writer.end(() => { writer = openTheStream(file, logSize, numBackups, options); });
+    writer.end(() => {
+      writer = openTheStream(file, logSize, numBackups, options);
+    });
   };
 
   app.sighupHandler = function () {
@@ -36736,182 +37352,7 @@ module.exports.configure = configure;
 /***/ }),
 /* 575 */,
 /* 576 */,
-/* 577 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(598)
-const path = __webpack_require__(622)
-const mkdirsSync = __webpack_require__(727).mkdirsSync
-const utimesMillisSync = __webpack_require__(916).utimesMillisSync
-const stat = __webpack_require__(127)
-
-function copySync (src, dest, opts) {
-  if (typeof opts === 'function') {
-    opts = { filter: opts }
-  }
-
-  opts = opts || {}
-  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
-  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
-
-  // Warn about using preserveTimestamps on 32-bit node
-  if (opts.preserveTimestamps && process.arch === 'ia32') {
-    process.emitWarning(
-      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
-      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
-      'Warning', 'fs-extra-WARN0002'
-    )
-  }
-
-  const { srcStat, destStat } = stat.checkPathsSync(src, dest, 'copy', opts)
-  stat.checkParentPathsSync(src, srcStat, dest, 'copy')
-  return handleFilterAndCopy(destStat, src, dest, opts)
-}
-
-function handleFilterAndCopy (destStat, src, dest, opts) {
-  if (opts.filter && !opts.filter(src, dest)) return
-  const destParent = path.dirname(dest)
-  if (!fs.existsSync(destParent)) mkdirsSync(destParent)
-  return getStats(destStat, src, dest, opts)
-}
-
-function startCopy (destStat, src, dest, opts) {
-  if (opts.filter && !opts.filter(src, dest)) return
-  return getStats(destStat, src, dest, opts)
-}
-
-function getStats (destStat, src, dest, opts) {
-  const statSync = opts.dereference ? fs.statSync : fs.lstatSync
-  const srcStat = statSync(src)
-
-  if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts)
-  else if (srcStat.isFile() ||
-           srcStat.isCharacterDevice() ||
-           srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts)
-  else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
-  else if (srcStat.isSocket()) throw new Error(`Cannot copy a socket file: ${src}`)
-  else if (srcStat.isFIFO()) throw new Error(`Cannot copy a FIFO pipe: ${src}`)
-  throw new Error(`Unknown file: ${src}`)
-}
-
-function onFile (srcStat, destStat, src, dest, opts) {
-  if (!destStat) return copyFile(srcStat, src, dest, opts)
-  return mayCopyFile(srcStat, src, dest, opts)
-}
-
-function mayCopyFile (srcStat, src, dest, opts) {
-  if (opts.overwrite) {
-    fs.unlinkSync(dest)
-    return copyFile(srcStat, src, dest, opts)
-  } else if (opts.errorOnExist) {
-    throw new Error(`'${dest}' already exists`)
-  }
-}
-
-function copyFile (srcStat, src, dest, opts) {
-  fs.copyFileSync(src, dest)
-  if (opts.preserveTimestamps) handleTimestamps(srcStat.mode, src, dest)
-  return setDestMode(dest, srcStat.mode)
-}
-
-function handleTimestamps (srcMode, src, dest) {
-  // Make sure the file is writable before setting the timestamp
-  // otherwise open fails with EPERM when invoked with 'r+'
-  // (through utimes call)
-  if (fileIsNotWritable(srcMode)) makeFileWritable(dest, srcMode)
-  return setDestTimestamps(src, dest)
-}
-
-function fileIsNotWritable (srcMode) {
-  return (srcMode & 0o200) === 0
-}
-
-function makeFileWritable (dest, srcMode) {
-  return setDestMode(dest, srcMode | 0o200)
-}
-
-function setDestMode (dest, srcMode) {
-  return fs.chmodSync(dest, srcMode)
-}
-
-function setDestTimestamps (src, dest) {
-  // The initial srcStat.atime cannot be trusted
-  // because it is modified by the read(2) system call
-  // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
-  const updatedSrcStat = fs.statSync(src)
-  return utimesMillisSync(dest, updatedSrcStat.atime, updatedSrcStat.mtime)
-}
-
-function onDir (srcStat, destStat, src, dest, opts) {
-  if (!destStat) return mkDirAndCopy(srcStat.mode, src, dest, opts)
-  return copyDir(src, dest, opts)
-}
-
-function mkDirAndCopy (srcMode, src, dest, opts) {
-  fs.mkdirSync(dest)
-  copyDir(src, dest, opts)
-  return setDestMode(dest, srcMode)
-}
-
-function copyDir (src, dest, opts) {
-  fs.readdirSync(src).forEach(item => copyDirItem(item, src, dest, opts))
-}
-
-function copyDirItem (item, src, dest, opts) {
-  const srcItem = path.join(src, item)
-  const destItem = path.join(dest, item)
-  const { destStat } = stat.checkPathsSync(srcItem, destItem, 'copy', opts)
-  return startCopy(destStat, srcItem, destItem, opts)
-}
-
-function onLink (destStat, src, dest, opts) {
-  let resolvedSrc = fs.readlinkSync(src)
-  if (opts.dereference) {
-    resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
-  }
-
-  if (!destStat) {
-    return fs.symlinkSync(resolvedSrc, dest)
-  } else {
-    let resolvedDest
-    try {
-      resolvedDest = fs.readlinkSync(dest)
-    } catch (err) {
-      // dest exists and is a regular file or directory,
-      // Windows may throw UNKNOWN error. If dest already exists,
-      // fs throws error anyway, so no need to guard against it here.
-      if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlinkSync(resolvedSrc, dest)
-      throw err
-    }
-    if (opts.dereference) {
-      resolvedDest = path.resolve(process.cwd(), resolvedDest)
-    }
-    if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-      throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
-    }
-
-    // prevent copy if src is a subdir of dest since unlinking
-    // dest in this case would result in removing src contents
-    // and therefore a broken symlink would be created.
-    if (fs.statSync(dest).isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-      throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
-    }
-    return copyLink(resolvedSrc, dest)
-  }
-}
-
-function copyLink (resolvedSrc, dest) {
-  fs.unlinkSync(dest)
-  return fs.symlinkSync(resolvedSrc, dest)
-}
-
-module.exports = copySync
-
-
-/***/ }),
+/* 577 */,
 /* 578 */,
 /* 579 */,
 /* 580 */,
@@ -37131,7 +37572,22 @@ exports.ExceptionUtil = ExceptionUtil;
 /***/ }),
 /* 591 */,
 /* 592 */,
-/* 593 */,
+/* 593 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const u = __webpack_require__(676).fromCallback
+const rimraf = __webpack_require__(874)
+
+module.exports = {
+  remove: u(rimraf),
+  removeSync: rimraf.sync
+}
+
+
+/***/ }),
 /* 594 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -37164,244 +37620,26 @@ exports.ResetNodeList = ResetNodeList;
 
 /***/ }),
 /* 595 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
-
-const fs = __webpack_require__(598)
-const path = __webpack_require__(622)
-const mkdirs = __webpack_require__(727).mkdirs
-const pathExists = __webpack_require__(322).pathExists
-const utimesMillis = __webpack_require__(916).utimesMillis
-const stat = __webpack_require__(127)
-
-function copy (src, dest, opts, cb) {
-  if (typeof opts === 'function' && !cb) {
-    cb = opts
-    opts = {}
-  } else if (typeof opts === 'function') {
-    opts = { filter: opts }
-  }
-
-  cb = cb || function () {}
-  opts = opts || {}
-
-  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
-  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
-
-  // Warn about using preserveTimestamps on 32-bit node
-  if (opts.preserveTimestamps && process.arch === 'ia32') {
-    process.emitWarning(
-      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
-      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
-      'Warning', 'fs-extra-WARN0001'
-    )
-  }
-
-  stat.checkPaths(src, dest, 'copy', opts, (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat, destStat } = stats
-    stat.checkParentPaths(src, srcStat, dest, 'copy', err => {
-      if (err) return cb(err)
-      if (opts.filter) return handleFilter(checkParentDir, destStat, src, dest, opts, cb)
-      return checkParentDir(destStat, src, dest, opts, cb)
-    })
-  })
-}
-
-function checkParentDir (destStat, src, dest, opts, cb) {
-  const destParent = path.dirname(dest)
-  pathExists(destParent, (err, dirExists) => {
-    if (err) return cb(err)
-    if (dirExists) return getStats(destStat, src, dest, opts, cb)
-    mkdirs(destParent, err => {
-      if (err) return cb(err)
-      return getStats(destStat, src, dest, opts, cb)
-    })
-  })
-}
-
-function handleFilter (onInclude, destStat, src, dest, opts, cb) {
-  Promise.resolve(opts.filter(src, dest)).then(include => {
-    if (include) return onInclude(destStat, src, dest, opts, cb)
-    return cb()
-  }, error => cb(error))
-}
-
-function startCopy (destStat, src, dest, opts, cb) {
-  if (opts.filter) return handleFilter(getStats, destStat, src, dest, opts, cb)
-  return getStats(destStat, src, dest, opts, cb)
-}
-
-function getStats (destStat, src, dest, opts, cb) {
-  const stat = opts.dereference ? fs.stat : fs.lstat
-  stat(src, (err, srcStat) => {
-    if (err) return cb(err)
-
-    if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts, cb)
-    else if (srcStat.isFile() ||
-             srcStat.isCharacterDevice() ||
-             srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts, cb)
-    else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts, cb)
-    else if (srcStat.isSocket()) return cb(new Error(`Cannot copy a socket file: ${src}`))
-    else if (srcStat.isFIFO()) return cb(new Error(`Cannot copy a FIFO pipe: ${src}`))
-    return cb(new Error(`Unknown file: ${src}`))
-  })
-}
-
-function onFile (srcStat, destStat, src, dest, opts, cb) {
-  if (!destStat) return copyFile(srcStat, src, dest, opts, cb)
-  return mayCopyFile(srcStat, src, dest, opts, cb)
-}
-
-function mayCopyFile (srcStat, src, dest, opts, cb) {
-  if (opts.overwrite) {
-    fs.unlink(dest, err => {
-      if (err) return cb(err)
-      return copyFile(srcStat, src, dest, opts, cb)
-    })
-  } else if (opts.errorOnExist) {
-    return cb(new Error(`'${dest}' already exists`))
-  } else return cb()
-}
-
-function copyFile (srcStat, src, dest, opts, cb) {
-  fs.copyFile(src, dest, err => {
-    if (err) return cb(err)
-    if (opts.preserveTimestamps) return handleTimestampsAndMode(srcStat.mode, src, dest, cb)
-    return setDestMode(dest, srcStat.mode, cb)
-  })
-}
-
-function handleTimestampsAndMode (srcMode, src, dest, cb) {
-  // Make sure the file is writable before setting the timestamp
-  // otherwise open fails with EPERM when invoked with 'r+'
-  // (through utimes call)
-  if (fileIsNotWritable(srcMode)) {
-    return makeFileWritable(dest, srcMode, err => {
-      if (err) return cb(err)
-      return setDestTimestampsAndMode(srcMode, src, dest, cb)
-    })
-  }
-  return setDestTimestampsAndMode(srcMode, src, dest, cb)
-}
-
-function fileIsNotWritable (srcMode) {
-  return (srcMode & 0o200) === 0
-}
-
-function makeFileWritable (dest, srcMode, cb) {
-  return setDestMode(dest, srcMode | 0o200, cb)
-}
-
-function setDestTimestampsAndMode (srcMode, src, dest, cb) {
-  setDestTimestamps(src, dest, err => {
-    if (err) return cb(err)
-    return setDestMode(dest, srcMode, cb)
-  })
-}
-
-function setDestMode (dest, srcMode, cb) {
-  return fs.chmod(dest, srcMode, cb)
-}
-
-function setDestTimestamps (src, dest, cb) {
-  // The initial srcStat.atime cannot be trusted
-  // because it is modified by the read(2) system call
-  // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
-  fs.stat(src, (err, updatedSrcStat) => {
-    if (err) return cb(err)
-    return utimesMillis(dest, updatedSrcStat.atime, updatedSrcStat.mtime, cb)
-  })
-}
-
-function onDir (srcStat, destStat, src, dest, opts, cb) {
-  if (!destStat) return mkDirAndCopy(srcStat.mode, src, dest, opts, cb)
-  return copyDir(src, dest, opts, cb)
-}
-
-function mkDirAndCopy (srcMode, src, dest, opts, cb) {
-  fs.mkdir(dest, err => {
-    if (err) return cb(err)
-    copyDir(src, dest, opts, err => {
-      if (err) return cb(err)
-      return setDestMode(dest, srcMode, cb)
-    })
-  })
-}
-
-function copyDir (src, dest, opts, cb) {
-  fs.readdir(src, (err, items) => {
-    if (err) return cb(err)
-    return copyDirItems(items, src, dest, opts, cb)
-  })
-}
-
-function copyDirItems (items, src, dest, opts, cb) {
-  const item = items.pop()
-  if (!item) return cb()
-  return copyDirItem(items, item, src, dest, opts, cb)
-}
-
-function copyDirItem (items, item, src, dest, opts, cb) {
-  const srcItem = path.join(src, item)
-  const destItem = path.join(dest, item)
-  stat.checkPaths(srcItem, destItem, 'copy', opts, (err, stats) => {
-    if (err) return cb(err)
-    const { destStat } = stats
-    startCopy(destStat, srcItem, destItem, opts, err => {
-      if (err) return cb(err)
-      return copyDirItems(items, src, dest, opts, cb)
-    })
-  })
-}
-
-function onLink (destStat, src, dest, opts, cb) {
-  fs.readlink(src, (err, resolvedSrc) => {
-    if (err) return cb(err)
-    if (opts.dereference) {
-      resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserTag = void 0;
+var UserTag = /** @class */ (function () {
+    function UserTag() {
     }
-
-    if (!destStat) {
-      return fs.symlink(resolvedSrc, dest, cb)
-    } else {
-      fs.readlink(dest, (err, resolvedDest) => {
-        if (err) {
-          // dest exists and is a regular file or directory,
-          // Windows may throw UNKNOWN error. If dest already exists,
-          // fs throws error anyway, so no need to guard against it here.
-          if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlink(resolvedSrc, dest, cb)
-          return cb(err)
-        }
-        if (opts.dereference) {
-          resolvedDest = path.resolve(process.cwd(), resolvedDest)
-        }
-        if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-          return cb(new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`))
-        }
-
-        // do not copy if src is a subdir of dest since unlinking
-        // dest in this case would result in removing src contents
-        // and therefore a broken symlink would be created.
-        if (destStat.isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-          return cb(new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`))
-        }
-        return copyLink(resolvedSrc, dest, cb)
-      })
-    }
-  })
-}
-
-function copyLink (resolvedSrc, dest, cb) {
-  fs.unlink(dest, err => {
-    if (err) return cb(err)
-    return fs.symlink(resolvedSrc, dest, cb)
-  })
-}
-
-module.exports = copy
+    UserTag.prototype.withKey = function (key) {
+        this['key'] = key;
+        return this;
+    };
+    UserTag.prototype.withValue = function (value) {
+        this['value'] = value;
+        return this;
+    };
+    return UserTag;
+}());
+exports.UserTag = UserTag;
 
 
 /***/ }),
@@ -37863,76 +38101,108 @@ function retry () {
 /***/ }),
 /* 599 */,
 /* 600 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListClustersRequestTypeEnum = exports.ListClustersRequestStatusEnum = exports.ListClustersRequest = void 0;
-var ListClustersRequest = /** @class */ (function () {
-    function ListClustersRequest(contentType) {
-        this['Content-Type'] = contentType;
+
+const path = __webpack_require__(622)
+const fs = __webpack_require__(598)
+const pathExists = __webpack_require__(887).pathExists
+
+/**
+ * Function that returns two types of paths, one relative to symlink, and one
+ * relative to the current working directory. Checks if path is absolute or
+ * relative. If the path is relative, this function checks if the path is
+ * relative to symlink or relative to current working directory. This is an
+ * initiative to find a smarter `srcpath` to supply when building symlinks.
+ * This allows you to determine which path to use out of one of three possible
+ * types of source paths. The first is an absolute path. This is detected by
+ * `path.isAbsolute()`. When an absolute path is provided, it is checked to
+ * see if it exists. If it does it's used, if not an error is returned
+ * (callback)/ thrown (sync). The other two options for `srcpath` are a
+ * relative url. By default Node's `fs.symlink` works by creating a symlink
+ * using `dstpath` and expects the `srcpath` to be relative to the newly
+ * created symlink. If you provide a `srcpath` that does not exist on the file
+ * system it results in a broken symlink. To minimize this, the function
+ * checks to see if the 'relative to symlink' source file exists, and if it
+ * does it will use it. If it does not, it checks if there's a file that
+ * exists that is relative to the current working directory, if does its used.
+ * This preserves the expectations of the original fs.symlink spec and adds
+ * the ability to pass in `relative to current working direcotry` paths.
+ */
+
+function symlinkPaths (srcpath, dstpath, callback) {
+  if (path.isAbsolute(srcpath)) {
+    return fs.lstat(srcpath, (err) => {
+      if (err) {
+        err.message = err.message.replace('lstat', 'ensureSymlink')
+        return callback(err)
+      }
+      return callback(null, {
+        'toCwd': srcpath,
+        'toDst': srcpath
+      })
+    })
+  } else {
+    const dstdir = path.dirname(dstpath)
+    const relativeToDst = path.join(dstdir, srcpath)
+    return pathExists(relativeToDst, (err, exists) => {
+      if (err) return callback(err)
+      if (exists) {
+        return callback(null, {
+          'toCwd': relativeToDst,
+          'toDst': srcpath
+        })
+      } else {
+        return fs.lstat(srcpath, (err) => {
+          if (err) {
+            err.message = err.message.replace('lstat', 'ensureSymlink')
+            return callback(err)
+          }
+          return callback(null, {
+            'toCwd': srcpath,
+            'toDst': path.relative(dstdir, srcpath)
+          })
+        })
+      }
+    })
+  }
+}
+
+function symlinkPathsSync (srcpath, dstpath) {
+  let exists
+  if (path.isAbsolute(srcpath)) {
+    exists = fs.existsSync(srcpath)
+    if (!exists) throw new Error('absolute srcpath does not exist')
+    return {
+      'toCwd': srcpath,
+      'toDst': srcpath
     }
-    ListClustersRequest.prototype.withContentType = function (contentType) {
-        this['Content-Type'] = contentType;
-        return this;
-    };
-    Object.defineProperty(ListClustersRequest.prototype, "contentType", {
-        get: function () {
-            return this['Content-Type'];
-        },
-        set: function (contentType) {
-            this['Content-Type'] = contentType;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    ListClustersRequest.prototype.withDetail = function (detail) {
-        this['detail'] = detail;
-        return this;
-    };
-    ListClustersRequest.prototype.withStatus = function (status) {
-        this['status'] = status;
-        return this;
-    };
-    ListClustersRequest.prototype.withType = function (type) {
-        this['type'] = type;
-        return this;
-    };
-    ListClustersRequest.prototype.withVersion = function (version) {
-        this['version'] = version;
-        return this;
-    };
-    return ListClustersRequest;
-}());
-exports.ListClustersRequest = ListClustersRequest;
-/**
-    * @export
-    * @enum {string}
-    */
-var ListClustersRequestStatusEnum;
-(function (ListClustersRequestStatusEnum) {
-    ListClustersRequestStatusEnum["AVAILABLE"] = "Available";
-    ListClustersRequestStatusEnum["UNAVAILABLE"] = "Unavailable";
-    ListClustersRequestStatusEnum["SCALINGUP"] = "ScalingUp";
-    ListClustersRequestStatusEnum["SCALINGDOWN"] = "ScalingDown";
-    ListClustersRequestStatusEnum["CREATING"] = "Creating";
-    ListClustersRequestStatusEnum["DELETING"] = "Deleting";
-    ListClustersRequestStatusEnum["UPGRADING"] = "Upgrading";
-    ListClustersRequestStatusEnum["RESIZING"] = "Resizing";
-    ListClustersRequestStatusEnum["ROLLINGBACK"] = "RollingBack";
-    ListClustersRequestStatusEnum["ROLLBACKFAILED"] = "RollbackFailed";
-    ListClustersRequestStatusEnum["EMPTY"] = "Empty";
-})(ListClustersRequestStatusEnum = exports.ListClustersRequestStatusEnum || (exports.ListClustersRequestStatusEnum = {}));
-/**
-    * @export
-    * @enum {string}
-    */
-var ListClustersRequestTypeEnum;
-(function (ListClustersRequestTypeEnum) {
-    ListClustersRequestTypeEnum["VIRTUALMACHINE"] = "VirtualMachine";
-    ListClustersRequestTypeEnum["ARM64"] = "ARM64";
-})(ListClustersRequestTypeEnum = exports.ListClustersRequestTypeEnum || (exports.ListClustersRequestTypeEnum = {}));
+  } else {
+    const dstdir = path.dirname(dstpath)
+    const relativeToDst = path.join(dstdir, srcpath)
+    exists = fs.existsSync(relativeToDst)
+    if (exists) {
+      return {
+        'toCwd': relativeToDst,
+        'toDst': srcpath
+      }
+    } else {
+      exists = fs.existsSync(srcpath)
+      if (!exists) throw new Error('relative srcpath does not exist')
+      return {
+        'toCwd': srcpath,
+        'toDst': path.relative(dstdir, srcpath)
+      }
+    }
+  }
+}
+
+module.exports = {
+  symlinkPaths,
+  symlinkPathsSync
+}
 
 
 /***/ }),
@@ -38292,52 +38562,7 @@ exports.Authentication = Authentication;
 module.exports = require("events");
 
 /***/ }),
-/* 615 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromPromise
-const fs = __webpack_require__(869)
-const path = __webpack_require__(622)
-const mkdir = __webpack_require__(727)
-const remove = __webpack_require__(723)
-
-const emptyDir = u(async function emptyDir (dir) {
-  let items
-  try {
-    items = await fs.readdir(dir)
-  } catch {
-    return mkdir.mkdirs(dir)
-  }
-
-  return Promise.all(items.map(item => remove.remove(path.join(dir, item))))
-})
-
-function emptyDirSync (dir) {
-  let items
-  try {
-    items = fs.readdirSync(dir)
-  } catch {
-    return mkdir.mkdirsSync(dir)
-  }
-
-  items.forEach(item => {
-    item = path.join(dir, item)
-    remove.removeSync(item)
-  })
-}
-
-module.exports = {
-  emptyDirSync,
-  emptydirSync: emptyDirSync,
-  emptyDir,
-  emptydir: emptyDir
-}
-
-
-/***/ }),
+/* 615 */,
 /* 616 */,
 /* 617 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -38627,25 +38852,7 @@ module.exports = require("net");
 /***/ }),
 /* 632 */,
 /* 633 */,
-/* 634 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const { stringify } = __webpack_require__(477)
-const { outputFileSync } = __webpack_require__(683)
-
-function outputJsonSync (file, data, options) {
-  const str = stringify(data, options)
-
-  outputFileSync(file, str, options)
-}
-
-module.exports = outputJsonSync
-
-
-/***/ }),
+/* 634 */,
 /* 635 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -38724,30 +38931,7 @@ exports.UpdateClusterRequest = UpdateClusterRequest;
 /* 641 */,
 /* 642 */,
 /* 643 */,
-/* 644 */
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserTag = void 0;
-var UserTag = /** @class */ (function () {
-    function UserTag() {
-    }
-    UserTag.prototype.withKey = function (key) {
-        this['key'] = key;
-        return this;
-    };
-    UserTag.prototype.withValue = function (value) {
-        this['value'] = value;
-        return this;
-    };
-    return UserTag;
-}());
-exports.UserTag = UserTag;
-
-
-/***/ }),
+/* 644 */,
 /* 645 */,
 /* 646 */,
 /* 647 */,
@@ -38795,7 +38979,78 @@ exports.VolumeMetadata = VolumeMetadata;
 
 
 /***/ }),
-/* 649 */,
+/* 649 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const copy = __webpack_require__(845).copy
+const remove = __webpack_require__(593).remove
+const mkdirp = __webpack_require__(419).mkdirp
+const pathExists = __webpack_require__(887).pathExists
+const stat = __webpack_require__(445)
+
+function move (src, dest, opts, cb) {
+  if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
+
+  const overwrite = opts.overwrite || opts.clobber || false
+
+  stat.checkPaths(src, dest, 'move', (err, stats) => {
+    if (err) return cb(err)
+    const { srcStat } = stats
+    stat.checkParentPaths(src, srcStat, dest, 'move', err => {
+      if (err) return cb(err)
+      mkdirp(path.dirname(dest), err => {
+        if (err) return cb(err)
+        return doRename(src, dest, overwrite, cb)
+      })
+    })
+  })
+}
+
+function doRename (src, dest, overwrite, cb) {
+  if (overwrite) {
+    return remove(dest, err => {
+      if (err) return cb(err)
+      return rename(src, dest, overwrite, cb)
+    })
+  }
+  pathExists(dest, (err, destExists) => {
+    if (err) return cb(err)
+    if (destExists) return cb(new Error('dest already exists.'))
+    return rename(src, dest, overwrite, cb)
+  })
+}
+
+function rename (src, dest, overwrite, cb) {
+  fs.rename(src, dest, err => {
+    if (!err) return cb()
+    if (err.code !== 'EXDEV') return cb(err)
+    return moveAcrossDevice(src, dest, overwrite, cb)
+  })
+}
+
+function moveAcrossDevice (src, dest, overwrite, cb) {
+  const opts = {
+    overwrite,
+    errorOnExist: true
+  }
+  copy(src, dest, opts, err => {
+    if (err) return cb(err)
+    return remove(src, cb)
+  })
+}
+
+module.exports = move
+
+
+/***/ }),
 /* 650 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -38825,67 +39080,7 @@ __exportStar(__webpack_require__(795), exports);
 /***/ }),
 /* 651 */,
 /* 652 */,
-/* 653 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(598)
-const path = __webpack_require__(622)
-const copySync = __webpack_require__(774).copySync
-const removeSync = __webpack_require__(723).removeSync
-const mkdirpSync = __webpack_require__(727).mkdirpSync
-const stat = __webpack_require__(127)
-
-function moveSync (src, dest, opts) {
-  opts = opts || {}
-  const overwrite = opts.overwrite || opts.clobber || false
-
-  const { srcStat, isChangingCase = false } = stat.checkPathsSync(src, dest, 'move', opts)
-  stat.checkParentPathsSync(src, srcStat, dest, 'move')
-  if (!isParentRoot(dest)) mkdirpSync(path.dirname(dest))
-  return doRename(src, dest, overwrite, isChangingCase)
-}
-
-function isParentRoot (dest) {
-  const parent = path.dirname(dest)
-  const parsedPath = path.parse(parent)
-  return parsedPath.root === parent
-}
-
-function doRename (src, dest, overwrite, isChangingCase) {
-  if (isChangingCase) return rename(src, dest, overwrite)
-  if (overwrite) {
-    removeSync(dest)
-    return rename(src, dest, overwrite)
-  }
-  if (fs.existsSync(dest)) throw new Error('dest already exists.')
-  return rename(src, dest, overwrite)
-}
-
-function rename (src, dest, overwrite) {
-  try {
-    fs.renameSync(src, dest)
-  } catch (err) {
-    if (err.code !== 'EXDEV') throw err
-    return moveAcrossDevice(src, dest, overwrite)
-  }
-}
-
-function moveAcrossDevice (src, dest, overwrite) {
-  const opts = {
-    overwrite,
-    errorOnExist: true
-  }
-  copySync(src, dest, opts)
-  return removeSync(src)
-}
-
-module.exports = moveSync
-
-
-/***/ }),
+/* 653 */,
 /* 654 */,
 /* 655 */,
 /* 656 */
@@ -38946,7 +39141,7 @@ exports.ShowNodePoolResponse = ShowNodePoolResponse;
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 const debug = __webpack_require__(784)('streamroller:moveAndMaybeCompressFile');
-const fs = __webpack_require__(226);
+const fs = __webpack_require__(710);
 const zlib = __webpack_require__(903);
 
 const _parseOption = function(rawOptions){
@@ -39401,61 +39596,72 @@ exports.summary = _summary;
 /* 666 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-let _fs
+var _fs
 try {
   _fs = __webpack_require__(598)
 } catch (_) {
   _fs = __webpack_require__(747)
 }
-const universalify = __webpack_require__(676)
-const { stringify, stripBom } = __webpack_require__(477)
 
-async function _readFile (file, options = {}) {
+function readFile (file, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+
   if (typeof options === 'string') {
-    options = { encoding: options }
+    options = {encoding: options}
   }
 
-  const fs = options.fs || _fs
+  options = options || {}
+  var fs = options.fs || _fs
 
-  const shouldThrow = 'throws' in options ? options.throws : true
+  var shouldThrow = true
+  if ('throws' in options) {
+    shouldThrow = options.throws
+  }
 
-  let data = await universalify.fromCallback(fs.readFile)(file, options)
+  fs.readFile(file, options, function (err, data) {
+    if (err) return callback(err)
 
-  data = stripBom(data)
+    data = stripBom(data)
 
-  let obj
-  try {
-    obj = JSON.parse(data, options ? options.reviver : null)
-  } catch (err) {
-    if (shouldThrow) {
-      err.message = `${file}: ${err.message}`
-      throw err
-    } else {
-      return null
+    var obj
+    try {
+      obj = JSON.parse(data, options ? options.reviver : null)
+    } catch (err2) {
+      if (shouldThrow) {
+        err2.message = file + ': ' + err2.message
+        return callback(err2)
+      } else {
+        return callback(null, null)
+      }
     }
-  }
 
-  return obj
+    callback(null, obj)
+  })
 }
 
-const readFile = universalify.fromPromise(_readFile)
-
-function readFileSync (file, options = {}) {
+function readFileSync (file, options) {
+  options = options || {}
   if (typeof options === 'string') {
-    options = { encoding: options }
+    options = {encoding: options}
   }
 
-  const fs = options.fs || _fs
+  var fs = options.fs || _fs
 
-  const shouldThrow = 'throws' in options ? options.throws : true
+  var shouldThrow = true
+  if ('throws' in options) {
+    shouldThrow = options.throws
+  }
 
   try {
-    let content = fs.readFileSync(file, options)
+    var content = fs.readFileSync(file, options)
     content = stripBom(content)
     return JSON.parse(content, options.reviver)
   } catch (err) {
     if (shouldThrow) {
-      err.message = `${file}: ${err.message}`
+      err.message = file + ': ' + err.message
       throw err
     } else {
       return null
@@ -39463,29 +39669,64 @@ function readFileSync (file, options = {}) {
   }
 }
 
-async function _writeFile (file, obj, options = {}) {
-  const fs = options.fs || _fs
+function stringify (obj, options) {
+  var spaces
+  var EOL = '\n'
+  if (typeof options === 'object' && options !== null) {
+    if (options.spaces) {
+      spaces = options.spaces
+    }
+    if (options.EOL) {
+      EOL = options.EOL
+    }
+  }
 
-  const str = stringify(obj, options)
+  var str = JSON.stringify(obj, options ? options.replacer : null, spaces)
 
-  await universalify.fromCallback(fs.writeFile)(file, str, options)
+  return str.replace(/\n/g, EOL) + EOL
 }
 
-const writeFile = universalify.fromPromise(_writeFile)
+function writeFile (file, obj, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+  options = options || {}
+  var fs = options.fs || _fs
 
-function writeFileSync (file, obj, options = {}) {
-  const fs = options.fs || _fs
+  var str = ''
+  try {
+    str = stringify(obj, options)
+  } catch (err) {
+    // Need to return whether a callback was passed or not
+    if (callback) callback(err, null)
+    return
+  }
 
-  const str = stringify(obj, options)
+  fs.writeFile(file, str, options, callback)
+}
+
+function writeFileSync (file, obj, options) {
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var str = stringify(obj, options)
   // not sure if fs.writeFileSync returns anything, but just in case
   return fs.writeFileSync(file, str, options)
 }
 
-const jsonfile = {
-  readFile,
-  readFileSync,
-  writeFile,
-  writeFileSync
+function stripBom (content) {
+  // we do this because JSON.parse would convert it to a utf8 string if encoding wasn't specified
+  if (Buffer.isBuffer(content)) content = content.toString('utf8')
+  content = content.replace(/^\uFEFF/, '')
+  return content
+}
+
+var jsonfile = {
+  readFile: readFile,
+  readFileSync: readFileSync,
+  writeFile: writeFile,
+  writeFileSync: writeFileSync
 }
 
 module.exports = jsonfile
@@ -40155,25 +40396,26 @@ exports.Versions = Versions;
 
 
 exports.fromCallback = function (fn) {
-  return Object.defineProperty(function (...args) {
-    if (typeof args[args.length - 1] === 'function') fn.apply(this, args)
+  return Object.defineProperty(function () {
+    if (typeof arguments[arguments.length - 1] === 'function') fn.apply(this, arguments)
     else {
       return new Promise((resolve, reject) => {
-        fn.call(
-          this,
-          ...args,
-          (err, res) => (err != null) ? reject(err) : resolve(res)
-        )
+        arguments[arguments.length] = (err, res) => {
+          if (err) return reject(err)
+          resolve(res)
+        }
+        arguments.length++
+        fn.apply(this, arguments)
       })
     }
   }, 'name', { value: fn.name })
 }
 
 exports.fromPromise = function (fn) {
-  return Object.defineProperty(function (...args) {
-    const cb = args[args.length - 1]
-    if (typeof cb !== 'function') return fn.apply(this, args)
-    else fn.apply(this, args.slice(0, -1)).then(r => cb(null, r), cb)
+  return Object.defineProperty(function () {
+    const cb = arguments[arguments.length - 1]
+    if (typeof cb !== 'function') return fn.apply(this, arguments)
+    else fn.apply(this, arguments).then(r => cb(null, r), cb)
   }, 'name', { value: fn.name })
 }
 
@@ -40186,7 +40428,7 @@ exports.fromPromise = function (fn) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 //! moment.js
-//! version : 2.29.3
+//! version : 2.29.4
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -42640,7 +42882,7 @@ exports.fromPromise = function (fn) {
     function preprocessRFC2822(s) {
         // Remove comments and folding whitespace and replace multiple-spaces with a single space
         return s
-            .replace(/\([^)]*\)|[\n\t]/g, ' ')
+            .replace(/\([^()]*\)|[\n\t]/g, ' ')
             .replace(/(\s\s+)/g, ' ')
             .replace(/^\s\s*/, '')
             .replace(/\s\s*$/, '');
@@ -45821,7 +46063,7 @@ exports.fromPromise = function (fn) {
 
     //! moment.js
 
-    hooks.version = '2.29.3';
+    hooks.version = '2.29.4';
 
     setHookCallback(createLocal);
 
@@ -45979,53 +46221,7 @@ var NodePoolStatusPhaseEnum;
 
 
 /***/ }),
-/* 683 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromCallback
-const fs = __webpack_require__(598)
-const path = __webpack_require__(622)
-const mkdir = __webpack_require__(727)
-const pathExists = __webpack_require__(322).pathExists
-
-function outputFile (file, data, encoding, callback) {
-  if (typeof encoding === 'function') {
-    callback = encoding
-    encoding = 'utf8'
-  }
-
-  const dir = path.dirname(file)
-  pathExists(dir, (err, itDoes) => {
-    if (err) return callback(err)
-    if (itDoes) return fs.writeFile(file, data, encoding, callback)
-
-    mkdir.mkdirs(dir, err => {
-      if (err) return callback(err)
-
-      fs.writeFile(file, data, encoding, callback)
-    })
-  })
-}
-
-function outputFileSync (file, ...args) {
-  const dir = path.dirname(file)
-  if (fs.existsSync(dir)) {
-    return fs.writeFileSync(file, ...args)
-  }
-  mkdir.mkdirsSync(dir)
-  fs.writeFileSync(file, ...args)
-}
-
-module.exports = {
-  outputFile: u(outputFile),
-  outputFileSync
-}
-
-
-/***/ }),
+/* 683 */,
 /* 684 */,
 /* 685 */,
 /* 686 */,
@@ -46050,16 +46246,24 @@ coreAppenders.set('categoryFilter', __webpack_require__(800));
 coreAppenders.set('noLogFilter', __webpack_require__(843));
 coreAppenders.set('file', __webpack_require__(574));
 coreAppenders.set('dateFile', __webpack_require__(263));
-coreAppenders.set('fileSync', __webpack_require__(712));
+coreAppenders.set('fileSync', __webpack_require__(754));
 coreAppenders.set('tcp', __webpack_require__(838));
 
 const appenders = new Map();
 
 const tryLoading = (modulePath, config) => {
-  debug('Loading module from ', modulePath);
+  let resolvedPath;
+  try {
+    const modulePathCJS = `${modulePath}.cjs`;
+    resolvedPath = require.resolve(modulePathCJS);
+    debug('Loading module from ', modulePathCJS);
+  } catch (e) {
+    resolvedPath = modulePath;
+    debug('Loading module from ', modulePath);
+  }
   try {
     // eslint-disable-next-line global-require, import/no-dynamic-require
-    return require(modulePath);
+    return require(resolvedPath);
   } catch (e) {
     // if the module was found, and we still got an error, then raise it
     configuration.throwExceptionIf(
@@ -46071,18 +46275,22 @@ const tryLoading = (modulePath, config) => {
   }
 };
 
-const loadAppenderModule = (type, config) => coreAppenders.get(type)
-  || tryLoading(`./${type}`, config)
-  || tryLoading(type, config)
-  || (require.main && require.main.filename && tryLoading(path.join(path.dirname(require.main.filename), type), config))
-  || tryLoading(path.join(process.cwd(), type), config);
+const loadAppenderModule = (type, config) =>
+  coreAppenders.get(type) ||
+  tryLoading(`./${type}`, config) ||
+  tryLoading(type, config) ||
+  (require.main &&
+    require.main.filename &&
+    tryLoading(path.join(path.dirname(require.main.filename), type), config)) ||
+  tryLoading(path.join(process.cwd(), type), config);
 
 const appendersLoading = new Set();
 
 const getAppender = (name, config) => {
   if (appenders.has(name)) return appenders.get(name);
   if (!config.appenders[name]) return false;
-  if (appendersLoading.has(name)) throw new Error(`Dependency loop detected for appender ${name}.`);
+  if (appendersLoading.has(name))
+    throw new Error(`Dependency loop detected for appender ${name}.`);
   appendersLoading.add(name);
 
   debug(`Creating appender ${name}`);
@@ -46096,7 +46304,8 @@ const getAppender = (name, config) => {
 const createAppender = (name, config) => {
   const appenderConfig = config.appenders[name];
   const appenderModule = appenderConfig.type.configure
-    ? appenderConfig.type : loadAppenderModule(appenderConfig.type, config);
+    ? appenderConfig.type
+    : loadAppenderModule(appenderConfig.type, config);
   configuration.throwExceptionIf(
     config,
     configuration.not(appenderModule),
@@ -46105,31 +46314,45 @@ const createAppender = (name, config) => {
   if (appenderModule.appender) {
     process.emitWarning(
       `Appender ${appenderConfig.type} exports an appender function.`,
-      "DeprecationWarning", "log4js-node-DEP0001"
+      'DeprecationWarning',
+      'log4js-node-DEP0001'
     );
-    debug("[log4js-node-DEP0001]",
-      `DEPRECATION: Appender ${appenderConfig.type} exports an appender function.`);
+    debug(
+      '[log4js-node-DEP0001]',
+      `DEPRECATION: Appender ${appenderConfig.type} exports an appender function.`
+    );
   }
   if (appenderModule.shutdown) {
     process.emitWarning(
       `Appender ${appenderConfig.type} exports a shutdown function.`,
-      "DeprecationWarning", "log4js-node-DEP0002"
+      'DeprecationWarning',
+      'log4js-node-DEP0002'
     );
-    debug("[log4js-node-DEP0002]",
-      `DEPRECATION: Appender ${appenderConfig.type} exports a shutdown function.`);
+    debug(
+      '[log4js-node-DEP0002]',
+      `DEPRECATION: Appender ${appenderConfig.type} exports a shutdown function.`
+    );
   }
 
   debug(`${name}: clustering.isMaster ? ${clustering.isMaster()}`);
-  debug(`${name}: appenderModule is ${__webpack_require__(669).inspect(appenderModule)}`); // eslint-disable-line global-require
-  return clustering.onlyOnMaster(() => {
-    debug(`calling appenderModule.configure for ${name} / ${appenderConfig.type}`);
-    return appenderModule.configure(
-      adapters.modifyConfig(appenderConfig),
-      layouts,
-      appender => getAppender(appender, config),
-      levels
-    );
-  }, /* istanbul ignore next: fn never gets called by non-master yet needed to pass config validation */ () => {});
+  debug(
+    // eslint-disable-next-line global-require
+    `${name}: appenderModule is ${__webpack_require__(669).inspect(appenderModule)}`
+  );
+  return clustering.onlyOnMaster(
+    () => {
+      debug(
+        `calling appenderModule.configure for ${name} / ${appenderConfig.type}`
+      );
+      return appenderModule.configure(
+        adapters.modifyConfig(appenderConfig),
+        layouts,
+        (appender) => getAppender(appender, config),
+        levels
+      );
+    },
+    /* istanbul ignore next: fn never gets called by non-master yet needed to pass config validation */ () => {}
+  );
 };
 
 const setup = (config) => {
@@ -46140,14 +46363,17 @@ const setup = (config) => {
   }
 
   const usedAppenders = [];
-  Object.values(config.categories).forEach(category => {
+  Object.values(config.categories).forEach((category) => {
     usedAppenders.push(...category.appenders);
   });
   Object.keys(config.appenders).forEach((name) => {
     // dodgy hard-coding of special case for tcp-server and multiprocess which may not have
     // any categories associated with it, but needs to be started up anyway
-    if (usedAppenders.includes(name) || config.appenders[name].type === 'tcp-server' 
-            || config.appenders[name].type === 'multiprocess') {
+    if (
+      usedAppenders.includes(name) ||
+      config.appenders[name].type === 'tcp-server' ||
+      config.appenders[name].type === 'multiprocess'
+    ) {
       getAppender(name, config);
     }
   });
@@ -46263,52 +46489,14 @@ module.exports = (
 
 /***/ }),
 /* 689 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteAddonInstanceRequest = void 0;
-var DeleteAddonInstanceRequest = /** @class */ (function () {
-    function DeleteAddonInstanceRequest(contentType, id) {
-        this['Content-Type'] = contentType;
-        this['id'] = id;
-    }
-    DeleteAddonInstanceRequest.prototype.withContentType = function (contentType) {
-        this['Content-Type'] = contentType;
-        return this;
-    };
-    Object.defineProperty(DeleteAddonInstanceRequest.prototype, "contentType", {
-        get: function () {
-            return this['Content-Type'];
-        },
-        set: function (contentType) {
-            this['Content-Type'] = contentType;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DeleteAddonInstanceRequest.prototype.withId = function (id) {
-        this['id'] = id;
-        return this;
-    };
-    DeleteAddonInstanceRequest.prototype.withClusterId = function (clusterId) {
-        this['cluster_id'] = clusterId;
-        return this;
-    };
-    Object.defineProperty(DeleteAddonInstanceRequest.prototype, "clusterId", {
-        get: function () {
-            return this['cluster_id'];
-        },
-        set: function (clusterId) {
-            this['cluster_id'] = clusterId;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    return DeleteAddonInstanceRequest;
-}());
-exports.DeleteAddonInstanceRequest = DeleteAddonInstanceRequest;
+
+module.exports = {
+  copySync: __webpack_require__(390)
+}
 
 
 /***/ }),
@@ -46337,7 +46525,7 @@ exports.DeleteAddonInstanceRequest = DeleteAddonInstanceRequest;
  * @since 2005-05-20
  * Website: http://log4js.berlios.de
  */
-const debug = __webpack_require__(784)("log4js:main");
+const debug = __webpack_require__(784)('log4js:main');
 const fs = __webpack_require__(747);
 const deepClone = __webpack_require__(776)({ proto: true });
 const configuration = __webpack_require__(779);
@@ -46348,17 +46536,17 @@ const categories = __webpack_require__(823);
 const Logger = __webpack_require__(748);
 const clustering = __webpack_require__(265);
 const connectLogger = __webpack_require__(44);
-const recordingModule = __webpack_require__(996);
+const recordingModule = __webpack_require__(814);
 
 let enabled = false;
 
 function sendLogEventToAppender(logEvent) {
   if (!enabled) return;
-  debug("Received log event ", logEvent);
+  debug('Received log event ', logEvent);
   const categoryAppenders = categories.appendersForCategory(
     logEvent.categoryName
   );
-  categoryAppenders.forEach(appender => {
+  categoryAppenders.forEach((appender) => {
     appender(logEvent);
   });
 }
@@ -46366,7 +46554,7 @@ function sendLogEventToAppender(logEvent) {
 function loadConfigurationFile(filename) {
   debug(`Loading configuration from ${filename}`);
   try {
-    return JSON.parse(fs.readFileSync(filename, "utf8"));
+    return JSON.parse(fs.readFileSync(filename, 'utf8'));
   } catch (e) {
     throw new Error(
       `Problem reading config from file "${filename}". Error was ${e.message}`,
@@ -46383,7 +46571,7 @@ function configure(configurationFileOrObject) {
 
   let configObject = configurationFileOrObject;
 
-  if (typeof configObject === "string") {
+  if (typeof configObject === 'string') {
     configObject = loadConfigurationFile(configurationFileOrObject);
   }
   debug(`Configuration is ${configObject}`);
@@ -46399,7 +46587,7 @@ function configure(configurationFileOrObject) {
 }
 
 function recording() {
-  return recordingModule
+  return recordingModule;
 }
 
 /**
@@ -46411,7 +46599,7 @@ function recording() {
  *  as the first argument.
  */
 function shutdown(cb) {
-  debug("Shutdown called. Disabling all log writing.");
+  debug('Shutdown called. Disabling all log writing.');
   // First, disable all writing to appenders. This prevents appenders from
   // not being able to be drained because of run-away log writes.
   enabled = false;
@@ -46429,7 +46617,7 @@ function shutdown(cb) {
     0
   );
   if (shutdownFunctions === 0) {
-    debug("No appenders with shutdown functions found.");
+    debug('No appenders with shutdown functions found.');
     return cb !== undefined && cb();
   }
 
@@ -46441,13 +46629,15 @@ function shutdown(cb) {
     completed += 1;
     debug(`Appender shutdowns complete: ${completed} / ${shutdownFunctions}`);
     if (completed >= shutdownFunctions) {
-      debug("All shutdown functions completed.");
+      debug('All shutdown functions completed.');
       if (cb) {
         cb(error);
       }
     }
   }
-  appendersToCheck.filter(a => a.shutdown).forEach(a => a.shutdown(complete));
+  appendersToCheck
+    .filter((a) => a.shutdown)
+    .forEach((a) => a.shutdown(complete));
 
   return null;
 }
@@ -46462,12 +46652,12 @@ function getLogger(category) {
   if (!enabled) {
     configure(
       process.env.LOG4JS_CONFIG || {
-        appenders: { out: { type: "stdout" } },
-        categories: { default: { appenders: ["out"], level: "OFF" } }
+        appenders: { out: { type: 'stdout' } },
+        categories: { default: { appenders: ['out'], level: 'OFF' } },
       }
     );
   }
-  return new Logger(category || "default");
+  return new Logger(category || 'default');
 }
 
 /**
@@ -46493,25 +46683,7 @@ module.exports = log4js;
 /***/ }),
 /* 693 */,
 /* 694 */,
-/* 695 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const { stringify } = __webpack_require__(477)
-const { outputFile } = __webpack_require__(683)
-
-async function outputJson (file, data, options = {}) {
-  const str = stringify(data, options)
-
-  await outputFile(file, str, options)
-}
-
-module.exports = outputJson
-
-
-/***/ }),
+/* 695 */,
 /* 696 */,
 /* 697 */,
 /* 698 */
@@ -46784,7 +46956,41 @@ exports.ResourceRequirements = ResourceRequirements;
 
 
 /***/ }),
-/* 710 */,
+/* 710 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = Object.assign(
+  {},
+  // Export promiseified graceful-fs:
+  __webpack_require__(892),
+  // Export extra methods:
+  __webpack_require__(689),
+  __webpack_require__(845),
+  __webpack_require__(453),
+  __webpack_require__(118),
+  __webpack_require__(239),
+  __webpack_require__(419),
+  __webpack_require__(757),
+  __webpack_require__(253),
+  __webpack_require__(996),
+  __webpack_require__(887),
+  __webpack_require__(593)
+)
+
+// Export fs.promises as a getter property so that we don't trigger
+// ExperimentalWarning before fs.promises is actually accessed.
+const fs = __webpack_require__(747)
+if (Object.getOwnPropertyDescriptor(fs, 'promises')) {
+  Object.defineProperty(module.exports, 'promises', {
+    get () { return fs.promises }
+  })
+}
+
+
+/***/ }),
 /* 711 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -46843,12 +47049,21 @@ var ClientBuilder = /** @class */ (function () {
         this.region = region;
         return this;
     };
+    ClientBuilder.prototype.withOptions = function (options) {
+        this.userOptions = options;
+        return this;
+    };
     ClientBuilder.prototype.build = function () {
+        var _a;
         var axiosOptions = {
             disableSslVerification: true
         };
         if (this.proxyAgent) {
             Object.assign(axiosOptions, { proxyAgent: this.proxyAgent });
+        }
+        if ((_a = this.userOptions) === null || _a === void 0 ? void 0 : _a.customUserAgent) {
+            axiosOptions.headers = axiosOptions.headers || {};
+            axiosOptions.headers["User-Agent"] = this.userOptions.customUserAgent;
         }
         if (!this.credential) {
             this.credential = this.getCredentialFromEnvironment();
@@ -46944,247 +47159,54 @@ exports.ClientBuilder = ClientBuilder;
 /* 712 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const debug = __webpack_require__(784)('log4js:fileSync');
-const path = __webpack_require__(622);
-const fs = __webpack_require__(747);
-const os = __webpack_require__(87);
+"use strict";
 
-const eol = os.EOL;
 
-function touchFile(file, options) {
-  // attempt to create the directory
-  const mkdir = (dir) => {
-    try {
-      return fs.mkdirSync(dir, { recursive: true });
-    }
-    // backward-compatible fs.mkdirSync for nodejs pre-10.12.0 (without recursive option)
-    catch (e) {
-      // recursive creation of parent first
-      if (e.code === 'ENOENT') {
-        mkdir(path.dirname(dir));
-        return mkdir(dir);
-      }
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const copySync = __webpack_require__(689).copySync
+const removeSync = __webpack_require__(593).removeSync
+const mkdirpSync = __webpack_require__(419).mkdirpSync
+const stat = __webpack_require__(445)
 
-      // throw error for all except EEXIST and EROFS (read-only filesystem)
-      if (e.code !== 'EEXIST' && e.code !== 'EROFS') {
-        throw e;
-      }
+function moveSync (src, dest, opts) {
+  opts = opts || {}
+  const overwrite = opts.overwrite || opts.clobber || false
 
-      // EEXIST: throw if file and not directory
-      // EROFS : throw if directory not found
-      else {
-        try {
-          if (fs.statSync(dir).isDirectory()) {
-            return dir;
-          }
-          throw e;
-        } catch (err) {
-          throw e;
-        }
-      }
-    }
-  };
-  mkdir(path.dirname(file));
-
-  // try to throw EISDIR, EROFS, EACCES
-  fs.appendFileSync(file, "", { mode: options.mode, flag: options.flags });
+  const { srcStat } = stat.checkPathsSync(src, dest, 'move')
+  stat.checkParentPathsSync(src, srcStat, dest, 'move')
+  mkdirpSync(path.dirname(dest))
+  return doRename(src, dest, overwrite)
 }
 
-class RollingFileSync {
-  constructor(filename, maxLogSize, backups, options) {
-    debug('In RollingFileStream');
-
-    if (maxLogSize < 0) {
-      throw new Error(`maxLogSize (${maxLogSize}) should be > 0`);
-    }
-
-    this.filename = filename;
-    this.size = maxLogSize;
-    this.backups = backups;
-    this.options = options;
-    this.currentSize = 0;
-
-    function currentFileSize(file) {
-      let fileSize = 0;
-
-      try {
-        fileSize = fs.statSync(file).size;
-      } catch (e) {
-        // file does not exist
-        touchFile(file, options);
-      }
-      return fileSize;
-    }
-
-    this.currentSize = currentFileSize(this.filename);
+function doRename (src, dest, overwrite) {
+  if (overwrite) {
+    removeSync(dest)
+    return rename(src, dest, overwrite)
   }
+  if (fs.existsSync(dest)) throw new Error('dest already exists.')
+  return rename(src, dest, overwrite)
+}
 
-  shouldRoll() {
-    debug('should roll with current size %d, and max size %d', this.currentSize, this.size);
-    return this.currentSize >= this.size;
-  }
-
-  roll(filename) {
-    const that = this;
-    const nameMatcher = new RegExp(`^${path.basename(filename)}`);
-
-    function justTheseFiles(item) {
-      return nameMatcher.test(item);
-    }
-
-    function index(filename_) {
-      return parseInt(filename_.slice((`${path.basename(filename)}.`).length), 10) || 0;
-    }
-
-    function byIndex(a, b) {
-      return index(a) - index(b);
-    }
-
-    function increaseFileIndex(fileToRename) {
-      const idx = index(fileToRename);
-      debug(`Index of ${fileToRename} is ${idx}`);
-      if (that.backups === 0) {
-        fs.truncateSync(filename, 0);
-      } else if (idx < that.backups) {
-        // on windows, you can get a EEXIST error if you rename a file to an existing file
-        // so, we'll try to delete the file we're renaming to first
-        try {
-          fs.unlinkSync(`${filename}.${idx + 1}`);
-        } catch (e) {
-          // ignore err: if we could not delete, it's most likely that it doesn't exist
-        }
-
-        debug(`Renaming ${fileToRename} -> ${filename}.${idx + 1}`);
-        fs.renameSync(path.join(path.dirname(filename), fileToRename), `${filename}.${idx + 1}`);
-      }
-    }
-
-    function renameTheFiles() {
-      // roll the backups (rename file.n to file.n+1, where n <= numBackups)
-      debug('Renaming the old files');
-
-      const files = fs.readdirSync(path.dirname(filename));
-      files.filter(justTheseFiles).sort(byIndex).reverse().forEach(increaseFileIndex);
-    }
-
-    debug('Rolling, rolling, rolling');
-    renameTheFiles();
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  write(chunk, encoding) {
-    const that = this;
-
-
-    function writeTheChunk() {
-      debug('writing the chunk to the file');
-      that.currentSize += chunk.length;
-      fs.appendFileSync(that.filename, chunk);
-    }
-
-    debug('in write');
-
-
-    if (this.shouldRoll()) {
-      this.currentSize = 0;
-      this.roll(this.filename);
-    }
-
-    writeTheChunk();
+function rename (src, dest, overwrite) {
+  try {
+    fs.renameSync(src, dest)
+  } catch (err) {
+    if (err.code !== 'EXDEV') throw err
+    return moveAcrossDevice(src, dest, overwrite)
   }
 }
 
-/**
- * File Appender writing the logs to a text file. Supports rolling of logs by size.
- *
- * @param file the file log messages will be written to
- * @param layout a function that takes a logevent and returns a string
- *   (defaults to basicLayout).
- * @param logSize - the maximum size (in bytes) for a log file,
- *   if not provided then logs won't be rotated.
- * @param numBackups - the number of log files to keep after logSize
- *   has been reached (default 5)
- * @param options - options to be passed to the underlying stream
- * @param timezoneOffset - optional timezone offset in minutes (default system local)
- */
-function fileAppender(file, layout, logSize, numBackups, options, timezoneOffset) {
-  if (typeof file !== "string" || file.length === 0) {
-    throw new Error(`Invalid filename: ${file}`);
-  } else if (file.endsWith(path.sep)) {
-    throw new Error(`Filename is a directory: ${file}`);
-  } else {
-    // handle ~ expansion: https://github.com/nodejs/node/issues/684
-    // exclude ~ and ~filename as these can be valid files
-    file = file.replace(new RegExp(`^~(?=${path.sep}.+)`), os.homedir());
+function moveAcrossDevice (src, dest, overwrite) {
+  const opts = {
+    overwrite,
+    errorOnExist: true
   }
-  file = path.normalize(file);
-  numBackups = (!numBackups && numBackups !== 0) ? 5 : numBackups;
-
-  debug(
-    'Creating fileSync appender (',
-    file, ', ',
-    logSize, ', ',
-    numBackups, ', ',
-    options, ', ',
-    timezoneOffset, ')'
-  );
-
-  function openTheStream(filePath, fileSize, numFiles) {
-    let stream;
-
-    if (fileSize) {
-      stream = new RollingFileSync(
-        filePath,
-        fileSize,
-        numFiles,
-        options
-      );
-    } else {
-      stream = (((f) => {
-        // touch the file to apply flags (like w to truncate the file)
-        touchFile(f, options);
-
-        return {
-          write(data) {
-            fs.appendFileSync(f, data);
-          }
-        };
-      }))(filePath);
-    }
-
-    return stream;
-  }
-
-  const logFile = openTheStream(file, logSize, numBackups);
-
-  return (loggingEvent) => {
-    logFile.write(layout(loggingEvent, timezoneOffset) + eol);
-  };
+  copySync(src, dest, opts)
+  return removeSync(src)
 }
 
-function configure(config, layouts) {
-  let layout = layouts.basicLayout;
-  if (config.layout) {
-    layout = layouts.layout(config.layout.type, config.layout);
-  }
-
-  const options = {
-    flags: config.flags || 'a',
-    encoding: config.encoding || 'utf8',
-    mode: config.mode || 0o600
-  };
-
-  return fileAppender(
-    config.filename,
-    layout,
-    config.maxLogSize,
-    config.backups,
-    options,
-    config.timezoneOffset
-  );
-}
-
-module.exports.configure = configure;
+module.exports = moveSync
 
 
 /***/ }),
@@ -47308,35 +47330,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 723 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(598)
-const u = __webpack_require__(676).fromCallback
-const rimraf = __webpack_require__(474)
-
-function remove (path, callback) {
-  // Node 14.14.0+
-  if (fs.rm) return fs.rm(path, { recursive: true, force: true }, callback)
-  rimraf(path, callback)
-}
-
-function removeSync (path) {
-  // Node 14.14.0+
-  if (fs.rmSync) return fs.rmSync(path, { recursive: true, force: true })
-  rimraf.sync(path)
-}
-
-module.exports = {
-  remove: u(remove),
-  removeSync
-}
-
-
-/***/ }),
+/* 723 */,
 /* 724 */,
 /* 725 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -47386,23 +47380,20 @@ exports.ListNodesResponse = ListNodesResponse;
 /***/ }),
 /* 726 */,
 /* 727 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(module) {
 
 "use strict";
 
-const u = __webpack_require__(676).fromPromise
-const { makeDir: _makeDir, makeDirSync } = __webpack_require__(54)
-const makeDir = u(_makeDir)
 
-module.exports = {
-  mkdirs: makeDir,
-  mkdirsSync: makeDirSync,
-  // alias
-  mkdirp: makeDir,
-  mkdirpSync: makeDirSync,
-  ensureDir: makeDir,
-  ensureDirSync: makeDirSync
-}
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
 
 
 /***/ }),
@@ -47602,30 +47593,7 @@ exports.Templatespec = Templatespec;
 
 
 /***/ }),
-/* 740 */
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NodeNicSpec = void 0;
-var NodeNicSpec = /** @class */ (function () {
-    function NodeNicSpec() {
-    }
-    NodeNicSpec.prototype.withPrimaryNic = function (primaryNic) {
-        this['primaryNic'] = primaryNic;
-        return this;
-    };
-    NodeNicSpec.prototype.withExtNics = function (extNics) {
-        this['extNics'] = extNics;
-        return this;
-    };
-    return NodeNicSpec;
-}());
-exports.NodeNicSpec = NodeNicSpec;
-
-
-/***/ }),
+/* 740 */,
 /* 741 */,
 /* 742 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
@@ -47725,7 +47693,7 @@ module.exports = require("fs");
 
 /* eslint no-underscore-dangle: ["error", { "allow": ["_log"] }] */
 
-const debug = __webpack_require__(784)("log4js:logger");
+const debug = __webpack_require__(784)('log4js:logger');
 const LoggingEvent = __webpack_require__(112);
 const levels = __webpack_require__(938);
 const clustering = __webpack_require__(265);
@@ -47736,7 +47704,7 @@ const stackReg = /at (?:(.+)\s+\()?(?:(.+?):(\d+)(?::(\d+))?|([^)]+))\)?/;
 
 function defaultParseCallStack(data, skipIdx = 4) {
   try {
-    const stacklines = data.stack.split("\n").slice(skipIdx);
+    const stacklines = data.stack.split('\n').slice(skipIdx);
     const lineMatch = stackReg.exec(stacklines[0]);
     /* istanbul ignore else: failsafe */
     if (lineMatch && lineMatch.length === 6) {
@@ -47745,14 +47713,14 @@ function defaultParseCallStack(data, skipIdx = 4) {
         fileName: lineMatch[2],
         lineNumber: parseInt(lineMatch[3], 10),
         columnNumber: parseInt(lineMatch[4], 10),
-        callStack: stacklines.join("\n")
+        callStack: stacklines.join('\n'),
       };
-    } else { // eslint-disable-line no-else-return
+      // eslint-disable-next-line no-else-return
+    } else {
       // will never get here unless nodejs has changes to Error
       console.error('log4js.logger - defaultParseCallStack error'); // eslint-disable-line no-console
     }
-  }
-  catch (err) {
+  } catch (err) {
     // will never get error unless nodejs has breaking changes to Error
     console.error('log4js.logger - defaultParseCallStack error', err); // eslint-disable-line no-console
   }
@@ -47774,7 +47742,7 @@ function defaultParseCallStack(data, skipIdx = 4) {
 class Logger {
   constructor(name) {
     if (!name) {
-      throw new Error("No category provided.");
+      throw new Error('No category provided.');
     }
     this.category = name;
     this.context = {};
@@ -47805,19 +47773,21 @@ class Logger {
   }
 
   log(level, ...args) {
-    let logLevel = levels.getLevel(level);
+    const logLevel = levels.getLevel(level);
     if (!logLevel) {
-      // allow LOG to be synonym of INFO
-      if ((level && level.trim().indexOf(" ") !== -1) || args.length === 0) {
-        args = [level, ...args];
+      if (configuration.validIdentifier(level) && args.length > 0) {
+        // logLevel not found but of valid signature, WARN before fallback to INFO
+        this.log(
+          levels.WARN,
+          'log4js:logger.log: valid log-level not found as first parameter given:',
+          level
+        );
+        this.log(levels.INFO, `[${level}]`, ...args);
       } else {
-        this._log(levels.WARN, ['log4js:logger.log: invalid value for log-level as first parameter given:', level]);
-        args = [`[${level}]`, ...args];
+        // apart from fallback, allow .log(...args) to be synonym with .log("INFO", ...args)
+        this.log(levels.INFO, level, ...args);
       }
-      // fallback to INFO
-      logLevel = levels.INFO;
-    }
-    if (this.isLevelEnabled(logLevel)) {
+    } else if (this.isLevelEnabled(logLevel)) {
       this._log(logLevel, args);
     }
   }
@@ -47859,7 +47829,7 @@ function addLevelMethods(target) {
   const level = levels.getLevel(target);
 
   const levelStrLower = level.toString().toLowerCase();
-  const levelMethod = levelStrLower.replace(/_([a-z])/g, g =>
+  const levelMethod = levelStrLower.replace(/_([a-z])/g, (g) =>
     g[1].toUpperCase()
   );
   const isLevelMethod = levelMethod[0].toUpperCase() + levelMethod.slice(1);
@@ -47909,7 +47879,7 @@ const styles = {
   green: [32, 39],
   magenta: [35, 39],
   red: [91, 39],
-  yellow: [33, 39]
+  yellow: [33, 39],
 };
 
 function colorizeStart(style) {
@@ -47949,7 +47919,9 @@ function timestampLevelAndCategory(loggingEvent, colour) {
  * @author Stephan Strittmatter
  */
 function basicLayout(loggingEvent) {
-  return timestampLevelAndCategory(loggingEvent) + util.format(...loggingEvent.data);
+  return (
+    timestampLevelAndCategory(loggingEvent) + util.format(...loggingEvent.data)
+  );
 }
 
 /**
@@ -47957,7 +47929,10 @@ function basicLayout(loggingEvent) {
  * same as basicLayout, but with colours.
  */
 function colouredLayout(loggingEvent) {
-  return timestampLevelAndCategory(loggingEvent, loggingEvent.level.colour) + util.format(...loggingEvent.data);
+  return (
+    timestampLevelAndCategory(loggingEvent, loggingEvent.level.colour) +
+    util.format(...loggingEvent.data)
+  );
 }
 
 function messagePassThroughLayout(loggingEvent) {
@@ -48013,7 +47988,8 @@ function dummyLayout(loggingEvent) {
  */
 function patternLayout(pattern, tokens) {
   const TTCC_CONVERSION_PATTERN = '%r %p %c - %m%n';
-  const regex = /%(-?[0-9]+)?(\.?-?[0-9]+)?([[\]cdhmnprzxXyflos%])(\{([^}]+)\})?|([^%]+)/;
+  const regex =
+    /%(-?[0-9]+)?(\.?-?[0-9]+)?([[\]cdhmnprzxXyflos%])(\{([^}]+)\})?|([^%]+)/;
 
   pattern = pattern || TTCC_CONVERSION_PATTERN;
 
@@ -48023,7 +47999,9 @@ function patternLayout(pattern, tokens) {
       const precision = parseInt(specifier, 10);
       const loggerNameBits = loggerName.split('.');
       if (precision < loggerNameBits.length) {
-        loggerName = loggerNameBits.slice(loggerNameBits.length - precision).join('.');
+        loggerName = loggerNameBits
+          .slice(loggerNameBits.length - precision)
+          .join('.');
       }
     }
     return loggerName;
@@ -48045,26 +48023,32 @@ function patternLayout(pattern, tokens) {
           break;
         case 'ABSOLUTE':
           process.emitWarning(
-            "Pattern %d{ABSOLUTE} is deprecated in favor of %d{ABSOLUTETIME}. " +
-            "Please use %d{ABSOLUTETIME} instead.",
-            "DeprecationWarning", "log4js-node-DEP0003"
+            'Pattern %d{ABSOLUTE} is deprecated in favor of %d{ABSOLUTETIME}. ' +
+              'Please use %d{ABSOLUTETIME} instead.',
+            'DeprecationWarning',
+            'log4js-node-DEP0003'
           );
-          debug("[log4js-node-DEP0003]",
-            "DEPRECATION: Pattern %d{ABSOLUTE} is deprecated and replaced by %d{ABSOLUTETIME}.");
-          // falls through
+          debug(
+            '[log4js-node-DEP0003]',
+            'DEPRECATION: Pattern %d{ABSOLUTE} is deprecated and replaced by %d{ABSOLUTETIME}.'
+          );
+        // falls through
         case 'ABSOLUTETIME':
         case 'ABSOLUTETIME_FORMAT':
           format = dateFormat.ABSOLUTETIME_FORMAT;
           break;
         case 'DATE':
           process.emitWarning(
-            "Pattern %d{DATE} is deprecated due to the confusion it causes when used. " +
-            "Please use %d{DATETIME} instead.",
-            "DeprecationWarning", "log4js-node-DEP0004"
+            'Pattern %d{DATE} is deprecated due to the confusion it causes when used. ' +
+              'Please use %d{DATETIME} instead.',
+            'DeprecationWarning',
+            'log4js-node-DEP0004'
           );
-          debug("[log4js-node-DEP0004]",
-            "DEPRECATION: Pattern %d{DATE} is deprecated and replaced by %d{DATETIME}.");
-          // falls through
+          debug(
+            '[log4js-node-DEP0004]',
+            'DEPRECATION: Pattern %d{DATE} is deprecated and replaced by %d{DATETIME}.'
+          );
+        // falls through
         case 'DATETIME':
         case 'DATETIME_FORMAT':
           format = dateFormat.DATETIME_FORMAT;
@@ -48109,7 +48093,9 @@ function patternLayout(pattern, tokens) {
   }
 
   function pid(loggingEvent) {
-    return loggingEvent && loggingEvent.pid ? loggingEvent.pid.toString() : process.pid.toString();
+    return loggingEvent && loggingEvent.pid
+      ? loggingEvent.pid.toString()
+      : process.pid.toString();
   }
 
   function clusterInfo() {
@@ -48121,7 +48107,9 @@ function patternLayout(pattern, tokens) {
 
   function userDefined(loggingEvent, specifier) {
     if (typeof tokens[specifier] !== 'undefined') {
-      return typeof tokens[specifier] === 'function' ? tokens[specifier](loggingEvent) : tokens[specifier];
+      return typeof tokens[specifier] === 'function'
+        ? tokens[specifier](loggingEvent)
+        : tokens[specifier];
     }
 
     return null;
@@ -48154,7 +48142,9 @@ function patternLayout(pattern, tokens) {
           // posix: file:///hello/world/foo.txt -> /hello/world/foo.txt -> /hello/world/foo.txt
           // win32: file:///C:/path/foo.txt     -> /C:/path/foo.txt     -> \C:\path\foo.txt     -> C:\path\foo.txt
           // win32: file://nas/foo.txt          -> //nas/foo.txt        -> nas\foo.txt          -> \\nas\foo.txt
-          filepath = path.normalize(filepath.replace(new RegExp(`^${urlPrefix}`), ''));
+          filepath = path.normalize(
+            filepath.replace(new RegExp(`^${urlPrefix}`), '')
+          );
           if (process.platform === 'win32') {
             if (filepath.startsWith('\\')) {
               filepath = filepath.slice(1);
@@ -48209,7 +48199,7 @@ function patternLayout(pattern, tokens) {
     f: fileName,
     l: lineNumber,
     o: columnNumber,
-    s: callStack
+    s: callStack,
   };
 
   function replaceToken(conversionCharacter, loggingEvent, specifier) {
@@ -48273,7 +48263,11 @@ function patternLayout(pattern, tokens) {
       } else {
         // Create a raw replacement string based on the conversion
         // character and specifier
-        const replacement = replaceToken(conversionCharacter, loggingEvent, specifier);
+        const replacement = replaceToken(
+          conversionCharacter,
+          loggingEvent,
+          specifier
+        );
         formattedString += truncateAndPad(replacement, truncation, padding);
       }
       searchString = searchString.slice(result.index + result[0].length);
@@ -48283,24 +48277,24 @@ function patternLayout(pattern, tokens) {
 }
 
 const layoutMakers = {
-  messagePassThrough () {
+  messagePassThrough() {
     return messagePassThroughLayout;
   },
-  basic () {
+  basic() {
     return basicLayout;
   },
-  colored () {
+  colored() {
     return colouredLayout;
   },
-  coloured () {
+  coloured() {
     return colouredLayout;
   },
-  pattern (config) {
+  pattern(config) {
     return patternLayout(config && config.pattern, config && config.tokens);
   },
-  dummy () {
+  dummy() {
     return dummyLayout;
-  }
+  },
 };
 
 module.exports = {
@@ -48310,12 +48304,12 @@ module.exports = {
   colouredLayout,
   coloredLayout: colouredLayout,
   dummyLayout,
-  addLayout (name, serializerGenerator) {
+  addLayout(name, serializerGenerator) {
     layoutMakers[name] = serializerGenerator;
   },
-  layout (name, config) {
+  layout(name, config) {
     return layoutMakers[name] && layoutMakers[name](config);
-  }
+  },
 };
 
 
@@ -48459,160 +48453,305 @@ exports.getLogger = getLogger;
 
 
 /***/ }),
-/* 754 */,
+/* 754 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const debug = __webpack_require__(784)('log4js:fileSync');
+const path = __webpack_require__(622);
+const fs = __webpack_require__(747);
+const os = __webpack_require__(87);
+
+const eol = os.EOL;
+
+function touchFile(file, options) {
+  // attempt to create the directory
+  const mkdir = (dir) => {
+    try {
+      return fs.mkdirSync(dir, { recursive: true });
+    } catch (e) {
+      // backward-compatible fs.mkdirSync for nodejs pre-10.12.0 (without recursive option)
+      // recursive creation of parent first
+      if (e.code === 'ENOENT') {
+        mkdir(path.dirname(dir));
+        return mkdir(dir);
+      }
+
+      // throw error for all except EEXIST and EROFS (read-only filesystem)
+      if (e.code !== 'EEXIST' && e.code !== 'EROFS') {
+        throw e;
+      }
+
+      // EEXIST: throw if file and not directory
+      // EROFS : throw if directory not found
+      else {
+        try {
+          if (fs.statSync(dir).isDirectory()) {
+            return dir;
+          }
+          throw e;
+        } catch (err) {
+          throw e;
+        }
+      }
+    }
+  };
+  mkdir(path.dirname(file));
+
+  // try to throw EISDIR, EROFS, EACCES
+  fs.appendFileSync(file, '', { mode: options.mode, flag: options.flags });
+}
+
+class RollingFileSync {
+  constructor(filename, maxLogSize, backups, options) {
+    debug('In RollingFileStream');
+
+    if (maxLogSize < 0) {
+      throw new Error(`maxLogSize (${maxLogSize}) should be > 0`);
+    }
+
+    this.filename = filename;
+    this.size = maxLogSize;
+    this.backups = backups;
+    this.options = options;
+    this.currentSize = 0;
+
+    function currentFileSize(file) {
+      let fileSize = 0;
+
+      try {
+        fileSize = fs.statSync(file).size;
+      } catch (e) {
+        // file does not exist
+        touchFile(file, options);
+      }
+      return fileSize;
+    }
+
+    this.currentSize = currentFileSize(this.filename);
+  }
+
+  shouldRoll() {
+    debug(
+      'should roll with current size %d, and max size %d',
+      this.currentSize,
+      this.size
+    );
+    return this.currentSize >= this.size;
+  }
+
+  roll(filename) {
+    const that = this;
+    const nameMatcher = new RegExp(`^${path.basename(filename)}`);
+
+    function justTheseFiles(item) {
+      return nameMatcher.test(item);
+    }
+
+    function index(filename_) {
+      return (
+        parseInt(filename_.slice(`${path.basename(filename)}.`.length), 10) || 0
+      );
+    }
+
+    function byIndex(a, b) {
+      return index(a) - index(b);
+    }
+
+    function increaseFileIndex(fileToRename) {
+      const idx = index(fileToRename);
+      debug(`Index of ${fileToRename} is ${idx}`);
+      if (that.backups === 0) {
+        fs.truncateSync(filename, 0);
+      } else if (idx < that.backups) {
+        // on windows, you can get a EEXIST error if you rename a file to an existing file
+        // so, we'll try to delete the file we're renaming to first
+        try {
+          fs.unlinkSync(`${filename}.${idx + 1}`);
+        } catch (e) {
+          // ignore err: if we could not delete, it's most likely that it doesn't exist
+        }
+
+        debug(`Renaming ${fileToRename} -> ${filename}.${idx + 1}`);
+        fs.renameSync(
+          path.join(path.dirname(filename), fileToRename),
+          `${filename}.${idx + 1}`
+        );
+      }
+    }
+
+    function renameTheFiles() {
+      // roll the backups (rename file.n to file.n+1, where n <= numBackups)
+      debug('Renaming the old files');
+
+      const files = fs.readdirSync(path.dirname(filename));
+      files
+        .filter(justTheseFiles)
+        .sort(byIndex)
+        .reverse()
+        .forEach(increaseFileIndex);
+    }
+
+    debug('Rolling, rolling, rolling');
+    renameTheFiles();
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  write(chunk, encoding) {
+    const that = this;
+
+    function writeTheChunk() {
+      debug('writing the chunk to the file');
+      that.currentSize += chunk.length;
+      fs.appendFileSync(that.filename, chunk);
+    }
+
+    debug('in write');
+
+    if (this.shouldRoll()) {
+      this.currentSize = 0;
+      this.roll(this.filename);
+    }
+
+    writeTheChunk();
+  }
+}
+
+/**
+ * File Appender writing the logs to a text file. Supports rolling of logs by size.
+ *
+ * @param file the file log messages will be written to
+ * @param layout a function that takes a logevent and returns a string
+ *   (defaults to basicLayout).
+ * @param logSize - the maximum size (in bytes) for a log file,
+ *   if not provided then logs won't be rotated.
+ * @param numBackups - the number of log files to keep after logSize
+ *   has been reached (default 5)
+ * @param options - options to be passed to the underlying stream
+ * @param timezoneOffset - optional timezone offset in minutes (default system local)
+ */
+function fileAppender(
+  file,
+  layout,
+  logSize,
+  numBackups,
+  options,
+  timezoneOffset
+) {
+  if (typeof file !== 'string' || file.length === 0) {
+    throw new Error(`Invalid filename: ${file}`);
+  } else if (file.endsWith(path.sep)) {
+    throw new Error(`Filename is a directory: ${file}`);
+  } else {
+    // handle ~ expansion: https://github.com/nodejs/node/issues/684
+    // exclude ~ and ~filename as these can be valid files
+    file = file.replace(new RegExp(`^~(?=${path.sep}.+)`), os.homedir());
+  }
+  file = path.normalize(file);
+  numBackups = !numBackups && numBackups !== 0 ? 5 : numBackups;
+
+  debug(
+    'Creating fileSync appender (',
+    file,
+    ', ',
+    logSize,
+    ', ',
+    numBackups,
+    ', ',
+    options,
+    ', ',
+    timezoneOffset,
+    ')'
+  );
+
+  function openTheStream(filePath, fileSize, numFiles) {
+    let stream;
+
+    if (fileSize) {
+      stream = new RollingFileSync(filePath, fileSize, numFiles, options);
+    } else {
+      stream = ((f) => {
+        // touch the file to apply flags (like w to truncate the file)
+        touchFile(f, options);
+
+        return {
+          write(data) {
+            fs.appendFileSync(f, data);
+          },
+        };
+      })(filePath);
+    }
+
+    return stream;
+  }
+
+  const logFile = openTheStream(file, logSize, numBackups);
+
+  return (loggingEvent) => {
+    logFile.write(layout(loggingEvent, timezoneOffset) + eol);
+  };
+}
+
+function configure(config, layouts) {
+  let layout = layouts.basicLayout;
+  if (config.layout) {
+    layout = layouts.layout(config.layout.type, config.layout);
+  }
+
+  const options = {
+    flags: config.flags || 'a',
+    encoding: config.encoding || 'utf8',
+    mode: config.mode || 0o600,
+  };
+
+  return fileAppender(
+    config.filename,
+    layout,
+    config.maxLogSize,
+    config.backups,
+    options,
+    config.timezoneOffset
+  );
+}
+
+module.exports.configure = configure;
+
+
+/***/ }),
 /* 755 */,
 /* 756 */,
 /* 757 */
-/***/ (function(__unusedmodule, exports) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NodeExtendParam = void 0;
-var NodeExtendParam = /** @class */ (function () {
-    function NodeExtendParam() {
-    }
-    NodeExtendParam.prototype.withEcsPerformancetype = function (ecsPerformancetype) {
-        this['ecs:performancetype'] = ecsPerformancetype;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "ecsPerformancetype", {
-        get: function () {
-            return this['ecs:performancetype'];
-        },
-        set: function (ecsPerformancetype) {
-            this['ecs:performancetype'] = ecsPerformancetype;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withOrderID = function (orderID) {
-        this['orderID'] = orderID;
-        return this;
-    };
-    NodeExtendParam.prototype.withProductID = function (productID) {
-        this['productID'] = productID;
-        return this;
-    };
-    NodeExtendParam.prototype.withMaxPods = function (maxPods) {
-        this['maxPods'] = maxPods;
-        return this;
-    };
-    NodeExtendParam.prototype.withPeriodType = function (periodType) {
-        this['periodType'] = periodType;
-        return this;
-    };
-    NodeExtendParam.prototype.withPeriodNum = function (periodNum) {
-        this['periodNum'] = periodNum;
-        return this;
-    };
-    NodeExtendParam.prototype.withIsAutoRenew = function (isAutoRenew) {
-        this['isAutoRenew'] = isAutoRenew;
-        return this;
-    };
-    NodeExtendParam.prototype.withIsAutoPay = function (isAutoPay) {
-        this['isAutoPay'] = isAutoPay;
-        return this;
-    };
-    NodeExtendParam.prototype.withDockerLVMConfigOverride = function (dockerLVMConfigOverride) {
-        this['DockerLVMConfigOverride'] = dockerLVMConfigOverride;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "dockerLVMConfigOverride", {
-        get: function () {
-            return this['DockerLVMConfigOverride'];
-        },
-        set: function (dockerLVMConfigOverride) {
-            this['DockerLVMConfigOverride'] = dockerLVMConfigOverride;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withDockerBaseSize = function (dockerBaseSize) {
-        this['dockerBaseSize'] = dockerBaseSize;
-        return this;
-    };
-    NodeExtendParam.prototype.withPublicKey = function (publicKey) {
-        this['publicKey'] = publicKey;
-        return this;
-    };
-    NodeExtendParam.prototype.withAlphaCcePreInstall = function (alphaCcePreInstall) {
-        this['alpha.cce/preInstall'] = alphaCcePreInstall;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "alphaCcePreInstall", {
-        get: function () {
-            return this['alpha.cce/preInstall'];
-        },
-        set: function (alphaCcePreInstall) {
-            this['alpha.cce/preInstall'] = alphaCcePreInstall;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withAlphaCcePostInstall = function (alphaCcePostInstall) {
-        this['alpha.cce/postInstall'] = alphaCcePostInstall;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "alphaCcePostInstall", {
-        get: function () {
-            return this['alpha.cce/postInstall'];
-        },
-        set: function (alphaCcePostInstall) {
-            this['alpha.cce/postInstall'] = alphaCcePostInstall;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withAlphaCceNodeImageID = function (alphaCceNodeImageID) {
-        this['alpha.cce/NodeImageID'] = alphaCceNodeImageID;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "alphaCceNodeImageID", {
-        get: function () {
-            return this['alpha.cce/NodeImageID'];
-        },
-        set: function (alphaCceNodeImageID) {
-            this['alpha.cce/NodeImageID'] = alphaCceNodeImageID;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withNicMultiqueue = function (nicMultiqueue) {
-        this['nicMultiqueue'] = nicMultiqueue;
-        return this;
-    };
-    NodeExtendParam.prototype.withNicThreshold = function (nicThreshold) {
-        this['nicThreshold'] = nicThreshold;
-        return this;
-    };
-    NodeExtendParam.prototype.withEnterpriseProjectId = function (enterpriseProjectId) {
-        this['enterprise_project_id'] = enterpriseProjectId;
-        return this;
-    };
-    Object.defineProperty(NodeExtendParam.prototype, "enterpriseProjectId", {
-        get: function () {
-            return this['enterprise_project_id'];
-        },
-        set: function (enterpriseProjectId) {
-            this['enterprise_project_id'] = enterpriseProjectId;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    NodeExtendParam.prototype.withChargingMode = function (chargingMode) {
-        this['chargingMode'] = chargingMode;
-        return this;
-    };
-    return NodeExtendParam;
-}());
-exports.NodeExtendParam = NodeExtendParam;
+
+module.exports = {
+  moveSync: __webpack_require__(712)
+}
 
 
 /***/ }),
 /* 758 */,
 /* 759 */,
-/* 760 */,
+/* 760 */
+/***/ (function(module) {
+
+"use strict";
+
+/* eslint-disable node/no-deprecated-api */
+module.exports = function (size) {
+  if (typeof Buffer.allocUnsafe === 'function') {
+    try {
+      return Buffer.allocUnsafe(size)
+    } catch (e) {
+      return new Buffer(size)
+    }
+  }
+  return new Buffer(size)
+}
+
+
+/***/ }),
 /* 761 */
 /***/ (function(module) {
 
@@ -48910,20 +49049,7 @@ exports.UpdateNodePoolRequest = UpdateNodePoolRequest;
 /* 771 */,
 /* 772 */,
 /* 773 */,
-/* 774 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const u = __webpack_require__(676).fromCallback
-module.exports = {
-  copy: u(__webpack_require__(595)),
-  copySync: __webpack_require__(577)
-}
-
-
-/***/ }),
+/* 774 */,
 /* 775 */,
 /* 776 */
 /***/ (function(module) {
@@ -49221,21 +49347,21 @@ module.exports = function mergeConfig(config1, config2) {
 /* 779 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-
-
 const util = __webpack_require__(669);
 const debug = __webpack_require__(784)('log4js:configuration');
 
 const preProcessingListeners = [];
 const listeners = [];
 
-const not = thing => !thing;
+const not = (thing) => !thing;
 
-const anObject = thing => thing && typeof thing === 'object' && !Array.isArray(thing);
+const anObject = (thing) =>
+  thing && typeof thing === 'object' && !Array.isArray(thing);
 
-const validIdentifier = thing => /^[A-Za-z][A-Za-z0-9_]*$/g.test(thing);
+const validIdentifier = (thing) => /^[A-Za-z][A-Za-z0-9_]*$/g.test(thing);
 
-const anInteger = thing => thing && typeof thing === 'number' && Number.isInteger(thing);
+const anInteger = (thing) =>
+  thing && typeof thing === 'number' && Number.isInteger(thing);
 
 const addListener = (fn) => {
   listeners.push(fn);
@@ -49244,15 +49370,20 @@ const addListener = (fn) => {
 
 const addPreProcessingListener = (fn) => {
   preProcessingListeners.push(fn);
-  debug(`Added pre-processing listener, now ${preProcessingListeners.length} listeners`);
+  debug(
+    `Added pre-processing listener, now ${preProcessingListeners.length} listeners`
+  );
 };
 
 const throwExceptionIf = (config, checks, message) => {
   const tests = Array.isArray(checks) ? checks : [checks];
   tests.forEach((test) => {
     if (test) {
-      throw new Error(`Problem with log4js configuration: (${util.inspect(config, { depth: 5 })})`
-        + ` - ${message}`);
+      throw new Error(
+        `Problem with log4js configuration: (${util.inspect(config, {
+          depth: 5,
+        })}) - ${message}`
+      );
     }
   });
 };
@@ -49262,11 +49393,11 @@ const configure = (candidate) => {
   throwExceptionIf(candidate, not(anObject(candidate)), 'must be an object.');
 
   debug(`Calling pre-processing listeners (${preProcessingListeners.length})`);
-  preProcessingListeners.forEach(listener => listener(candidate));
+  preProcessingListeners.forEach((listener) => listener(candidate));
   debug('Configuration pre-processing finished.');
 
   debug(`Calling configuration listeners (${listeners.length})`);
-  listeners.forEach(listener => listener(candidate));
+  listeners.forEach((listener) => listener(candidate));
   debug('Configuration finished.');
 };
 
@@ -49278,7 +49409,7 @@ module.exports = {
   anObject,
   anInteger,
   validIdentifier,
-  not
+  not,
 };
 
 
@@ -49290,22 +49421,71 @@ module.exports = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserPassword = void 0;
-var UserPassword = /** @class */ (function () {
-    function UserPassword(password) {
-        this['password'] = password;
+exports.ListClustersRequestTypeEnum = exports.ListClustersRequestStatusEnum = exports.ListClustersRequest = void 0;
+var ListClustersRequest = /** @class */ (function () {
+    function ListClustersRequest(contentType) {
+        this['Content-Type'] = contentType;
     }
-    UserPassword.prototype.withUsername = function (username) {
-        this['username'] = username;
+    ListClustersRequest.prototype.withContentType = function (contentType) {
+        this['Content-Type'] = contentType;
         return this;
     };
-    UserPassword.prototype.withPassword = function (password) {
-        this['password'] = password;
+    Object.defineProperty(ListClustersRequest.prototype, "contentType", {
+        get: function () {
+            return this['Content-Type'];
+        },
+        set: function (contentType) {
+            this['Content-Type'] = contentType;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    ListClustersRequest.prototype.withDetail = function (detail) {
+        this['detail'] = detail;
         return this;
     };
-    return UserPassword;
+    ListClustersRequest.prototype.withStatus = function (status) {
+        this['status'] = status;
+        return this;
+    };
+    ListClustersRequest.prototype.withType = function (type) {
+        this['type'] = type;
+        return this;
+    };
+    ListClustersRequest.prototype.withVersion = function (version) {
+        this['version'] = version;
+        return this;
+    };
+    return ListClustersRequest;
 }());
-exports.UserPassword = UserPassword;
+exports.ListClustersRequest = ListClustersRequest;
+/**
+    * @export
+    * @enum {string}
+    */
+var ListClustersRequestStatusEnum;
+(function (ListClustersRequestStatusEnum) {
+    ListClustersRequestStatusEnum["AVAILABLE"] = "Available";
+    ListClustersRequestStatusEnum["UNAVAILABLE"] = "Unavailable";
+    ListClustersRequestStatusEnum["SCALINGUP"] = "ScalingUp";
+    ListClustersRequestStatusEnum["SCALINGDOWN"] = "ScalingDown";
+    ListClustersRequestStatusEnum["CREATING"] = "Creating";
+    ListClustersRequestStatusEnum["DELETING"] = "Deleting";
+    ListClustersRequestStatusEnum["UPGRADING"] = "Upgrading";
+    ListClustersRequestStatusEnum["RESIZING"] = "Resizing";
+    ListClustersRequestStatusEnum["ROLLINGBACK"] = "RollingBack";
+    ListClustersRequestStatusEnum["ROLLBACKFAILED"] = "RollbackFailed";
+    ListClustersRequestStatusEnum["EMPTY"] = "Empty";
+})(ListClustersRequestStatusEnum = exports.ListClustersRequestStatusEnum || (exports.ListClustersRequestStatusEnum = {}));
+/**
+    * @export
+    * @enum {string}
+    */
+var ListClustersRequestTypeEnum;
+(function (ListClustersRequestTypeEnum) {
+    ListClustersRequestTypeEnum["VIRTUALMACHINE"] = "VirtualMachine";
+    ListClustersRequestTypeEnum["ARM64"] = "ARM64";
+})(ListClustersRequestTypeEnum = exports.ListClustersRequestTypeEnum || (exports.ListClustersRequestTypeEnum = {}));
 
 
 /***/ }),
@@ -49327,7 +49507,27 @@ if (typeof process === 'undefined' || process.type === 'renderer' || process.bro
 
 
 /***/ }),
-/* 785 */,
+/* 785 */
+/***/ (function(module) {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
 /* 786 */,
 /* 787 */,
 /* 788 */
@@ -49471,6 +49671,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(__webpack_require__(984), exports);
 __exportStar(__webpack_require__(124), exports);
+__exportStar(__webpack_require__(988), exports);
 
 
 /***/ }),
@@ -49667,7 +49868,41 @@ exports.RemoveNodesSpec = RemoveNodesSpec;
 /* 811 */,
 /* 812 */,
 /* 813 */,
-/* 814 */,
+/* 814 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const debug = __webpack_require__(784)('log4js:recording');
+
+const recordedEvents = [];
+
+function configure() {
+  return function (logEvent) {
+    debug(
+      `received logEvent, number of events now ${recordedEvents.length + 1}`
+    );
+    debug('log event was ', logEvent);
+    recordedEvents.push(logEvent);
+  };
+}
+
+function replay() {
+  return recordedEvents.slice();
+}
+
+function reset() {
+  recordedEvents.length = 0;
+}
+
+module.exports = {
+  configure,
+  replay,
+  playback: replay,
+  reset,
+  erase: reset,
+};
+
+
+/***/ }),
 /* 815 */,
 /* 816 */,
 /* 817 */,
@@ -49783,7 +50018,6 @@ function inheritFromParent(config, category, categoryName) {
   const parentCategoryName = categoryName.slice(0, lastDotIndex);
   let parentCategory = config.categories[parentCategoryName];
 
-
   if (!parentCategory) {
     // parent is missing, so implicitly create it, so that it can inherit from its parents
     parentCategory = { inherit: true, appenders: [] };
@@ -49794,10 +50028,12 @@ function inheritFromParent(config, category, categoryName) {
 
   // if the parent is not in the config (because we just created it above),
   // and it inherited a valid configuration, add it to config.categories
-  if (!config.categories[parentCategoryName]
-    && parentCategory.appenders
-    && parentCategory.appenders.length
-    && parentCategory.level) {
+  if (
+    !config.categories[parentCategoryName] &&
+    parentCategory.appenders &&
+    parentCategory.appenders.length &&
+    parentCategory.level
+  ) {
     config.categories[parentCategoryName] = parentCategory;
   }
 
@@ -49812,7 +50048,6 @@ function inheritFromParent(config, category, categoryName) {
   });
   category.parent = parentCategory;
 }
-
 
 /**
  * Walk all categories in the config, and pull down any configuration from parent to child.
@@ -49830,7 +50065,9 @@ function addCategoryInheritance(config) {
   });
 }
 
-configuration.addPreProcessingListener(config => addCategoryInheritance(config));
+configuration.addPreProcessingListener((config) =>
+  addCategoryInheritance(config)
+);
 
 configuration.addListener((config) => {
   configuration.throwExceptionIf(
@@ -49852,7 +50089,7 @@ configuration.addListener((config) => {
       config,
       [
         configuration.not(category.appenders),
-        configuration.not(category.level)
+        configuration.not(category.level),
       ],
       `category "${name}" is not valid (must be an object with properties "appenders" and "level")`
     );
@@ -49888,8 +50125,8 @@ configuration.addListener((config) => {
     configuration.throwExceptionIf(
       config,
       configuration.not(levels.getLevel(category.level)),
-      `category "${name}" is not valid (level "${category.level}" not recognised;`
-      + ` valid levels are ${levels.levels.join(', ')})`
+      `category "${name}" is not valid (level "${category.level}" not recognised;` +
+        ` valid levels are ${levels.levels.join(', ')})`
     );
   });
 
@@ -49913,14 +50150,11 @@ const setup = (config) => {
     category.appenders.forEach((appender) => {
       categoryAppenders.push(appenders.get(appender));
       debug(`Creating category ${name}`);
-      categories.set(
-        name,
-        {
-          appenders: categoryAppenders,
-          level: levels.getLevel(category.level),
-          enableCallStack: category.enableCallStack || false
-        }
-      );
+      categories.set(name, {
+        appenders: categoryAppenders,
+        level: levels.getLevel(category.level),
+        enableCallStack: category.enableCallStack || false,
+      });
     });
   });
 };
@@ -49942,7 +50176,9 @@ const configForCategory = (category) => {
   let sourceCategoryConfig;
   if (category.indexOf('.') > 0) {
     debug(`configForCategory: ${category} has hierarchy, cloning from parents`);
-    sourceCategoryConfig = { ...configForCategory(category.slice(0, category.lastIndexOf('.'))) };
+    sourceCategoryConfig = {
+      ...configForCategory(category.slice(0, category.lastIndexOf('.'))),
+    };
   } else {
     if (!categories.has('default')) {
       setup({ categories: { default: { appenders: ['out'], level: 'OFF' } } });
@@ -49954,14 +50190,16 @@ const configForCategory = (category) => {
   return sourceCategoryConfig;
 };
 
-const appendersForCategory = category => configForCategory(category).appenders;
+const appendersForCategory = (category) =>
+  configForCategory(category).appenders;
 
-const getLevelForCategory = category => configForCategory(category).level;
+const getLevelForCategory = (category) => configForCategory(category).level;
 const setLevelForCategory = (category, level) => {
   configForCategory(category).level = level;
 };
 
-const getEnableCallStackForCategory = category => configForCategory(category).enableCallStack === true;
+const getEnableCallStackForCategory = (category) =>
+  configForCategory(category).enableCallStack === true;
 const setEnableCallStackForCategory = (category, useCallStack) => {
   configForCategory(category).enableCallStack = useCallStack;
 };
@@ -50048,7 +50286,56 @@ exports.ClusterNodeInformation = ClusterNodeInformation;
 
 
 /***/ }),
-/* 830 */,
+/* 830 */
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeleteAddonInstanceRequest = void 0;
+var DeleteAddonInstanceRequest = /** @class */ (function () {
+    function DeleteAddonInstanceRequest(contentType, id) {
+        this['Content-Type'] = contentType;
+        this['id'] = id;
+    }
+    DeleteAddonInstanceRequest.prototype.withContentType = function (contentType) {
+        this['Content-Type'] = contentType;
+        return this;
+    };
+    Object.defineProperty(DeleteAddonInstanceRequest.prototype, "contentType", {
+        get: function () {
+            return this['Content-Type'];
+        },
+        set: function (contentType) {
+            this['Content-Type'] = contentType;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    DeleteAddonInstanceRequest.prototype.withId = function (id) {
+        this['id'] = id;
+        return this;
+    };
+    DeleteAddonInstanceRequest.prototype.withClusterId = function (clusterId) {
+        this['cluster_id'] = clusterId;
+        return this;
+    };
+    Object.defineProperty(DeleteAddonInstanceRequest.prototype, "clusterId", {
+        get: function () {
+            return this['cluster_id'];
+        },
+        set: function (clusterId) {
+            this['cluster_id'] = clusterId;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return DeleteAddonInstanceRequest;
+}());
+exports.DeleteAddonInstanceRequest = DeleteAddonInstanceRequest;
+
+
+/***/ }),
 /* 831 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -50226,8 +50513,6 @@ exports.CceRegion = CceRegion;
 /* 838 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-
-
 const debug = __webpack_require__(784)('log4js:tcp');
 const net = __webpack_require__(631);
 
@@ -50252,9 +50537,16 @@ function appender(config, layout) {
   }
 
   function createSocket() {
-    debug(`appender creating socket to ${config.host || 'localhost'}:${config.port || 5000}`);
+    debug(
+      `appender creating socket to ${config.host || 'localhost'}:${
+        config.port || 5000
+      }`
+    );
     endMsg = `${config.endMsg || '__LOG4JS__'}`;
-    socket = net.createConnection(config.port || 5000, config.host || 'localhost');
+    socket = net.createConnection(
+      config.port || 5000,
+      config.host || 'localhost'
+    );
     socket.on('connect', () => {
       debug('socket connected');
       emptyBuffer();
@@ -50385,8 +50677,6 @@ exports.DeleteCloudPersistentVolumeClaimsRequest = DeleteCloudPersistentVolumeCl
 /* 843 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-
-
 const debug = __webpack_require__(784)('log4js:noLogFilter');
 
 /**
@@ -50395,7 +50685,7 @@ const debug = __webpack_require__(784)('log4js:noLogFilter');
  * @returns {string[]} a filtered string array with not empty or null regexp
  */
 function removeNullOrEmptyRegexp(regexp) {
-  const filtered = regexp.filter(el => ((el != null) && (el !== '')));
+  const filtered = regexp.filter((el) => el != null && el !== '');
   return filtered;
 }
 
@@ -50414,8 +50704,10 @@ function noLogFilter(filters, appender) {
     }
     filters = removeNullOrEmptyRegexp(filters);
     const regex = new RegExp(filters.join('|'), 'i');
-    if (filters.length === 0
-      || logEvent.data.findIndex(value => regex.test(value)) < 0) {
+    if (
+      filters.length === 0 ||
+      logEvent.data.findIndex((value) => regex.test(value)) < 0
+    ) {
       debug('Not excluded, sending to appender');
       appender(logEvent);
     }
@@ -50432,99 +50724,23 @@ module.exports.configure = configure;
 
 /***/ }),
 /* 844 */,
-/* 845 */,
-/* 846 */,
-/* 847 */,
-/* 848 */,
-/* 849 */
+/* 845 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
 
 const u = __webpack_require__(676).fromCallback
-const path = __webpack_require__(622)
-const fs = __webpack_require__(869)
-const _mkdirs = __webpack_require__(727)
-const mkdirs = _mkdirs.mkdirs
-const mkdirsSync = _mkdirs.mkdirsSync
-
-const _symlinkPaths = __webpack_require__(930)
-const symlinkPaths = _symlinkPaths.symlinkPaths
-const symlinkPathsSync = _symlinkPaths.symlinkPathsSync
-
-const _symlinkType = __webpack_require__(975)
-const symlinkType = _symlinkType.symlinkType
-const symlinkTypeSync = _symlinkType.symlinkTypeSync
-
-const pathExists = __webpack_require__(322).pathExists
-
-const { areIdentical } = __webpack_require__(127)
-
-function createSymlink (srcpath, dstpath, type, callback) {
-  callback = (typeof type === 'function') ? type : callback
-  type = (typeof type === 'function') ? false : type
-
-  fs.lstat(dstpath, (err, stats) => {
-    if (!err && stats.isSymbolicLink()) {
-      Promise.all([
-        fs.stat(srcpath),
-        fs.stat(dstpath)
-      ]).then(([srcStat, dstStat]) => {
-        if (areIdentical(srcStat, dstStat)) return callback(null)
-        _createSymlink(srcpath, dstpath, type, callback)
-      })
-    } else _createSymlink(srcpath, dstpath, type, callback)
-  })
-}
-
-function _createSymlink (srcpath, dstpath, type, callback) {
-  symlinkPaths(srcpath, dstpath, (err, relative) => {
-    if (err) return callback(err)
-    srcpath = relative.toDst
-    symlinkType(relative.toCwd, type, (err, type) => {
-      if (err) return callback(err)
-      const dir = path.dirname(dstpath)
-      pathExists(dir, (err, dirExists) => {
-        if (err) return callback(err)
-        if (dirExists) return fs.symlink(srcpath, dstpath, type, callback)
-        mkdirs(dir, err => {
-          if (err) return callback(err)
-          fs.symlink(srcpath, dstpath, type, callback)
-        })
-      })
-    })
-  })
-}
-
-function createSymlinkSync (srcpath, dstpath, type) {
-  let stats
-  try {
-    stats = fs.lstatSync(dstpath)
-  } catch {}
-  if (stats && stats.isSymbolicLink()) {
-    const srcStat = fs.statSync(srcpath)
-    const dstStat = fs.statSync(dstpath)
-    if (areIdentical(srcStat, dstStat)) return
-  }
-
-  const relative = symlinkPathsSync(srcpath, dstpath)
-  srcpath = relative.toDst
-  type = symlinkTypeSync(relative.toCwd, type)
-  const dir = path.dirname(dstpath)
-  const exists = fs.existsSync(dir)
-  if (exists) return fs.symlinkSync(srcpath, dstpath, type)
-  mkdirsSync(dir)
-  return fs.symlinkSync(srcpath, dstpath, type)
-}
-
 module.exports = {
-  createSymlink: u(createSymlink),
-  createSymlinkSync
+  copy: u(__webpack_require__(558))
 }
 
 
 /***/ }),
+/* 846 */,
+/* 847 */,
+/* 848 */,
+/* 849 */,
 /* 850 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -50705,7 +50921,7 @@ function adapter(configAdapter, config) {
 
 function fileAppenderAdapter(config) {
   const configAdapter = {
-    maxLogSize: maxFileSizeUnitTransform
+    maxLogSize: maxFileSizeUnitTransform,
   };
   return adapter(configAdapter, config);
 }
@@ -50713,10 +50929,11 @@ function fileAppenderAdapter(config) {
 const adapters = {
   dateFile: fileAppenderAdapter,
   file: fileAppenderAdapter,
-  fileSync: fileAppenderAdapter
+  fileSync: fileAppenderAdapter,
 };
 
-module.exports.modifyConfig = config => (adapters[config.type] ? adapters[config.type](config) : config);
+module.exports.modifyConfig = (config) =>
+  adapters[config.type] ? adapters[config.type](config) : config;
 
 
 /***/ }),
@@ -50791,137 +51008,48 @@ module.exports = require("tty");
 /***/ }),
 /* 868 */,
 /* 869 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
-// This is adapted from https://github.com/normalize/mz
-// Copyright (c) 2014-2016 Jonathan Ong me@jongleberry.com and Contributors
-const u = __webpack_require__(676).fromCallback
-const fs = __webpack_require__(598)
-
-const api = [
-  'access',
-  'appendFile',
-  'chmod',
-  'chown',
-  'close',
-  'copyFile',
-  'fchmod',
-  'fchown',
-  'fdatasync',
-  'fstat',
-  'fsync',
-  'ftruncate',
-  'futimes',
-  'lchmod',
-  'lchown',
-  'link',
-  'lstat',
-  'mkdir',
-  'mkdtemp',
-  'open',
-  'opendir',
-  'readdir',
-  'readFile',
-  'readlink',
-  'realpath',
-  'rename',
-  'rm',
-  'rmdir',
-  'stat',
-  'symlink',
-  'truncate',
-  'unlink',
-  'utimes',
-  'writeFile'
-].filter(key => {
-  // Some commands are not available on some systems. Ex:
-  // fs.opendir was added in Node.js v12.12.0
-  // fs.rm was added in Node.js v14.14.0
-  // fs.lchown is not available on at least some Linux
-  return typeof fs[key] === 'function'
-})
-
-// Export cloned fs:
-Object.assign(exports, fs)
-
-// Universalify async methods:
-api.forEach(method => {
-  exports[method] = u(fs[method])
-})
-
-// We differ from mz/fs in that we still ship the old, broken, fs.exists()
-// since we are a drop-in replacement for the native module
-exports.exists = function (filename, callback) {
-  if (typeof callback === 'function') {
-    return fs.exists(filename, callback)
-  }
-  return new Promise(resolve => {
-    return fs.exists(filename, resolve)
-  })
-}
-
-// fs.read(), fs.write(), & fs.writev() need special treatment due to multiple callback args
-
-exports.read = function (fd, buffer, offset, length, position, callback) {
-  if (typeof callback === 'function') {
-    return fs.read(fd, buffer, offset, length, position, callback)
-  }
-  return new Promise((resolve, reject) => {
-    fs.read(fd, buffer, offset, length, position, (err, bytesRead, buffer) => {
-      if (err) return reject(err)
-      resolve({ bytesRead, buffer })
-    })
-  })
-}
-
-// Function signature can be
-// fs.write(fd, buffer[, offset[, length[, position]]], callback)
-// OR
-// fs.write(fd, string[, position[, encoding]], callback)
-// We need to handle both cases, so we use ...args
-exports.write = function (fd, buffer, ...args) {
-  if (typeof args[args.length - 1] === 'function') {
-    return fs.write(fd, buffer, ...args)
-  }
-
-  return new Promise((resolve, reject) => {
-    fs.write(fd, buffer, ...args, (err, bytesWritten, buffer) => {
-      if (err) return reject(err)
-      resolve({ bytesWritten, buffer })
-    })
-  })
-}
-
-// fs.writev only available in Node v12.9.0+
-if (typeof fs.writev === 'function') {
-  // Function signature is
-  // s.writev(fd, buffers[, position], callback)
-  // We need to handle the optional arg, so we use ...args
-  exports.writev = function (fd, buffers, ...args) {
-    if (typeof args[args.length - 1] === 'function') {
-      return fs.writev(fd, buffers, ...args)
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HibernateClusterRequest = void 0;
+var HibernateClusterRequest = /** @class */ (function () {
+    function HibernateClusterRequest(clusterId, contentType) {
+        this['cluster_id'] = clusterId;
+        this['Content-Type'] = contentType;
     }
-
-    return new Promise((resolve, reject) => {
-      fs.writev(fd, buffers, ...args, (err, bytesWritten, buffers) => {
-        if (err) return reject(err)
-        resolve({ bytesWritten, buffers })
-      })
-    })
-  }
-}
-
-// fs.realpath.native sometimes not available if fs is monkey-patched
-if (typeof fs.realpath.native === 'function') {
-  exports.realpath.native = u(fs.realpath.native)
-} else {
-  process.emitWarning(
-    'fs.realpath.native is not a function. Is fs being monkey-patched?',
-    'Warning', 'fs-extra-WARN0003'
-  )
-}
+    HibernateClusterRequest.prototype.withClusterId = function (clusterId) {
+        this['cluster_id'] = clusterId;
+        return this;
+    };
+    Object.defineProperty(HibernateClusterRequest.prototype, "clusterId", {
+        get: function () {
+            return this['cluster_id'];
+        },
+        set: function (clusterId) {
+            this['cluster_id'] = clusterId;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    HibernateClusterRequest.prototype.withContentType = function (contentType) {
+        this['Content-Type'] = contentType;
+        return this;
+    };
+    Object.defineProperty(HibernateClusterRequest.prototype, "contentType", {
+        get: function () {
+            return this['Content-Type'];
+        },
+        set: function (contentType) {
+            this['Content-Type'] = contentType;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return HibernateClusterRequest;
+}());
+exports.HibernateClusterRequest = HibernateClusterRequest;
 
 
 /***/ }),
@@ -50958,152 +51086,318 @@ exports.Login = Login;
 "use strict";
 
 
-var utils = __webpack_require__(35);
-var buildURL = __webpack_require__(133);
-var InterceptorManager = __webpack_require__(283);
-var dispatchRequest = __webpack_require__(946);
-var mergeConfig = __webpack_require__(778);
-var validator = __webpack_require__(106);
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const assert = __webpack_require__(357)
 
-var validators = validator.validators;
-/**
- * Create a new instance of Axios
- *
- * @param {Object} instanceConfig The default config for the instance
- */
-function Axios(instanceConfig) {
-  this.defaults = instanceConfig;
-  this.interceptors = {
-    request: new InterceptorManager(),
-    response: new InterceptorManager()
-  };
+const isWindows = (process.platform === 'win32')
+
+function defaults (options) {
+  const methods = [
+    'unlink',
+    'chmod',
+    'stat',
+    'lstat',
+    'rmdir',
+    'readdir'
+  ]
+  methods.forEach(m => {
+    options[m] = options[m] || fs[m]
+    m = m + 'Sync'
+    options[m] = options[m] || fs[m]
+  })
+
+  options.maxBusyTries = options.maxBusyTries || 3
 }
 
-/**
- * Dispatch a request
- *
- * @param {Object} config The config specific for this request (merged with this.defaults)
- */
-Axios.prototype.request = function request(config) {
-  /*eslint no-param-reassign:0*/
-  // Allow for axios('example/url'[, config]) a la fetch API
-  if (typeof config === 'string') {
-    config = arguments[1] || {};
-    config.url = arguments[0];
-  } else {
-    config = config || {};
+function rimraf (p, options, cb) {
+  let busyTries = 0
+
+  if (typeof options === 'function') {
+    cb = options
+    options = {}
   }
 
-  config = mergeConfig(this.defaults, config);
+  assert(p, 'rimraf: missing path')
+  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
+  assert.strictEqual(typeof cb, 'function', 'rimraf: callback function required')
+  assert(options, 'rimraf: invalid options argument provided')
+  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
 
-  // Set config.method
-  if (config.method) {
-    config.method = config.method.toLowerCase();
-  } else if (this.defaults.method) {
-    config.method = this.defaults.method.toLowerCase();
-  } else {
-    config.method = 'get';
-  }
+  defaults(options)
 
-  var transitional = config.transitional;
+  rimraf_(p, options, function CB (er) {
+    if (er) {
+      if ((er.code === 'EBUSY' || er.code === 'ENOTEMPTY' || er.code === 'EPERM') &&
+          busyTries < options.maxBusyTries) {
+        busyTries++
+        const time = busyTries * 100
+        // try again, with the same exact callback as this one.
+        return setTimeout(() => rimraf_(p, options, CB), time)
+      }
 
-  if (transitional !== undefined) {
-    validator.assertOptions(transitional, {
-      silentJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
-      forcedJSONParsing: validators.transitional(validators.boolean, '1.0.0'),
-      clarifyTimeoutError: validators.transitional(validators.boolean, '1.0.0')
-    }, false);
-  }
-
-  // filter out skipped interceptors
-  var requestInterceptorChain = [];
-  var synchronousRequestInterceptors = true;
-  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    if (typeof interceptor.runWhen === 'function' && interceptor.runWhen(config) === false) {
-      return;
+      // already gone
+      if (er.code === 'ENOENT') er = null
     }
 
-    synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+    cb(er)
+  })
+}
 
-    requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
-  });
+// Two possible strategies.
+// 1. Assume it's a file.  unlink it, then do the dir stuff on EPERM or EISDIR
+// 2. Assume it's a directory.  readdir, then do the file stuff on ENOTDIR
+//
+// Both result in an extra syscall when you guess wrong.  However, there
+// are likely far more normal files in the world than directories.  This
+// is based on the assumption that a the average number of files per
+// directory is >= 1.
+//
+// If anyone ever complains about this, then I guess the strategy could
+// be made configurable somehow.  But until then, YAGNI.
+function rimraf_ (p, options, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
 
-  var responseInterceptorChain = [];
-  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  var promise;
-
-  if (!synchronousRequestInterceptors) {
-    var chain = [dispatchRequest, undefined];
-
-    Array.prototype.unshift.apply(chain, requestInterceptorChain);
-    chain = chain.concat(responseInterceptorChain);
-
-    promise = Promise.resolve(config);
-    while (chain.length) {
-      promise = promise.then(chain.shift(), chain.shift());
+  // sunos lets the root user unlink directories, which is... weird.
+  // so we have to lstat here and make sure it's not a dir.
+  options.lstat(p, (er, st) => {
+    if (er && er.code === 'ENOENT') {
+      return cb(null)
     }
 
-    return promise;
+    // Windows can EPERM on stat.  Life is suffering.
+    if (er && er.code === 'EPERM' && isWindows) {
+      return fixWinEPERM(p, options, er, cb)
+    }
+
+    if (st && st.isDirectory()) {
+      return rmdir(p, options, er, cb)
+    }
+
+    options.unlink(p, er => {
+      if (er) {
+        if (er.code === 'ENOENT') {
+          return cb(null)
+        }
+        if (er.code === 'EPERM') {
+          return (isWindows)
+            ? fixWinEPERM(p, options, er, cb)
+            : rmdir(p, options, er, cb)
+        }
+        if (er.code === 'EISDIR') {
+          return rmdir(p, options, er, cb)
+        }
+      }
+      return cb(er)
+    })
+  })
+}
+
+function fixWinEPERM (p, options, er, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+  if (er) {
+    assert(er instanceof Error)
   }
 
+  options.chmod(p, 0o666, er2 => {
+    if (er2) {
+      cb(er2.code === 'ENOENT' ? null : er)
+    } else {
+      options.stat(p, (er3, stats) => {
+        if (er3) {
+          cb(er3.code === 'ENOENT' ? null : er)
+        } else if (stats.isDirectory()) {
+          rmdir(p, options, er, cb)
+        } else {
+          options.unlink(p, cb)
+        }
+      })
+    }
+  })
+}
 
-  var newConfig = config;
-  while (requestInterceptorChain.length) {
-    var onFulfilled = requestInterceptorChain.shift();
-    var onRejected = requestInterceptorChain.shift();
-    try {
-      newConfig = onFulfilled(newConfig);
-    } catch (error) {
-      onRejected(error);
-      break;
+function fixWinEPERMSync (p, options, er) {
+  let stats
+
+  assert(p)
+  assert(options)
+  if (er) {
+    assert(er instanceof Error)
+  }
+
+  try {
+    options.chmodSync(p, 0o666)
+  } catch (er2) {
+    if (er2.code === 'ENOENT') {
+      return
+    } else {
+      throw er
     }
   }
 
   try {
-    promise = dispatchRequest(newConfig);
-  } catch (error) {
-    return Promise.reject(error);
+    stats = options.statSync(p)
+  } catch (er3) {
+    if (er3.code === 'ENOENT') {
+      return
+    } else {
+      throw er
+    }
   }
 
-  while (responseInterceptorChain.length) {
-    promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+  if (stats.isDirectory()) {
+    rmdirSync(p, options, er)
+  } else {
+    options.unlinkSync(p)
+  }
+}
+
+function rmdir (p, options, originalEr, cb) {
+  assert(p)
+  assert(options)
+  if (originalEr) {
+    assert(originalEr instanceof Error)
+  }
+  assert(typeof cb === 'function')
+
+  // try to rmdir first, and only readdir on ENOTEMPTY or EEXIST (SunOS)
+  // if we guessed wrong, and it's not a directory, then
+  // raise the original error.
+  options.rmdir(p, er => {
+    if (er && (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM')) {
+      rmkids(p, options, cb)
+    } else if (er && er.code === 'ENOTDIR') {
+      cb(originalEr)
+    } else {
+      cb(er)
+    }
+  })
+}
+
+function rmkids (p, options, cb) {
+  assert(p)
+  assert(options)
+  assert(typeof cb === 'function')
+
+  options.readdir(p, (er, files) => {
+    if (er) return cb(er)
+
+    let n = files.length
+    let errState
+
+    if (n === 0) return options.rmdir(p, cb)
+
+    files.forEach(f => {
+      rimraf(path.join(p, f), options, er => {
+        if (errState) {
+          return
+        }
+        if (er) return cb(errState = er)
+        if (--n === 0) {
+          options.rmdir(p, cb)
+        }
+      })
+    })
+  })
+}
+
+// this looks simpler, and is strictly *faster*, but will
+// tie up the JavaScript thread and fail on excessively
+// deep directory trees.
+function rimrafSync (p, options) {
+  let st
+
+  options = options || {}
+  defaults(options)
+
+  assert(p, 'rimraf: missing path')
+  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
+  assert(options, 'rimraf: missing options')
+  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
+
+  try {
+    st = options.lstatSync(p)
+  } catch (er) {
+    if (er.code === 'ENOENT') {
+      return
+    }
+
+    // Windows can EPERM on stat.  Life is suffering.
+    if (er.code === 'EPERM' && isWindows) {
+      fixWinEPERMSync(p, options, er)
+    }
   }
 
-  return promise;
-};
+  try {
+    // sunos lets the root user unlink directories, which is... weird.
+    if (st && st.isDirectory()) {
+      rmdirSync(p, options, null)
+    } else {
+      options.unlinkSync(p)
+    }
+  } catch (er) {
+    if (er.code === 'ENOENT') {
+      return
+    } else if (er.code === 'EPERM') {
+      return isWindows ? fixWinEPERMSync(p, options, er) : rmdirSync(p, options, er)
+    } else if (er.code !== 'EISDIR') {
+      throw er
+    }
+    rmdirSync(p, options, er)
+  }
+}
 
-Axios.prototype.getUri = function getUri(config) {
-  config = mergeConfig(this.defaults, config);
-  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
-};
+function rmdirSync (p, options, originalEr) {
+  assert(p)
+  assert(options)
+  if (originalEr) {
+    assert(originalEr instanceof Error)
+  }
 
-// Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
-    return this.request(mergeConfig(config || {}, {
-      method: method,
-      url: url,
-      data: (config || {}).data
-    }));
-  };
-});
+  try {
+    options.rmdirSync(p)
+  } catch (er) {
+    if (er.code === 'ENOTDIR') {
+      throw originalEr
+    } else if (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM') {
+      rmkidsSync(p, options)
+    } else if (er.code !== 'ENOENT') {
+      throw er
+    }
+  }
+}
 
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
-    return this.request(mergeConfig(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
-});
+function rmkidsSync (p, options) {
+  assert(p)
+  assert(options)
+  options.readdirSync(p).forEach(f => rimrafSync(path.join(p, f), options))
 
-module.exports = Axios;
+  if (isWindows) {
+    // We only end up here once we got ENOTEMPTY at least once, and
+    // at this point, we are guaranteed to have removed all the kids.
+    // So, we know that it won't be ENOENT or ENOTDIR or anything else.
+    // try really hard to delete stuff on windows, because it has a
+    // PROFOUNDLY annoying habit of not closing handles promptly when
+    // files are deleted, resulting in spurious ENOTEMPTY errors.
+    const startTime = Date.now()
+    do {
+      try {
+        const ret = options.rmdirSync(p, options)
+        return ret
+      } catch (er) { }
+    } while (Date.now() - startTime < 500) // give up after 500ms
+  } else {
+    const ret = options.rmdirSync(p, options)
+    return ret
+  }
+}
+
+module.exports = rimraf
+rimraf.sync = rimrafSync
 
 
 /***/ }),
@@ -51310,31 +51604,151 @@ exports.Contexts = Contexts;
 
 /***/ }),
 /* 887 */
-/***/ (function(module) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
+const u = __webpack_require__(676).fromPromise
+const fs = __webpack_require__(892)
 
-/**
- * Creates a new URL by combining the specified URLs
- *
- * @param {string} baseURL The base URL
- * @param {string} relativeURL The relative URL
- * @returns {string} The combined URL
- */
-module.exports = function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
-};
+function pathExists (path) {
+  return fs.access(path).then(() => true).catch(() => false)
+}
+
+module.exports = {
+  pathExists: u(pathExists),
+  pathExistsSync: fs.existsSync
+}
 
 
 /***/ }),
-/* 888 */,
+/* 888 */
+/***/ (function(module) {
+
+// allows us to inject a mock date in tests
+module.exports = () => new Date();
+
+
+/***/ }),
 /* 889 */,
 /* 890 */,
 /* 891 */,
-/* 892 */,
+/* 892 */
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+// This is adapted from https://github.com/normalize/mz
+// Copyright (c) 2014-2016 Jonathan Ong me@jongleberry.com and Contributors
+const u = __webpack_require__(676).fromCallback
+const fs = __webpack_require__(598)
+
+const api = [
+  'access',
+  'appendFile',
+  'chmod',
+  'chown',
+  'close',
+  'copyFile',
+  'fchmod',
+  'fchown',
+  'fdatasync',
+  'fstat',
+  'fsync',
+  'ftruncate',
+  'futimes',
+  'lchown',
+  'lchmod',
+  'link',
+  'lstat',
+  'mkdir',
+  'mkdtemp',
+  'open',
+  'readFile',
+  'readdir',
+  'readlink',
+  'realpath',
+  'rename',
+  'rmdir',
+  'stat',
+  'symlink',
+  'truncate',
+  'unlink',
+  'utimes',
+  'writeFile'
+].filter(key => {
+  // Some commands are not available on some systems. Ex:
+  // fs.copyFile was added in Node.js v8.5.0
+  // fs.mkdtemp was added in Node.js v5.10.0
+  // fs.lchown is not available on at least some Linux
+  return typeof fs[key] === 'function'
+})
+
+// Export all keys:
+Object.keys(fs).forEach(key => {
+  if (key === 'promises') {
+    // fs.promises is a getter property that triggers ExperimentalWarning
+    // Don't re-export it here, the getter is defined in "lib/index.js"
+    return
+  }
+  exports[key] = fs[key]
+})
+
+// Universalify async methods:
+api.forEach(method => {
+  exports[method] = u(fs[method])
+})
+
+// We differ from mz/fs in that we still ship the old, broken, fs.exists()
+// since we are a drop-in replacement for the native module
+exports.exists = function (filename, callback) {
+  if (typeof callback === 'function') {
+    return fs.exists(filename, callback)
+  }
+  return new Promise(resolve => {
+    return fs.exists(filename, resolve)
+  })
+}
+
+// fs.read() & fs.write need special treatment due to multiple callback args
+
+exports.read = function (fd, buffer, offset, length, position, callback) {
+  if (typeof callback === 'function') {
+    return fs.read(fd, buffer, offset, length, position, callback)
+  }
+  return new Promise((resolve, reject) => {
+    fs.read(fd, buffer, offset, length, position, (err, bytesRead, buffer) => {
+      if (err) return reject(err)
+      resolve({ bytesRead, buffer })
+    })
+  })
+}
+
+// Function signature can be
+// fs.write(fd, buffer[, offset[, length[, position]]], callback)
+// OR
+// fs.write(fd, string[, position[, encoding]], callback)
+// We need to handle both cases, so we use ...args
+exports.write = function (fd, buffer, ...args) {
+  if (typeof args[args.length - 1] === 'function') {
+    return fs.write(fd, buffer, ...args)
+  }
+
+  return new Promise((resolve, reject) => {
+    fs.write(fd, buffer, ...args, (err, bytesWritten, buffer) => {
+      if (err) return reject(err)
+      resolve({ bytesWritten, buffer })
+    })
+  })
+}
+
+// fs.realpath.native only available in Node v9.2+
+if (typeof fs.realpath.native === 'function') {
+  exports.realpath.native = u(fs.realpath.native)
+}
+
+
+/***/ }),
 /* 893 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -52215,39 +52629,7 @@ exports.NetworkSubnet = NetworkSubnet;
 
 /***/ }),
 /* 915 */,
-/* 916 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const fs = __webpack_require__(598)
-
-function utimesMillis (path, atime, mtime, callback) {
-  // if (!HAS_MILLIS_RES) return fs.utimes(path, atime, mtime, callback)
-  fs.open(path, 'r+', (err, fd) => {
-    if (err) return callback(err)
-    fs.futimes(fd, atime, mtime, futimesErr => {
-      fs.close(fd, closeErr => {
-        if (callback) callback(futimesErr || closeErr)
-      })
-    })
-  })
-}
-
-function utimesMillisSync (path, atime, mtime) {
-  const fd = fs.openSync(path, 'r+')
-  fs.futimesSync(fd, atime, mtime)
-  return fs.closeSync(fd)
-}
-
-module.exports = {
-  utimesMillis,
-  utimesMillisSync
-}
-
-
-/***/ }),
+/* 916 */,
 /* 917 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -52285,7 +52667,31 @@ exports.StorageGroups = StorageGroups;
 /***/ }),
 /* 918 */,
 /* 919 */,
-/* 920 */,
+/* 920 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const mkdir = __webpack_require__(419)
+const jsonFile = __webpack_require__(341)
+
+function outputJsonSync (file, data, options) {
+  const dir = path.dirname(file)
+
+  if (!fs.existsSync(dir)) {
+    mkdir.mkdirsSync(dir)
+  }
+
+  jsonFile.writeJsonSync(file, data, options)
+}
+
+module.exports = outputJsonSync
+
+
+/***/ }),
 /* 921 */,
 /* 922 */
 /***/ (function(__unusedmodule, exports) {
@@ -52443,6 +52849,9 @@ var HcClient = /** @class */ (function () {
                         Object.keys(pathParams).forEach(function (x) {
                             url = url.replace("{" + x + "}", pathParams[x]);
                         });
+                        if (options.method === 'DELETE' && (options.data && (Object.keys(options.data).length <= 0 || options.data.length <= 0))) {
+                            delete options.data;
+                        }
                         builder = new IHttpRequestBuilder_1.HttpRequestBuilder();
                         httpRequest = builder
                             .withEndpoint(url)
@@ -52485,112 +52894,7 @@ exports.HcClient = HcClient;
 
 /***/ }),
 /* 929 */,
-/* 930 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const path = __webpack_require__(622)
-const fs = __webpack_require__(598)
-const pathExists = __webpack_require__(322).pathExists
-
-/**
- * Function that returns two types of paths, one relative to symlink, and one
- * relative to the current working directory. Checks if path is absolute or
- * relative. If the path is relative, this function checks if the path is
- * relative to symlink or relative to current working directory. This is an
- * initiative to find a smarter `srcpath` to supply when building symlinks.
- * This allows you to determine which path to use out of one of three possible
- * types of source paths. The first is an absolute path. This is detected by
- * `path.isAbsolute()`. When an absolute path is provided, it is checked to
- * see if it exists. If it does it's used, if not an error is returned
- * (callback)/ thrown (sync). The other two options for `srcpath` are a
- * relative url. By default Node's `fs.symlink` works by creating a symlink
- * using `dstpath` and expects the `srcpath` to be relative to the newly
- * created symlink. If you provide a `srcpath` that does not exist on the file
- * system it results in a broken symlink. To minimize this, the function
- * checks to see if the 'relative to symlink' source file exists, and if it
- * does it will use it. If it does not, it checks if there's a file that
- * exists that is relative to the current working directory, if does its used.
- * This preserves the expectations of the original fs.symlink spec and adds
- * the ability to pass in `relative to current working direcotry` paths.
- */
-
-function symlinkPaths (srcpath, dstpath, callback) {
-  if (path.isAbsolute(srcpath)) {
-    return fs.lstat(srcpath, (err) => {
-      if (err) {
-        err.message = err.message.replace('lstat', 'ensureSymlink')
-        return callback(err)
-      }
-      return callback(null, {
-        toCwd: srcpath,
-        toDst: srcpath
-      })
-    })
-  } else {
-    const dstdir = path.dirname(dstpath)
-    const relativeToDst = path.join(dstdir, srcpath)
-    return pathExists(relativeToDst, (err, exists) => {
-      if (err) return callback(err)
-      if (exists) {
-        return callback(null, {
-          toCwd: relativeToDst,
-          toDst: srcpath
-        })
-      } else {
-        return fs.lstat(srcpath, (err) => {
-          if (err) {
-            err.message = err.message.replace('lstat', 'ensureSymlink')
-            return callback(err)
-          }
-          return callback(null, {
-            toCwd: srcpath,
-            toDst: path.relative(dstdir, srcpath)
-          })
-        })
-      }
-    })
-  }
-}
-
-function symlinkPathsSync (srcpath, dstpath) {
-  let exists
-  if (path.isAbsolute(srcpath)) {
-    exists = fs.existsSync(srcpath)
-    if (!exists) throw new Error('absolute srcpath does not exist')
-    return {
-      toCwd: srcpath,
-      toDst: srcpath
-    }
-  } else {
-    const dstdir = path.dirname(dstpath)
-    const relativeToDst = path.join(dstdir, srcpath)
-    exists = fs.existsSync(relativeToDst)
-    if (exists) {
-      return {
-        toCwd: relativeToDst,
-        toDst: srcpath
-      }
-    } else {
-      exists = fs.existsSync(srcpath)
-      if (!exists) throw new Error('relative srcpath does not exist')
-      return {
-        toCwd: srcpath,
-        toDst: path.relative(dstdir, srcpath)
-      }
-    }
-  }
-}
-
-module.exports = {
-  symlinkPaths,
-  symlinkPathsSync
-}
-
-
-/***/ }),
+/* 930 */,
 /* 931 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -52785,14 +53089,18 @@ exports.ListNodePoolsRequest = ListNodePoolsRequest;
 /* 938 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-
-
 const configuration = __webpack_require__(779);
 
 const validColours = [
-  'white', 'grey', 'black',
-  'blue', 'cyan', 'green',
-  'magenta', 'red', 'yellow'
+  'white',
+  'grey',
+  'black',
+  'blue',
+  'cyan',
+  'green',
+  'magenta',
+  'red',
+  'yellow',
 ];
 
 class Level {
@@ -52839,7 +53147,9 @@ class Level {
           levelStr,
           customLevels[l].colour
         );
-        const existingLevelIndex = Level.levels.findIndex(lvl => lvl.levelStr === levelStr);
+        const existingLevelIndex = Level.levels.findIndex(
+          (lvl) => lvl.levelStr === levelStr
+        );
         if (existingLevelIndex > -1) {
           Level.levels[existingLevelIndex] = Level[levelStr];
         } else {
@@ -52849,7 +53159,6 @@ class Level {
       Level.levels.sort((a, b) => a.level - b.level);
     }
   }
-
 
   isLessThanOrEqualTo(otherLevel) {
     if (typeof otherLevel === 'string') {
@@ -52883,7 +53192,7 @@ Level.addLevels({
   ERROR: { value: 40000, colour: 'red' },
   FATAL: { value: 50000, colour: 'magenta' },
   MARK: { value: 9007199254740992, colour: 'grey' }, // 2^53
-  OFF: { value: Number.MAX_VALUE, colour: 'grey' }
+  OFF: { value: Number.MAX_VALUE, colour: 'grey' },
 });
 
 configuration.addListener((config) => {
@@ -53034,60 +53343,7 @@ var NodeStatusPhaseEnum;
 
 /***/ }),
 /* 944 */,
-/* 945 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateCloudPersistentVolumeClaimsResponse = void 0;
-var SdkResponse_1 = __webpack_require__(261);
-var CreateCloudPersistentVolumeClaimsResponse = /** @class */ (function (_super) {
-    __extends(CreateCloudPersistentVolumeClaimsResponse, _super);
-    function CreateCloudPersistentVolumeClaimsResponse() {
-        return _super.call(this) || this;
-    }
-    CreateCloudPersistentVolumeClaimsResponse.prototype.withApiVersion = function (apiVersion) {
-        this['apiVersion'] = apiVersion;
-        return this;
-    };
-    CreateCloudPersistentVolumeClaimsResponse.prototype.withKind = function (kind) {
-        this['kind'] = kind;
-        return this;
-    };
-    CreateCloudPersistentVolumeClaimsResponse.prototype.withMetadata = function (metadata) {
-        this['metadata'] = metadata;
-        return this;
-    };
-    CreateCloudPersistentVolumeClaimsResponse.prototype.withSpec = function (spec) {
-        this['spec'] = spec;
-        return this;
-    };
-    CreateCloudPersistentVolumeClaimsResponse.prototype.withStatus = function (status) {
-        this['status'] = status;
-        return this;
-    };
-    return CreateCloudPersistentVolumeClaimsResponse;
-}(SdkResponse_1.SdkResponse));
-exports.CreateCloudPersistentVolumeClaimsResponse = CreateCloudPersistentVolumeClaimsResponse;
-
-
-/***/ }),
+/* 945 */,
 /* 946 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -53397,7 +53653,7 @@ exports.NodeMetadata = NodeMetadata;
 
 
 var isAbsoluteURL = __webpack_require__(460);
-var combineURLs = __webpack_require__(887);
+var combineURLs = __webpack_require__(785);
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -53490,40 +53746,26 @@ exports.HibernateClusterResponse = HibernateClusterResponse;
 /***/ }),
 /* 974 */,
 /* 975 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
-
-const fs = __webpack_require__(598)
-
-function symlinkType (srcpath, type, callback) {
-  callback = (typeof type === 'function') ? type : callback
-  type = (typeof type === 'function') ? false : type
-  if (type) return callback(null, type)
-  fs.lstat(srcpath, (err, stats) => {
-    if (err) return callback(null, 'file')
-    type = (stats && stats.isDirectory()) ? 'dir' : 'file'
-    callback(null, type)
-  })
-}
-
-function symlinkTypeSync (srcpath, type) {
-  let stats
-
-  if (type) return type
-  try {
-    stats = fs.lstatSync(srcpath)
-  } catch {
-    return 'file'
-  }
-  return (stats && stats.isDirectory()) ? 'dir' : 'file'
-}
-
-module.exports = {
-  symlinkType,
-  symlinkTypeSync
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeNicSpec = void 0;
+var NodeNicSpec = /** @class */ (function () {
+    function NodeNicSpec() {
+    }
+    NodeNicSpec.prototype.withPrimaryNic = function (primaryNic) {
+        this['primaryNic'] = primaryNic;
+        return this;
+    };
+    NodeNicSpec.prototype.withExtNics = function (extNics) {
+        this['extNics'] = extNics;
+        return this;
+    };
+    return NodeNicSpec;
+}());
+exports.NodeNicSpec = NodeNicSpec;
 
 
 /***/ }),
@@ -54702,35 +54944,110 @@ const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCa
 /* 996 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
+"use strict";
 
 
-const debug = __webpack_require__(784)('log4js:recording');
+const u = __webpack_require__(676).fromCallback
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const mkdir = __webpack_require__(419)
+const pathExists = __webpack_require__(887).pathExists
 
-const recordedEvents = [];
+function outputFile (file, data, encoding, callback) {
+  if (typeof encoding === 'function') {
+    callback = encoding
+    encoding = 'utf8'
+  }
 
-function configure() {
-  return function (logEvent) {
-    debug(`received logEvent, number of events now ${recordedEvents.length + 1}`);
-    debug('log event was ', logEvent);
-    recordedEvents.push(logEvent);
-  };
+  const dir = path.dirname(file)
+  pathExists(dir, (err, itDoes) => {
+    if (err) return callback(err)
+    if (itDoes) return fs.writeFile(file, data, encoding, callback)
+
+    mkdir.mkdirs(dir, err => {
+      if (err) return callback(err)
+
+      fs.writeFile(file, data, encoding, callback)
+    })
+  })
 }
 
-function replay() {
-  return recordedEvents.slice();
-}
-
-function reset() {
-  recordedEvents.length = 0;
+function outputFileSync (file, ...args) {
+  const dir = path.dirname(file)
+  if (fs.existsSync(dir)) {
+    return fs.writeFileSync(file, ...args)
+  }
+  mkdir.mkdirsSync(dir)
+  fs.writeFileSync(file, ...args)
 }
 
 module.exports = {
-  configure,
-  replay,
-  playback: replay,
-  reset,
-  erase: reset
-};
+  outputFile: u(outputFile),
+  outputFileSync
+}
+
+
+/***/ }),
+/* 997 */,
+/* 998 */,
+/* 999 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const fs = __webpack_require__(598)
+const path = __webpack_require__(622)
+const invalidWin32Path = __webpack_require__(272).invalidWin32Path
+
+const o777 = parseInt('0777', 8)
+
+function mkdirsSync (p, opts, made) {
+  if (!opts || typeof opts !== 'object') {
+    opts = { mode: opts }
+  }
+
+  let mode = opts.mode
+  const xfs = opts.fs || fs
+
+  if (process.platform === 'win32' && invalidWin32Path(p)) {
+    const errInval = new Error(p + ' contains invalid WIN32 path characters.')
+    errInval.code = 'EINVAL'
+    throw errInval
+  }
+
+  if (mode === undefined) {
+    mode = o777 & (~process.umask())
+  }
+  if (!made) made = null
+
+  p = path.resolve(p)
+
+  try {
+    xfs.mkdirSync(p, mode)
+    made = made || p
+  } catch (err0) {
+    if (err0.code === 'ENOENT') {
+      if (path.dirname(p) === p) throw err0
+      made = mkdirsSync(path.dirname(p), opts, made)
+      mkdirsSync(p, opts, made)
+    } else {
+      // In the case of any other error, just see if there's a dir there
+      // already. If so, then hooray!  If not, then something is borked.
+      let stat
+      try {
+        stat = xfs.statSync(p)
+      } catch (err1) {
+        throw err0
+      }
+      if (!stat.isDirectory()) throw err0
+    }
+  }
+
+  return made
+}
+
+module.exports = mkdirsSync
 
 
 /***/ })
