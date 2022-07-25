@@ -75,4 +75,4 @@ export function getInputs(): Inputs {
     }
 }
 
-export const CUSTOM_USER_AGENT_CCE = 'DevKit-GitHub:Install kubectl and Set Kube config for HuaweiCloud CCE cluster';
+export const CUSTOM_USER_AGENT_CCE = 'DevKit-GitHub:Install kubectl and Set Kube config for Huawei Cloud CCE cluster';
