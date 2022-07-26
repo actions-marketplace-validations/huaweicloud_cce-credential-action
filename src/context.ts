@@ -74,3 +74,5 @@ export function getInputs(): Inputs {
         region: core.getInput('region', {required: true})
     }
 }
+
+export const CUSTOM_USER_AGENT_CCE = 'DevKit-GitHub:Install kubectl and Set Kube config for Huawei Cloud CCE cluster';
