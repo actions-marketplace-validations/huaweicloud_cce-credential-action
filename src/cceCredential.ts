@@ -71,7 +71,8 @@ export async function getCCECredential(inputs: context.Inputs) {
     const client = CceClient.newBuilder()
         .withCredential(credentials)
         .withEndpoint(endpoint)
-        .build()
+        .withOptions({customUserAgent: context.CUSTOM_USER_AGENT_CCE})
+        .build();
     const request = new CreateKubernetesClusterCertRequest()
     request.clusterId = inputs.cluster_id
     const body = new CertDuration()
